@@ -1,5 +1,6 @@
 ---
 interface Props {
+  id?: string;
   class?: string;
   background?: 'white' | 'gray' | 'gradient' | 'gradient-dark';
   padding?: 'sm' | 'md' | 'lg';
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const {
+  id,
   class: className = '',
   background = 'white',
   padding,
@@ -34,7 +36,7 @@ const paddingClasses: Record<string, string> = {
 };
 ---
 
-<section class:list={[bgClasses[background], paddingClasses[spacingValue], 'relative', className]}>
+<section id={id} class:list={[bgClasses[background], paddingClasses[spacingValue], 'relative', className]}>
   {withGrid && <div class="absolute inset-0 cyber-grid opacity-20"></div>}
   <div class="relative">
     <slot />

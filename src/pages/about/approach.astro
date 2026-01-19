@@ -6,7 +6,6 @@ import Container from '../../components/Container.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import CTASection from '../../components/CTASection.astro';
 import PillarCard from '../../components/PillarCard.astro';
-import ValueCard from '../../components/ValueCard.astro';
 import QuoteCard from '../../components/QuoteCard.astro';
 
 const fnePhilosophy = [
@@ -48,29 +47,6 @@ const fnePhilosophy = [
     ],
     icon: 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z',
     color: 'orange',
-  },
-];
-
-const coreValues = [
-  {
-    title: 'Horizontal Relationships',
-    description: 'We build partnerships based on mutual respect, not charity. We work alongside communities as equals, learning as much as we contribute.',
-    icon: 'M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4',
-  },
-  {
-    title: 'Community-Led Development',
-    description: 'Communities identify their own needs and opportunities. We provide support and resources, but decisions are made by those who will live with the results.',
-    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
-  },
-  {
-    title: 'Self-Sustainability',
-    description: 'Every project is designed with an exit strategy. Our goal is to build capacity so communities can thrive independently, not depend on outside aid.',
-    icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
-  },
-  {
-    title: 'Integrity & Transparency',
-    description: 'We hold ourselves to the highest ethical standards. Donors and partners can trust that resources go directly to the communities we serve.',
-    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
   },
 ];
 
@@ -252,29 +228,6 @@ const differentiators = [
             </div>
             <p class="text-sm text-gray-600 mt-4">{item.explanation}</p>
           </div>
-        ))}
-      </div>
-    </Container>
-  </Section>
-
-  <!-- Core Values -->
-  <Section background="gray" withGrid>
-    <Container>
-      <SectionHeader
-        label="What Guides Us"
-        title="Core Values"
-        subtitle="The principles that shape every partnership and project."
-        labelColor="teal"
-      />
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {coreValues.map((value, index) => (
-          <ValueCard
-            title={value.title}
-            description={value.description}
-            icon={value.icon}
-            animationDelay={(index + 1) * 100}
-          />
         ))}
       </div>
     </Container>

@@ -81,7 +81,9 @@ html {
   background: linear-gradient(
     90deg,
     #F7931E 0%,
+    #ffb347 25%,
     #ff6b00 50%,
+    #ffb347 75%,
     #F7931E 100%
   );
   background-size: 200% auto;

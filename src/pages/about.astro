@@ -6,8 +6,6 @@ import Container from '../components/Container.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import ContentBlock from '../components/ContentBlock.astro';
 import CTASection from '../components/CTASection.astro';
-import TimelineItem from '../components/TimelineItem.astro';
-import FAQItem from '../components/FAQItem.astro';
 import PartnerBadge from '../components/PartnerBadge.astro';
 import PhotoCard from '../components/PhotoCard.astro';
 
@@ -16,36 +14,8 @@ const partners = [
   { name: 'Mending Faces', icon: 'M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
   { name: 'Asociación Wiñaypaq', icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' },
   { name: 'Asociación Latidos', icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' },
-  { name: 'Grupo Fenix', icon: 'M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z' },
 ];
 
-const timeline = [
-  { year: '1990', month: 'October', title: 'Inception', description: 'ED and Co-founder Michael Cipoletti travels to Nicaragua for the first time.', icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064' },
-  { year: '2009', title: 'Joined FNE', description: 'Become a chapter of Friends of New England (FNE).', icon: 'M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1' },
-  { year: '2011', title: 'Peru Expansion', description: 'Start project in Peru.', icon: 'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9' },
-  { year: '2012', title: 'Independence', description: 'Transition to an independent 501(c)(3) US nonprofit organization.', icon: 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z' },
-  { year: '2016', title: 'Dominican Republic', description: 'Start project in Dominican Republic.', icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' },
-  { year: '2024', month: 'August', title: 'Global Expansion', description: 'FNE International expanded its reach, establishing partnerships and serving communities across South America.', icon: 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z' },
-];
-
-const faqs = [
-  {
-    question: 'What will I do as a volunteer?',
-    answer: 'This is really up to you! All FNEI volunteerships are customizable, according to organizational needs and what you bring to the table. There are both online and in-person (service trip) options. Just write to us at info@fneinternational.org to start the conversation!'
-  },
-  {
-    question: 'How much time do I need to volunteer?',
-    answer: 'In terms of time, some volunteer roles are for one-off events, some are short-term and others might choose a six-month commitment or longer. If you are volunteering in-country, you could come for a long weekend, or you could come for a couple of months. All we ask is that you think carefully about the amount of commitment you are able to give, before choosing your role.'
-  },
-  {
-    question: 'How do I schedule a volunteer trip?',
-    answer: 'We have several group trips that can be joined throughout the year, or you can plan an individual or group trip of your own! Check in with us for more information about upcoming trips and in-country volunteer opportunities by writing us at info@fneinternational.org.'
-  },
-  {
-    question: 'Are there any requirements to be a volunteer?',
-    answer: 'As we mentioned before, we will work together to align our organization\'s current needs with your talents. We do ask that for groups of volunteers, all participants be age 14 and older, and for volunteers traveling independently, participants must be age 18 and older.'
-  },
-];
 ---
 
 <BaseLayout title="About Us">
@@ -63,10 +33,10 @@ const faqs = [
   <Section background="white" padding="sm">
     <div class="w-full overflow-hidden">
       <div class="photo-grid photo-grid-4 max-w-7xl mx-auto px-4">
-        <PhotoCard placeholder="FNE team members at community event" />
+        <PhotoCard image="/about-team-event.jpg" alt="FNE team members at community event" />
         <PhotoCard image="/about-volunteers.jpg" alt="Volunteers working on housing construction" animationDelay={100} />
         <PhotoCard image="/about-planning.jpg" alt="Community planning meeting" animationDelay={200} />
-        <PhotoCard placeholder="Celebration with partner organization" animationDelay={300} />
+        <PhotoCard image="/about-celebration.jpg" alt="Celebration with partner organization" animationDelay={300} />
       </div>
     </div>
   </Section>
@@ -76,7 +46,8 @@ const faqs = [
     <Container size="md">
       <SectionHeader
         label="What Drives Us"
-        title="Mission & Vision"
+        title="Mission &"
+        titleAccent="Vision"
       />
 
       <div class="space-y-16">
@@ -127,7 +98,8 @@ const faqs = [
     <Container>
       <SectionHeader
         label="Collaboration"
-        title="Our Partners, Our Family"
+        title="Our Partners, Our"
+        titleAccent="Family"
         subtitle="Get to know some of the organizations across Latin America we are partnering with to make lasting change."
         labelColor="teal"
       />
@@ -167,52 +139,6 @@ const faqs = [
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
           </svg>
         </a>
-      </div>
-    </Container>
-  </Section>
-
-  <!-- Timeline -->
-  <Section background="gray" withGrid>
-    <Container size="md">
-      <SectionHeader
-        label="Our Journey"
-        title="History & Milestones"
-      />
-
-      <div class="timeline">
-        {timeline.map((item, index) => (
-          <TimelineItem
-            year={item.year}
-            title={item.title}
-            description={item.description}
-            month={item.month}
-            icon={item.icon}
-            showLine={index < timeline.length - 1}
-            animationDelay={(index + 1) * 100}
-          />
-        ))}
-      </div>
-    </Container>
-  </Section>
-
-  <!-- FAQ -->
-  <Section background="white">
-    <Container size="md">
-      <SectionHeader
-        label="Common Questions"
-        title="FAQ"
-        labelColor="teal"
-      />
-
-      <div class="space-y-4">
-        {faqs.map((faq, index) => (
-          <FAQItem
-            question={faq.question}
-            answer={faq.answer}
-            index={index}
-            animationDelay={(index + 1) * 100}
-          />
-        ))}
       </div>
     </Container>
   </Section>
@@ -262,22 +188,4 @@ const faqs = [
     border-radius: 24px;
     box-shadow: 0 10px 40px rgba(45, 139, 78, 0.05);
   }
-
-  /* Timeline wrapper */
-  .timeline {
-    position: relative;
-  }
 </style>
-
-<script>
-  document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
-      const index = button.getAttribute('data-faq');
-      const answer = document.querySelector(`[data-faq-answer="${index}"]`);
-      const chevron = button.querySelector('.faq-chevron');
-
-      answer?.classList.toggle('open');
-      chevron?.classList.toggle('open');
-    });
-  });
-</script>
