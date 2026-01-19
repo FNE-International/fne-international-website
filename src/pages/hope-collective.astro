@@ -4,7 +4,6 @@ import HeroSection from '../components/HeroSection.astro';
 import Section from '../components/Section.astro';
 import Container from '../components/Container.astro';
 import SectionHeader from '../components/SectionHeader.astro';
-import CTASection from '../components/CTASection.astro';
 import StatCard from '../components/StatCard.astro';
 import QuoteCard from '../components/QuoteCard.astro';
 import FAQItem from '../components/FAQItem.astro';
@@ -253,16 +252,21 @@ const testimonials = [
               <span class="text-gray-500">{level.frequency}</span>
             </div>
             <p class="text-gray-600 text-sm mt-3 mb-6">{level.impact}</p>
-            <a href="/donate" class={`giving-btn ${level.popular ? 'giving-btn-primary' : 'giving-btn-secondary'}`}>
+            <button
+              type="button"
+              class={`giving-btn ${level.popular ? 'giving-btn-primary' : 'giving-btn-secondary'}`}
+              data-donate-amount={level.amount.replace('$', '')}
+              data-donate-monthly="true"
+            >
               Join Now
-            </a>
+            </button>
           </div>
         ))}
       </div>
 
       <div class="text-center mt-8">
         <p class="text-gray-500">
-          Want to give a different amount? <a href="/donate" class="text-[#2D8B4E] font-semibold hover:underline">Choose your own amount</a>
+          Want to give a different amount? <button type="button" data-donate-monthly="true" class="text-[#2D8B4E] font-semibold hover:underline bg-transparent border-none cursor-pointer">Choose your own amount</button>
         </p>
       </div>
     </Container>
@@ -388,16 +392,84 @@ const testimonials = [
   </Section>
 
   <!-- Final CTA -->
-  <CTASection
-    title="Ready to Join?"
-    subtitle="Become a Hope Collective member today and start making a lasting difference in the lives of families across Latin America."
-    icon="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-    primaryButtonText="Join The Hope Collective"
-    primaryButtonLink="/donate"
-    secondaryButtonText="Contact Us"
-    secondaryButtonLink="/contact"
-  />
+  <Section background="gradient-dark">
+    <Container size="md">
+      <div class="text-center relative animate-on-scroll">
+        <!-- Floating orbs -->
+        <div class="floating-orb floating-orb-1"></div>
+        <div class="floating-orb floating-orb-2"></div>
+        <div class="floating-orb floating-orb-3"></div>
+
+        <div class="cta-icon mx-auto mb-6">
+          <div class="icon-3d">
+            <div class="icon-3d-inner animate-rotate-3d">
+              <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Ready to Join?</h2>
+        <p class="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+          Become a Hope Collective member today and start making a lasting difference in the lives of families across Latin America.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button
+            type="button"
+            class="mega-button mega-button-white group"
+            data-donate-monthly="true"
+          >
+            <span class="mega-button-content">
+              <span class="text-lg font-bold">Join The Hope Collective</span>
+              <svg class="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </span>
+            <div class="mega-button-shine"></div>
+          </button>
+          <a href="/contact" class="inline-flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-bold rounded-full hover:bg-white hover:text-[#2D8B4E] transition-all duration-300">
+            <span>Contact Us</span>
+          </a>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
 </BaseLayout>
+
+<!-- Donation Modal -->
+<div id="donate-modal" class="donate-modal">
+  <div class="donate-modal-backdrop"></div>
+  <div class="donate-modal-container">
+    <div class="donate-modal-header">
+      <h3 class="donate-modal-title">Join The Hope Collective</h3>
+      <button type="button" id="donate-modal-close" class="donate-modal-close" aria-label="Close">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="donate-modal-body">
+      <div id="modal-widget-container" class="gl-simple-donation-widget"></div>
+      <div id="modal-loading" class="donate-modal-loading">
+        <div class="donate-spinner"></div>
+        <p>Loading donation form...</p>
+      </div>
+    </div>
+    <div class="donate-modal-footer">
+      <div class="flex items-center justify-center gap-2 text-xs text-gray-400">
+        <svg class="w-4 h-4 text-[#2D8B4E]" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg>
+        <span>Secure & Tax-deductible</span>
+        <span class="mx-1">•</span>
+        <span>Powered by</span>
+        <a href="https://www.givelively.org" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-[#2D8B4E] font-medium transition-colors">Give Lively</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <style>
   /* Benefit check */
@@ -660,9 +732,228 @@ const testimonials = [
     border-radius: 16px;
     overflow: hidden;
   }
+
+  /* Donation Modal */
+  .donate-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .donate-modal.open {
+    display: flex;
+  }
+
+  .donate-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  .donate-modal-container {
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease;
+    overflow: hidden;
+  }
+
+  @keyframes modalSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .donate-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+  }
+
+  .donate-modal-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+  }
+
+  .donate-modal-close {
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .donate-modal-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .donate-modal-body {
+    position: relative;
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    min-height: 400px;
+  }
+
+  .donate-modal-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: #6b7280;
+    background: white;
+  }
+
+  .donate-modal-loading.hidden {
+    display: none;
+  }
+
+  .donate-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e5e7eb;
+    border-top-color: #2D8B4E;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .donate-modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e5e7eb;
+    background: #f9fafb;
+  }
+
+  /* Mobile modal adjustments */
+  @media (max-width: 640px) {
+    .donate-modal {
+      padding: 0;
+      align-items: flex-end;
+    }
+
+    .donate-modal-container {
+      max-width: 100%;
+      max-height: 95vh;
+      border-radius: 20px 20px 0 0;
+      animation: modalSlideUp 0.3s ease;
+    }
+
+    @keyframes modalSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .donate-modal-header {
+      padding: 1rem 1.25rem;
+    }
+
+    .donate-modal-title {
+      font-size: 1.125rem;
+    }
+
+    .donate-modal-body {
+      padding: 1rem;
+      min-height: 350px;
+    }
+
+    .donate-modal-footer {
+      padding: 0.75rem 1rem;
+    }
+  }
+
+  /* CTA Section */
+  .cta-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .floating-orb-1 {
+    width: 200px;
+    height: 200px;
+    background: #F7931E;
+    top: -50px;
+    left: 10%;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .floating-orb-2 {
+    width: 150px;
+    height: 150px;
+    background: #8DC63F;
+    bottom: -30px;
+    right: 15%;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  .floating-orb-3 {
+    width: 100px;
+    height: 100px;
+    background: white;
+    top: 50%;
+    right: 5%;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    25% { transform: translateY(-20px) translateX(10px); }
+    50% { transform: translateY(0) translateX(20px); }
+    75% { transform: translateY(20px) translateX(10px); }
+  }
 </style>
 
 <script>
+  // FAQ functionality
   document.querySelectorAll('.faq-question').forEach(button => {
     button.addEventListener('click', () => {
       const index = button.getAttribute('data-faq');
@@ -671,6 +962,121 @@ const testimonials = [
 
       answer?.classList.toggle('open');
       chevron?.classList.toggle('open');
+    });
+  });
+
+  // Modal elements
+  const modal = document.getElementById('donate-modal');
+  const modalClose = document.getElementById('donate-modal-close');
+  const modalBackdrop = modal?.querySelector('.donate-modal-backdrop');
+  const modalLoading = document.getElementById('modal-loading');
+  const widgetContainer = document.getElementById('modal-widget-container');
+
+  let widgetLoaded = false;
+  let pendingAmount: string | undefined;
+  let pendingMonthly = true;
+
+  // Load GiveLively widget script
+  function loadGiveLivelyWidget() {
+    if (widgetLoaded) return;
+
+    // Add the widget ID that GiveLively looks for
+    if (widgetContainer) {
+      widgetContainer.id = 'give-lively-widget';
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://secure.givelively.org/widgets/simple_donation/fne-international.js?show_suggested_amount_buttons=false&show_in_honor_of=false&address_required=false';
+    script.async = true;
+    document.head.appendChild(script);
+
+    widgetLoaded = true;
+  }
+
+  // Fill donation amount in the widget
+  function fillDonationAmount(amount: string) {
+    const amountInput = document.querySelector('#give-lively-widget .gl-widget__donation-input-field') as HTMLInputElement;
+    if (amountInput) {
+      amountInput.value = amount;
+      amountInput.dispatchEvent(new Event('input', { bubbles: true }));
+      amountInput.dispatchEvent(new Event('keyup', { bubbles: true }));
+    }
+  }
+
+  // Select monthly frequency
+  function selectMonthly() {
+    const frequencyButtons = document.querySelectorAll('#give-lively-widget .gl-widget__frequency-buttons');
+    if (frequencyButtons.length >= 2) {
+      (frequencyButtons[1] as HTMLElement).click();
+    }
+  }
+
+  // Wait for widget to load and configure it
+  function configureWidget(amount?: string, monthly: boolean = true) {
+    const checkWidget = setInterval(() => {
+      const widgetReady = document.querySelector('#give-lively-widget .gl-widget__donation-input-field');
+      if (widgetReady) {
+        clearInterval(checkWidget);
+        modalLoading?.classList.add('hidden');
+
+        // Small delay to ensure widget is fully initialized
+        setTimeout(() => {
+          if (monthly) {
+            selectMonthly();
+          }
+          if (amount) {
+            fillDonationAmount(amount);
+          }
+        }, 300);
+      }
+    }, 100);
+
+    // Stop checking after 10 seconds
+    setTimeout(() => clearInterval(checkWidget), 10000);
+  }
+
+  // Open modal
+  function openDonateModal(amount?: string, monthly: boolean = true) {
+    if (!modal) return;
+
+    pendingAmount = amount;
+    pendingMonthly = monthly;
+
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    modalLoading?.classList.remove('hidden');
+
+    // Load widget if not already loaded
+    loadGiveLivelyWidget();
+
+    // Configure widget once loaded
+    configureWidget(amount, monthly);
+  }
+
+  // Close modal
+  function closeDonateModal() {
+    if (!modal) return;
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Event listeners
+  modalClose?.addEventListener('click', closeDonateModal);
+  modalBackdrop?.addEventListener('click', closeDonateModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('open')) {
+      closeDonateModal();
+    }
+  });
+
+  // Donate buttons click
+  document.querySelectorAll('[data-donate-monthly]').forEach(button => {
+    button.addEventListener('click', () => {
+      const btn = button as HTMLElement;
+      const amount = btn.dataset.donateAmount || undefined;
+      const monthly = btn.dataset.donateMonthly === 'true';
+      openDonateModal(amount, monthly);
     });
   });
 </script>

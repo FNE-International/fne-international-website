@@ -1,25 +1,31 @@
 ---
 interface Props {
-  placeholder: string;
+  image?: string;
+  alt?: string;
+  placeholder?: string;
   caption?: string;
   variant?: 'default' | 'tall';
   animationDelay?: number;
 }
 
-const { placeholder, caption, variant = 'default', animationDelay = 0 } = Astro.props;
+const { image, alt = '', placeholder, caption, variant = 'default', animationDelay = 0 } = Astro.props;
 const delayClass = animationDelay > 0 ? `delay-${animationDelay}` : '';
 const tallClass = variant === 'tall' ? 'photo-card-tall' : '';
 ---
 
 <div class={`photo-card ${tallClass} animate-on-scroll ${delayClass}`}>
-  <div class={`image-placeholder ${variant === 'tall' ? 'h-full' : ''}`}>
-    <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-    </svg>
-    <span class="image-placeholder-text">{placeholder}</span>
-  </div>
+  {image ? (
+    <img src={image} alt={alt} class={`photo-card-image ${variant === 'tall' ? 'h-full' : ''}`} />
+  ) : (
+    <div class={`image-placeholder ${variant === 'tall' ? 'h-full' : ''}`}>
+      <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      <span class="image-placeholder-text">{placeholder}</span>
+    </div>
+  )}
   {caption && (
-    <div class="photo-card-overlay">
+    <div class="photo-card-overlay photo-card-overlay-visible">
       <span class="photo-card-caption">{caption}</span>
     </div>
   )}
@@ -60,6 +66,22 @@ const tallClass = variant === 'tall' ? 'photo-card-tall' : '';
 
   .photo-card:hover .photo-card-overlay {
     opacity: 1;
+  }
+
+  .photo-card-overlay-visible {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  }
+
+  .photo-card-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .photo-card:hover .photo-card-image {
+    transform: scale(1.05);
   }
 
   .photo-card-caption {

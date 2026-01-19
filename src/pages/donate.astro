@@ -25,7 +25,7 @@ const impactLevels = [
     amount: '$100',
     title: 'Clean Water',
     description: 'Water access for a family for one year',
-    icon: 'M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z',
+    icon: 'M12 2C12 2 6 9 6 14a6 6 0 1012 0c0-5-6-12-6-12z',
     color: 'teal'
   },
   {
@@ -39,59 +39,114 @@ const impactLevels = [
 ---
 
 <BaseLayout title="Donate">
-  <!-- Hero Section -->
-  <HeroSection
-    badge="92% of donations go to programs"
-    title="Make a"
-    titleAccent="Difference"
-    subtitle="Your generosity creates pathways out of poverty for families across Latin America."
-    image="/donate_hero.jpg"
-    imageAlt="Children in FNE programs"
-  />
+  <!-- Hero Section - Desktop Only -->
+  <div class="hidden md:block">
+    <HeroSection
+      badge="92% of donations go to programs"
+      title="Make a"
+      titleAccent="Difference"
+      subtitle="Your generosity creates pathways out of poverty for families across Latin America."
+      image="/donate_hero.jpg"
+      imageAlt="Children in FNE programs"
+    />
 
-  <!-- Photo Banner -->
-  <Section background="gray" spacing="small">
-    <div class="w-full overflow-hidden">
-      <div class="photo-grid photo-grid-3 max-w-7xl mx-auto px-4">
-        <div class="photo-item animate-on-scroll">
-          <img src="/education.jpg" alt="Education Program" class="photo-image" />
-          <div class="photo-overlay">
-            <span class="photo-label">Education</span>
+    <!-- Photo Banner - Desktop Only -->
+    <Section background="gray" spacing="small">
+      <div class="w-full overflow-hidden">
+        <div class="photo-grid photo-grid-3 max-w-7xl mx-auto px-4">
+          <div class="photo-item animate-on-scroll">
+            <img src="/education.jpg" alt="Education Program" class="photo-image" />
+            <div class="photo-overlay">
+              <span class="photo-label">Education</span>
+            </div>
+          </div>
+          <div class="photo-item animate-on-scroll delay-100">
+            <img src="/health.jpg" alt="Healthcare Initiative" class="photo-image" style="object-position: center 30%;" />
+            <div class="photo-overlay">
+              <span class="photo-label">Health</span>
+            </div>
+          </div>
+          <div class="photo-item animate-on-scroll delay-200">
+            <img src="/housing.jpg" alt="Housing Program" class="photo-image" />
+            <div class="photo-overlay">
+              <span class="photo-label">Housing</span>
+            </div>
           </div>
         </div>
-        <div class="photo-item animate-on-scroll delay-100">
-          <img src="/health.jpg" alt="Healthcare Initiative" class="photo-image" style="object-position: center 30%;" />
-          <div class="photo-overlay">
-            <span class="photo-label">Health</span>
+      </div>
+    </Section>
+  </div>
+
+  <!-- Mobile Donate Section -->
+  <section class="md:hidden py-8 px-4 bg-gradient-to-b from-emerald-50 to-white">
+    <div class="max-w-md mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-4">
+        <span class="inline-block px-3 py-1 bg-[#F7931E]/10 text-[#F7931E] text-xs font-semibold rounded-full mb-2">
+          92% goes to programs
+        </span>
+        <h1 class="text-2xl font-bold text-gray-900 mb-1">Make a Difference</h1>
+      </div>
+
+      <!-- 2x2 Amount Grid -->
+      <div class="amount-grid mb-4">
+        {impactLevels.map((level) => (
+          <button
+            class={`amount-chip amount-chip-${level.color}`}
+            data-amount={level.amount.replace('$', '')}
+          >
+            <svg class="amount-chip-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={level.icon} />
+            </svg>
+            <span class="amount-chip-value">{level.amount}</span>
+            <span class="amount-chip-label">{level.title}</span>
+          </button>
+        ))}
+      </div>
+
+      <!-- Donation Form -->
+      <div class="donation-form-card">
+        <div class="donation-form-inner">
+          <div id="give-lively-widget" class="gl-simple-donation-widget"></div>
+          <div class="flex items-center justify-center gap-2 text-xs text-gray-400 mt-4">
+            <svg class="w-4 h-4 text-[#2D8B4E]" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Secure & Tax-deductible</span>
           </div>
-        </div>
-        <div class="photo-item animate-on-scroll delay-200">
-          <img src="/housing.jpg" alt="Housing Program" class="photo-image" />
-          <div class="photo-overlay">
-            <span class="photo-label">Housing</span>
+          <div class="flex items-center justify-center gap-1.5 text-xs text-gray-400 mt-3">
+            <span>Powered by</span>
+            <a href="https://www.givelively.org" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-[#2D8B4E] font-medium transition-colors">
+              Give Lively
+            </a>
           </div>
         </div>
       </div>
     </div>
-  </Section>
+  </section>
 
-  <!-- Main Donation Section -->
-  <Section background="white">
-    <Container>
-      <div class="animate-on-scroll">
-        <SectionHeader
-          label="Your Impact"
-          title="Choose Your Gift"
-          subtitle="Select an amount to see how your donation helps families."
-          labelColor="orange"
-        />
-      </div>
+  <!-- Desktop Donation Section -->
+  <div class="hidden md:block">
+    <Section background="white">
+      <Container>
+        <div class="animate-on-scroll">
+          <SectionHeader
+            label="Your Impact"
+            title="Choose Your Gift"
+            subtitle="Select an amount to see how your donation helps families."
+            labelColor="orange"
+          />
+        </div>
 
-      <div class="donation-layout">
-        <!-- Left Column: Impact Cards -->
-        <div class="impact-cards animate-on-scroll animate-slide-left">
+        <!-- Desktop Layout: Side by Side -->
+        <div class="desktop-donate-layout grid">
+        <!-- Impact Cards -->
+        <div class="impact-cards animate-on-scroll">
           {impactLevels.map((level, index) => (
-            <div class={`impact-card animate-on-scroll delay-${index * 100}`}>
+            <button
+              class={`impact-card animate-on-scroll delay-${index * 100}`}
+              data-amount={level.amount.replace('$', '')}
+            >
               <div class={`impact-icon impact-icon-${level.color}`}>
                 <div class="icon-3d">
                   <div class="icon-3d-inner animate-rotate-3d">
@@ -106,12 +161,12 @@ const impactLevels = [
                 <p class="font-semibold text-gray-900">{level.title}</p>
                 <p class="text-sm text-gray-500">{level.description}</p>
               </div>
-            </div>
+            </button>
           ))}
         </div>
 
-        <!-- Right Column: Donation Form -->
-        <div class="donation-form-wrapper animate-on-scroll animate-slide-right">
+        <!-- Donation Form -->
+        <div id="donation-form" class="donation-form-wrapper animate-on-scroll">
           <div class="donation-form-card">
             <div class="donation-form-inner">
               <div class="flex items-center justify-between mb-6">
@@ -124,17 +179,24 @@ const impactLevels = [
                 </div>
               </div>
 
-              <div id="give-lively-widget" class="gl-simple-donation-widget"></div>
+              <div id="give-lively-widget-desktop" class="gl-simple-donation-widget"></div>
 
               <p class="text-xs text-gray-400 text-center mt-6">
                 FNE International is a 501(c)(3) nonprofit organization. All donations are tax-deductible.
               </p>
+              <div class="flex items-center justify-center gap-1.5 text-xs text-gray-400 mt-2">
+                <span>Powered by</span>
+                <a href="https://www.givelively.org" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-[#2D8B4E] font-medium transition-colors">
+                  Give Lively
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Container>
-  </Section>
+        </div>
+      </Container>
+    </Section>
+  </div>
 
   <!-- Hope Collective CTA -->
   <CTASection
@@ -174,9 +236,14 @@ const impactLevels = [
 </BaseLayout>
 
 <style>
-  /* Donation layout */
-  .donation-layout {
-    display: grid;
+  /* Mobile donate layout */
+  .mobile-donate-layout {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  /* Desktop donate layout */
+  .desktop-donate-layout {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: start;
@@ -184,11 +251,67 @@ const impactLevels = [
     margin: 0 auto;
   }
 
-  @media (max-width: 768px) {
-    .donation-layout {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
+  /* 2x2 Amount Grid */
+  .amount-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .amount-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 0.5rem;
+    border-radius: 12px;
+    border: 2px solid #e5e7eb;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .amount-chip:active {
+    transform: scale(0.97);
+  }
+
+  .amount-chip.selected {
+    border-color: #2D8B4E;
+    background: rgba(45, 139, 78, 0.08);
+  }
+
+  .amount-chip.selected .amount-chip-value,
+  .amount-chip.selected .amount-chip-icon {
+    color: #2D8B4E;
+  }
+
+  .amount-chip-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #9ca3af;
+    margin-bottom: 0.25rem;
+  }
+
+  .amount-chip-value {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1f2937;
+    line-height: 1;
+  }
+
+  .amount-chip-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #6b7280;
+    margin-top: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .amount-chip-green,
+  .amount-chip-orange,
+  .amount-chip-teal {
+    /* All chips use same base styling */
   }
 
   /* Impact cards */
@@ -204,15 +327,24 @@ const impactLevels = [
     gap: 1rem;
     padding: 1.25rem 1.5rem;
     background: white;
-    border: 1px solid rgba(45, 139, 78, 0.1);
+    border: 2px solid rgba(45, 139, 78, 0.1);
     border-radius: 16px;
     transition: all 0.4s ease;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
   }
 
   .impact-card:hover {
     transform: translateX(8px);
     border-color: rgba(45, 139, 78, 0.3);
     box-shadow: 0 10px 40px rgba(45, 139, 78, 0.1);
+  }
+
+  .impact-card.selected {
+    border-color: #2D8B4E;
+    background: rgba(45, 139, 78, 0.05);
+    box-shadow: 0 10px 40px rgba(45, 139, 78, 0.15);
   }
 
   .impact-icon {
@@ -413,10 +545,103 @@ const impactLevels = [
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', function() {
+    // GiveLively looks for #give-lively-widget
+    // Set the correct container based on screen size
+    var isMobile = window.innerWidth < 768;
+
+    if (isMobile) {
+      // Mobile already has id="give-lively-widget", remove from desktop
+      var desktopWidget = document.getElementById('give-lively-widget-desktop');
+      if (desktopWidget) desktopWidget.removeAttribute('id');
+    } else {
+      // Desktop: rename desktop ID to the one GiveLively expects
+      var mobileWidget = document.getElementById('give-lively-widget');
+      var desktopWidget = document.getElementById('give-lively-widget-desktop');
+      if (mobileWidget) mobileWidget.removeAttribute('id');
+      if (desktopWidget) desktopWidget.id = 'give-lively-widget';
+    }
+
+    // Read URL parameters
+    var urlParams = new URLSearchParams(window.location.search);
+    var presetAmount = urlParams.get('amount');
+    var isMonthly = urlParams.get('monthly') === 'true';
+
     // Load GiveLively widget
     var gl = document.createElement('script');
     gl.src = 'https://secure.givelively.org/widgets/simple_donation/fne-international.js?show_suggested_amount_buttons=false&show_in_honor_of=false&address_required=false&has_required_custom_question=null';
     gl.async = true;
     document.head.appendChild(gl);
+
+    // Helper function to fill GiveLively widget
+    function fillDonationAmount(amount) {
+      var amountInput = document.querySelector('.gl-widget__donation-input-field');
+      if (amountInput) {
+        amountInput.value = amount;
+        amountInput.dispatchEvent(new Event('input', { bubbles: true }));
+        amountInput.dispatchEvent(new Event('keyup', { bubbles: true }));
+      }
+    }
+
+    // Helper function to select monthly frequency
+    function selectMonthly() {
+      var frequencyButtons = document.querySelectorAll('.gl-widget__frequency-buttons');
+      if (frequencyButtons.length >= 2) {
+        // Monthly is the second button
+        frequencyButtons[1].click();
+      }
+    }
+
+    // Apply URL params after widget loads
+    if (presetAmount || isMonthly) {
+      var checkWidget = setInterval(function() {
+        var widgetLoaded = document.querySelector('.gl-widget__donation-input-field');
+        if (widgetLoaded) {
+          clearInterval(checkWidget);
+          // Small delay to ensure widget is fully initialized
+          setTimeout(function() {
+            if (isMonthly) {
+              selectMonthly();
+            }
+            if (presetAmount) {
+              fillDonationAmount(presetAmount);
+            }
+          }, 300);
+        }
+      }, 100);
+      // Stop checking after 10 seconds
+      setTimeout(function() { clearInterval(checkWidget); }, 10000);
+    }
+
+    // Mobile: Amount chip interactions
+    var amountChips = document.querySelectorAll('.amount-chip');
+    amountChips.forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        var amount = this.dataset.amount;
+
+        // Remove selected from all chips
+        amountChips.forEach(function(c) { c.classList.remove('selected'); });
+        // Add selected to clicked chip
+        this.classList.add('selected');
+
+        // Fill in the GiveLively widget amount
+        setTimeout(function() { fillDonationAmount(amount); }, 100);
+      });
+    });
+
+    // Desktop: Impact card interactions
+    var impactCards = document.querySelectorAll('.impact-card[data-amount]');
+    impactCards.forEach(function(card) {
+      card.addEventListener('click', function() {
+        var amount = this.dataset.amount;
+
+        // Remove selected from all cards
+        impactCards.forEach(function(c) { c.classList.remove('selected'); });
+        // Add selected to clicked card
+        this.classList.add('selected');
+
+        // Fill in the GiveLively widget amount
+        setTimeout(function() { fillDonationAmount(amount); }, 100);
+      });
+    });
   });
 </script>

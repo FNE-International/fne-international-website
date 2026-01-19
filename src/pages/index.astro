@@ -57,6 +57,12 @@ try {
       <div class="particle"></div>
     </div>
 
+    <!-- Mobile hero background image -->
+    <div class="absolute inset-0 lg:hidden">
+      <img src="/hero.png" alt="" class="w-full h-full object-cover object-top opacity-60" />
+      <div class="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white/70"></div>
+    </div>
+
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 z-10">
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <div>
@@ -126,16 +132,21 @@ try {
       </div>
     </div>
 
-    <!-- Scroll indicator with glow -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-      <div class="scroll-indicator">
-        <div class="scroll-dot"></div>
-      </div>
+    <!-- Scroll indicator - double chevron -->
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-10">
+      <a href="#impact" class="scroll-chevrons">
+        <svg class="w-6 h-6 text-[#2D8B4E] chevron-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+        <svg class="w-6 h-6 text-[#2D8B4E]/60 chevron-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </a>
     </div>
   </section>
 
   <!-- Impact Stats - Holographic cards -->
-  <section class="py-32 bg-gray-50 relative overflow-hidden">
+  <section id="impact" class="py-32 bg-gray-50 relative overflow-hidden">
     <!-- Background effects -->
     <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_30%_50%,rgba(45,139,78,0.08),transparent_50%)]"></div>
 
@@ -712,28 +723,33 @@ try {
     transform: translateX(100%);
   }
 
-  /* Scroll indicator - Light mode */
-  .scroll-indicator {
-    width: 24px;
-    height: 40px;
-    border: 2px solid rgba(45, 139, 78, 0.3);
-    border-radius: 12px;
+  /* Scroll indicator - double chevron */
+  .scroll-chevrons {
     display: flex;
-    justify-content: center;
-    padding-top: 8px;
+    flex-direction: column;
+    align-items: center;
+    gap: -4px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
   }
 
-  .scroll-dot {
-    width: 4px;
-    height: 8px;
-    background: #2D8B4E;
-    border-radius: 2px;
-    animation: scroll-bounce 2s ease-in-out infinite;
+  .scroll-chevrons:hover {
+    transform: translateY(4px);
   }
 
-  @keyframes scroll-bounce {
+  .chevron-1 {
+    animation: chevron-bounce 2s ease-in-out infinite;
+  }
+
+  .chevron-2 {
+    margin-top: -8px;
+    animation: chevron-bounce 2s ease-in-out infinite;
+    animation-delay: 0.2s;
+  }
+
+  @keyframes chevron-bounce {
     0%, 100% { transform: translateY(0); opacity: 1; }
-    50% { transform: translateY(12px); opacity: 0.3; }
+    50% { transform: translateY(6px); opacity: 0.4; }
   }
 
   /* Image frames - Light mode */
