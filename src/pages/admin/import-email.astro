@@ -1,0 +1,134 @@
+---
+// This page is server-rendered (not static)
+export const prerender = false;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Import Email to Blog">
+  <div class="min-h-screen bg-gray-50 py-16">
+    <div class="max-w-xl mx-auto px-4">
+      <div class="bg-white rounded-2xl shadow-lg p-8">
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Import Mailchimp Email</h1>
+        <p class="text-gray-600 mb-6">Paste a Mailchimp campaign ID or URL to create a blog post.</p>
+
+        <form id="import-form" class="space-y-4">
+          <div>
+            <label for="campaign" class="block text-sm font-medium text-gray-700 mb-1">
+              Campaign ID or Archive URL
+            </label>
+            <input
+              type="text"
+              id="campaign"
+              name="campaign"
+              placeholder="e.g., abc123def4 or https://mailchi.mp/..."
+              class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#2D8B4E] focus:outline-none transition-colors"
+              required
+            />
+            <p class="text-xs text-gray-500 mt-1">
+              Find the Campaign ID in Mailchimp under Campaigns → Reports → click campaign
+            </p>
+          </div>
+
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
+              Admin Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter admin password"
+              class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#2D8B4E] focus:outline-none transition-colors"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-[#2D8B4E] text-white font-semibold py-3 px-6 rounded-xl hover:bg-[#246b3e] transition-colors"
+          >
+            Import as Blog Post
+          </button>
+        </form>
+
+        <div id="result" class="mt-6 hidden">
+          <div id="result-success" class="hidden p-4 bg-green-50 border border-green-200 rounded-xl text-green-800">
+            <p class="font-semibold">Success!</p>
+            <p id="result-message" class="text-sm"></p>
+          </div>
+          <div id="result-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl text-red-800">
+            <p class="font-semibold">Error</p>
+            <p id="error-message" class="text-sm"></p>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-gray-100">
+          <h2 class="text-sm font-semibold text-gray-700 mb-2">How to find your Campaign ID:</h2>
+          <ol class="text-sm text-gray-600 space-y-1 list-decimal list-inside">
+            <li>Go to Mailchimp → Campaigns</li>
+            <li>Click on the sent campaign</li>
+            <li>Look at the URL - the ID is after <code class="bg-gray-100 px-1 rounded">/reports/summary?id=</code></li>
+            <li>Or copy the "View in browser" link from your email</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('import-form') as HTMLFormElement;
+    const resultDiv = document.getElementById('result') as HTMLDivElement;
+    const successDiv = document.getElementById('result-success') as HTMLDivElement;
+    const errorDiv = document.getElementById('result-error') as HTMLDivElement;
+    const resultMessage = document.getElementById('result-message') as HTMLParagraphElement;
+    const errorMessage = document.getElementById('error-message') as HTMLParagraphElement;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const campaign = (document.getElementById('campaign') as HTMLInputElement).value;
+      const password = (document.getElementById('password') as HTMLInputElement).value;
+
+      // Reset UI
+      resultDiv.classList.add('hidden');
+      successDiv.classList.add('hidden');
+      errorDiv.classList.add('hidden');
+
+      // Update button state
+      const button = form.querySelector('button') as HTMLButtonElement;
+      const originalText = button.textContent;
+      button.textContent = 'Importing...';
+      button.disabled = true;
+
+      try {
+        const response = await fetch('/api/import-mailchimp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ campaign, password }),
+        });
+
+        const data = await response.json();
+        resultDiv.classList.remove('hidden');
+
+        if (response.ok) {
+          successDiv.classList.remove('hidden');
+          resultMessage.textContent = data.message || 'Blog post created successfully!';
+          form.reset();
+        } else {
+          errorDiv.classList.remove('hidden');
+          errorMessage.textContent = data.error || 'Something went wrong';
+        }
+      } catch (err) {
+        resultDiv.classList.remove('hidden');
+        errorDiv.classList.remove('hidden');
+        errorMessage.textContent = 'Network error. Please try again.';
+      } finally {
+        button.textContent = originalText;
+        button.disabled = false;
+      }
+    });
+  </script>
+</BaseLayout>

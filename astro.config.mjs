@@ -3,9 +3,11 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import basicSsl from '@vitejs/plugin-basic-ssl';
 import { storyblok } from '@storyblok/astro';
+import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
+  adapter: vercel(),
   integrations: [
     storyblok({
       accessToken: '7ijlTrctDf3CK61fFyLFyAtt',
