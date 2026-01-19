@@ -1,0 +1,65 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-gray-900 text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
+      <!-- About -->
+      <div class="col-span-1 md:col-span-1">
+        <h3 class="text-xl font-bold mb-4">FNE International</h3>
+        <p class="text-gray-400 text-sm">
+          Partnering with communities in developing nations to advance housing, health, and education.
+        </p>
+      </div>
+
+      <!-- About Links -->
+      <div>
+        <h4 class="font-semibold mb-4">About</h4>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li><a href="/about" class="hover:text-white transition-colors">Our Story</a></li>
+          <li><a href="/about/team" class="hover:text-white transition-colors">Our Team</a></li>
+          <li><a href="/about/approach" class="hover:text-white transition-colors">Our Approach</a></li>
+          <li><a href="/about/financials" class="hover:text-white transition-colors">Financials</a></li>
+        </ul>
+      </div>
+
+      <!-- Programs Links -->
+      <div>
+        <h4 class="font-semibold mb-4">Programs</h4>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li><a href="/programs/nicaragua" class="hover:text-white transition-colors">Nicaragua</a></li>
+          <li><a href="/programs/peru" class="hover:text-white transition-colors">Peru</a></li>
+          <li><a href="/programs/dominican-republic" class="hover:text-white transition-colors">Dominican Republic</a></li>
+        </ul>
+      </div>
+
+      <!-- Connect -->
+      <div>
+        <h4 class="font-semibold mb-4">Connect</h4>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li><a href="/contact" class="hover:text-white transition-colors">Contact Us</a></li>
+          <li><a href="https://www.instagram.com/fne.international/" target="_blank" rel="noopener" class="hover:text-white transition-colors">Instagram</a></li>
+          <li><a href="https://www.linkedin.com/company/fne-international-inc" target="_blank" rel="noopener" class="hover:text-white transition-colors">LinkedIn</a></li>
+          <li><a href="https://x.com/fneiorg" target="_blank" rel="noopener" class="hover:text-white transition-colors">Twitter/X</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-gray-800 mt-8 pt-8">
+      <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 text-center md:text-left">
+        <div class="mb-4 md:mb-0">
+          <p>501(c)(3) Nonprofit | EIN: 27-1792140</p>
+          <p>PO Box 890286, East Weymouth, MA 02189</p>
+          <p>info@fneinternational.org | (617) 383-1956</p>
+        </div>
+        <div class="flex space-x-4">
+          <a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a>
+          <span>|</span>
+          <span>&copy; {currentYear} FNE International</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

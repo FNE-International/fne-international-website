@@ -1,0 +1,136 @@
+---
+/**
+ * PillarCard Component
+ *
+ * A card component for displaying focus areas/pillars with an icon, title,
+ * description, and optional stat. Used on the Our Approach page and anywhere
+ * else that needs to display program pillars or focus areas.
+ */
+
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+  color?: 'green' | 'teal' | 'orange';
+  stat?: string;
+  statLabel?: string;
+  animationDelay?: number;
+}
+
+const {
+  title,
+  description,
+  icon,
+  color = 'green',
+  stat,
+  statLabel,
+  animationDelay = 0,
+} = Astro.props;
+
+const colorClasses = {
+  green: {
+    iconBg: 'bg-[#2D8B4E]/10',
+    iconColor: 'text-[#2D8B4E]',
+    hoverBg: 'group-hover:bg-gradient-to-br group-hover:from-[#2D8B4E] group-hover:to-[#3D9A8B]',
+  },
+  teal: {
+    iconBg: 'bg-[#3D9A8B]/10',
+    iconColor: 'text-[#3D9A8B]',
+    hoverBg: 'group-hover:bg-gradient-to-br group-hover:from-[#3D9A8B] group-hover:to-[#2D8B4E]',
+  },
+  orange: {
+    iconBg: 'bg-[#F7931E]/10',
+    iconColor: 'text-[#F7931E]',
+    hoverBg: 'group-hover:bg-gradient-to-br group-hover:from-[#F7931E] group-hover:to-[#ff6b00]',
+  },
+};
+
+const colors = colorClasses[color];
+const delayClass = animationDelay ? `delay-${animationDelay}` : '';
+---
+
+<div class={`pillar-card group animate-on-scroll ${delayClass}`}>
+  <div class="pillar-content">
+    <div class={`pillar-icon ${colors.iconBg} ${colors.iconColor} ${colors.hoverBg}`}>
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={icon} />
+      </svg>
+    </div>
+
+    <h3 class="text-xl font-bold text-gray-900 mt-4">{title}</h3>
+
+    <p class="text-gray-600 mt-2 text-sm leading-relaxed">{description}</p>
+  </div>
+
+  {stat && statLabel && (
+    <div class="pillar-stat">
+      <span class="pillar-stat-number">{stat}</span>
+      <span class="pillar-stat-label">{statLabel}</span>
+    </div>
+  )}
+</div>
+
+<style>
+  .pillar-card {
+    padding: 2rem;
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.4s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .pillar-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+    border-color: rgba(45, 139, 78, 0.2);
+  }
+
+  .pillar-content {
+    flex: 1;
+    padding-bottom: 1.5rem;
+  }
+
+  .pillar-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    transition: all 0.4s ease;
+  }
+
+  .pillar-card:hover .pillar-icon {
+    transform: scale(1.1);
+    color: white;
+  }
+
+  .pillar-stat {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(45, 139, 78, 0.1);
+  }
+
+  .pillar-stat-number {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #2D8B4E, #F7931E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .pillar-stat-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 0.25rem;
+  }
+</style>

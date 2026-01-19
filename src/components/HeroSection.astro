@@ -1,0 +1,80 @@
+---
+interface Props {
+  badge?: string;
+  title: string;
+  titleAccent?: string;
+  subtitle: string;
+  image: string;
+  imageAlt: string;
+  imagePosition?: string;
+}
+
+const {
+  badge,
+  title,
+  titleAccent,
+  subtitle,
+  image,
+  imageAlt,
+  imagePosition = 'center'
+} = Astro.props;
+---
+
+<section class="relative min-h-[50vh] flex items-center overflow-hidden bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
+  <!-- Animated gradient mesh -->
+  <div class="absolute inset-0">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(45,139,78,0.15),transparent)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_80%_80%,rgba(247,147,30,0.1),transparent)]"></div>
+  </div>
+
+  <!-- Cyber grid -->
+  <div class="absolute inset-0 cyber-grid opacity-30"></div>
+
+  <!-- Floating orbs -->
+  <div class="absolute top-20 right-20 w-64 h-64 bg-[#2D8B4E] rounded-full filter blur-[100px] opacity-10 animate-pulse-slow"></div>
+  <div class="absolute bottom-20 left-20 w-48 h-48 bg-[#F7931E] rounded-full filter blur-[80px] opacity-8 animate-float"></div>
+
+  <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <!-- Left: Text Content -->
+      <div class="text-center lg:text-left">
+        <!-- Badge -->
+        {badge && (
+          <div class="inline-flex items-center gap-3 glass-card px-5 py-3 rounded-full mb-8 border border-[#2D8B4E]/20 shadow-lg">
+            <span class="relative flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2D8B4E] opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-[#2D8B4E]"></span>
+            </span>
+            <span class="text-[#2D8B4E] text-sm font-semibold tracking-wider">{badge}</span>
+          </div>
+        )}
+
+        <!-- Main headline -->
+        <h1 class="text-5xl sm:text-6xl md:text-7xl font-black mb-6 leading-[0.9] tracking-tight">
+          <span class="block text-gray-900">{title}</span>
+          {titleAccent && <span class="neon-text">{titleAccent}</span>}
+        </h1>
+
+        <p class="text-xl md:text-2xl mb-8 text-gray-600 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
+          <slot name="subtitle">{subtitle}</slot>
+        </p>
+
+        <!-- Optional CTA slot -->
+        <slot name="cta" />
+      </div>
+
+      <!-- Right: Hero Image -->
+      <div class="relative w-full">
+        <img
+          src={image}
+          alt={imageAlt}
+          class="hero-image"
+          style={`object-position: ${imagePosition};`}
+        />
+        <!-- Decorative elements -->
+        <div class="absolute -bottom-4 -right-4 w-full h-full border-2 border-[#2D8B4E]/20 rounded-3xl -z-10"></div>
+        <div class="absolute -top-4 -left-4 w-24 h-24 bg-[#F7931E]/10 rounded-full -z-10"></div>
+      </div>
+    </div>
+  </div>
+</section>

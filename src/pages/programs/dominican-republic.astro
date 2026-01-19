@@ -1,0 +1,646 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import Section from '../../components/Section.astro';
+import Container from '../../components/Container.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import FeatureCard from '../../components/FeatureCard.astro';
+import CTASection from '../../components/CTASection.astro';
+import StatCard from '../../components/StatCard.astro';
+import PhotoCard from '../../components/PhotoCard.astro';
+import ChallengeCard from '../../components/ChallengeCard.astro';
+import TimelineItem from '../../components/TimelineItem.astro';
+import QuoteCard from '../../components/QuoteCard.astro';
+
+const stats = [
+  { value: '300+', label: 'Students Enrolled', icon: 'M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z' },
+  { value: '4', label: 'Classrooms', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
+  { value: '2016', label: 'Year Started', icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
+  { value: '1', label: 'Community School', icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' },
+];
+
+const schoolFeatures = [
+  {
+    title: 'Quality Education',
+    description: 'Providing formal education to children who might otherwise have no access to schooling.',
+    icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
+    color: 'green',
+    imagePlaceholder: 'Students engaged in classroom learning activities',
+  },
+  {
+    title: 'Safe Learning Environment',
+    description: 'A secure space where children can focus on learning and personal growth.',
+    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+    color: 'teal',
+    imagePlaceholder: 'Children playing safely in the school courtyard',
+  },
+  {
+    title: 'Community Integration',
+    description: 'Helping children from marginalized communities integrate into society through education.',
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+    color: 'orange',
+    imagePlaceholder: 'Students and families at community event',
+  },
+  {
+    title: 'Nutritional Support',
+    description: 'Ensuring students have access to nutritious meals to support their learning.',
+    icon: 'M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z',
+    color: 'green',
+    imagePlaceholder: 'Students receiving healthy meals at lunchtime',
+  },
+];
+
+const challenges = [
+  {
+    title: 'Statelessness',
+    description: 'Many children of Haitian descent lack birth certificates or citizenship documents, limiting their access to public services.',
+    icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+  },
+  {
+    title: 'Language Barriers',
+    description: 'Children from Haitian families often speak Haitian Creole at home, making Spanish-language education challenging.',
+    icon: 'M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129',
+  },
+  {
+    title: 'Poverty',
+    description: 'Families in the batey communities often work in sugar cane fields with limited income and job security.',
+    icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  },
+  {
+    title: 'Discrimination',
+    description: 'Haitian-Dominican communities face social stigma that can exclude them from mainstream services.',
+    icon: 'M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636',
+  },
+];
+
+const timeline = [
+  { year: '2016', event: 'FNE International begins partnership with FUCPE school', icon: 'M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1' },
+  { year: '2017', event: 'First volunteer trip to support school operations', icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064' },
+  { year: '2018', event: 'Classroom expansion project completed', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
+  { year: '2020', event: 'COVID-19 response: meal distribution program', icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' },
+  { year: '2023', event: 'Over 300 students enrolled', icon: 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z' },
+];
+---
+
+<BaseLayout title="Dominican Republic Programs">
+  <!-- Hero Section -->
+  <HeroSection
+    badge="Dominican Republic"
+    title="Programs in the"
+    titleAccent="Dominican Republic"
+    subtitle="Supporting education for Haitian-Dominican children through the FUCPE school in Villa Hermosa, La Romana."
+    image="/education.jpg"
+    imageAlt="Education in Dominican Republic"
+  />
+
+  <!-- Quick Stats with Animated Icons -->
+  <Section background="white" padding="sm">
+    <Container>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {stats.map((stat, index) => (
+          <StatCard
+            value={stat.value}
+            label={stat.label}
+            icon={stat.icon}
+            animationDelay={(index + 1) * 100}
+          />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Photo Banner -->
+  <Section background="gray" spacing="small">
+    <div class="w-full overflow-hidden">
+      <div class="photo-grid photo-grid-4 max-w-7xl mx-auto px-4">
+        <PhotoCard placeholder="Children in FUCPE classroom learning together" caption="Classroom Learning" />
+        <PhotoCard placeholder="View of Villa Hermosa batey community" caption="Villa Hermosa" animationDelay={100} />
+        <PhotoCard placeholder="Students receiving school supplies" caption="School Supplies" animationDelay={200} />
+        <PhotoCard placeholder="FNE volunteers with FUCPE teachers" caption="Volunteer Team" animationDelay={300} />
+      </div>
+    </div>
+  </Section>
+
+  <!-- About the Context -->
+  <Section background="gray" withGrid>
+    <Container>
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left: Content -->
+        <div class="animate-slide-left">
+          <p class="text-[#3D9A8B] font-semibold tracking-[0.3em] uppercase mb-4 text-sm">The Context</p>
+          <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-6">Education in the Bateys</h2>
+
+          <div class="context-intro mb-8">
+            <p class="text-lg text-gray-600 leading-relaxed">
+              In the Dominican Republic, "bateys" are communities that originally formed around sugar cane plantations, home to workers of Haitian descent who migrated for agricultural labor. Today, these communities face significant challenges, including limited access to education, healthcare, and legal documentation.
+            </p>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            {challenges.map((challenge, index) => (
+              <ChallengeCard
+                title={challenge.title}
+                description={challenge.description}
+                icon={challenge.icon}
+                animationDelay={(index + 1) * 100}
+              />
+            ))}
+          </div>
+        </div>
+
+        <!-- Right: Image Gallery -->
+        <div class="animate-slide-right">
+          <div class="relative">
+            <div class="content-image-wrapper">
+              <div class="image-placeholder aspect-[4/3]">
+                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="image-placeholder-text">Aerial view of batey community near La Romana sugar cane fields</span>
+              </div>
+            </div>
+
+            <!-- Floating badge -->
+            <div class="absolute -bottom-4 -left-4 bg-white p-4 rounded-xl shadow-lg z-10">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-[#F7931E]/10 rounded-lg flex items-center justify-center">
+                  <svg class="w-5 h-5 text-[#F7931E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-sm font-semibold text-gray-900">La Romana</div>
+                  <div class="text-xs text-gray-500">Dominican Republic</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating 3D icon -->
+            <div class="absolute -top-6 -right-6 icon-3d">
+              <div class="icon-3d-inner animate-rotate-3d">
+                <div class="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center">
+                  <svg class="w-8 h-8 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Thumbnail gallery -->
+          <div class="grid grid-cols-3 gap-3 mt-8">
+            <div class="image-placeholder image-placeholder-square">
+              <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Sugar cane fields</span>
+            </div>
+            <div class="image-placeholder image-placeholder-square">
+              <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Community homes</span>
+            </div>
+            <div class="image-placeholder image-placeholder-square">
+              <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Local families</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- FUCPE School -->
+  <Section background="white">
+    <Container>
+      <SectionHeader
+        label="Our Partner"
+        title="FUCPE School"
+        subtitle="A beacon of hope in Villa Hermosa, La Romana."
+        labelColor="orange"
+      />
+
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="animate-slide-left">
+          <div class="school-badge">
+            <div class="flex items-center gap-3">
+              <div class="icon-float">
+                <svg class="w-6 h-6 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <span class="school-badge-text">Fundación para la Unidad y el Crecimiento de los Pueblos</span>
+            </div>
+          </div>
+
+          <h3 class="text-2xl font-bold text-gray-900 mb-4 mt-6">Providing Education Where It's Needed Most</h3>
+
+          <p class="text-gray-600 mb-6">
+            The FUCPE school serves over 300 children from the batey community of Villa Hermosa, near La Romana. For many of these children, FUCPE represents their only opportunity to receive a formal education.
+          </p>
+
+          <p class="text-gray-600 mb-6">
+            The school provides not just academic instruction, but also a safe space, nutritional support, and a sense of belonging for children who might otherwise be excluded from mainstream educational institutions.
+          </p>
+
+          <div class="school-stats">
+            <div class="school-stat">
+              <div class="icon-3d mb-2">
+                <div class="icon-3d-inner animate-wobble">
+                  <svg class="w-6 h-6 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+              </div>
+              <div class="school-stat-value">4</div>
+              <div class="school-stat-label">Classrooms</div>
+            </div>
+            <div class="school-stat">
+              <div class="icon-3d mb-2">
+                <div class="icon-3d-inner animate-scale-pulse">
+                  <svg class="w-6 h-6 text-[#F7931E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                </div>
+              </div>
+              <div class="school-stat-value">300+</div>
+              <div class="school-stat-label">Students</div>
+            </div>
+            <div class="school-stat">
+              <div class="icon-3d mb-2">
+                <div class="icon-3d-inner animate-float">
+                  <svg class="w-6 h-6 text-[#3D9A8B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+              </div>
+              <div class="school-stat-value">K-8</div>
+              <div class="school-stat-label">Grade Levels</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="animate-slide-right">
+          <div class="relative">
+            <div class="content-image-wrapper">
+              <div class="image-placeholder aspect-[4/3]">
+                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="image-placeholder-text">FUCPE school building exterior with students</span>
+              </div>
+            </div>
+            <div class="absolute -bottom-4 -left-4 bg-white p-4 rounded-xl shadow-lg z-10">
+              <div class="text-sm font-semibold text-[#2D8B4E]">Villa Hermosa</div>
+              <div class="text-xs text-gray-500">La Romana, Dominican Republic</div>
+            </div>
+          </div>
+
+          <!-- School photo gallery -->
+          <div class="grid grid-cols-3 gap-3 mt-8">
+            <div class="image-placeholder image-placeholder-square">
+              <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Classroom interior</span>
+            </div>
+            <div class="image-placeholder image-placeholder-square">
+              <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Students at desks</span>
+            </div>
+            <div class="image-placeholder image-placeholder-square">
+              <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">School playground</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- What We Provide -->
+  <Section background="gray" withGrid>
+    <Container>
+      <SectionHeader
+        label="Our Support"
+        title="What FUCPE Provides"
+        subtitle="Comprehensive support for children's education and well-being."
+        labelColor="green"
+      />
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {schoolFeatures.map((feature, index) => (
+          <FeatureCard
+            title={feature.title}
+            description={feature.description}
+            icon={feature.icon}
+            color={feature.color}
+            imagePlaceholder={feature.imagePlaceholder}
+            animationDelay={(index + 1) * 100}
+          />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Our Journey Timeline -->
+  <Section background="white">
+    <Container size="md">
+      <SectionHeader
+        label="Our Journey"
+        title="Growing Together"
+        subtitle="Our partnership with FUCPE has grown steadily since 2016."
+      />
+
+      <div class="timeline">
+        {timeline.map((item, index) => (
+          <TimelineItem
+            year={item.year}
+            event={item.event}
+            icon={item.icon}
+            showLine={index < timeline.length - 1}
+            showImage={true}
+            animationDelay={(index + 1) * 100}
+          />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Photo Showcase -->
+  <Section background="gray" withGrid>
+    <Container>
+      <SectionHeader
+        label="In Action"
+        title="Life at FUCPE"
+        subtitle="See the impact of education on children in Villa Hermosa."
+        labelColor="teal"
+      />
+
+      <div class="photo-grid photo-grid-3 max-w-4xl mx-auto">
+        <PhotoCard placeholder="Students raising hands in class" caption="Engaged Learning" variant="tall" />
+        <PhotoCard placeholder="Teacher helping student" caption="One-on-One Support" animationDelay={100} />
+        <PhotoCard placeholder="Children at lunch time" caption="Nutritional Support" animationDelay={200} />
+        <PhotoCard placeholder="Students playing outside" caption="Recess Time" animationDelay={200} />
+        <PhotoCard placeholder="Student with artwork" caption="Creative Expression" variant="tall" animationDelay={300} />
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Impact Story -->
+  <Section background="gradient">
+    <Container size="md">
+      <QuoteCard
+        quote="For children in the bateys, education isn't just about learning to read and write. It's about dignity, opportunity, and hope for a better future."
+        attribution="The Heart of Our Mission"
+        subtext="Every child deserves a chance"
+      />
+    </Container>
+  </Section>
+
+  <!-- How to Help -->
+  <Section background="white">
+    <Container>
+      <SectionHeader
+        label="Get Involved"
+        title="How You Can Help"
+        subtitle="There are many ways to support education in the Dominican Republic."
+        labelColor="orange"
+      />
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="help-card animate-on-scroll">
+          <div class="help-icon help-icon-green">
+            <div class="icon-3d">
+              <div class="icon-3d-inner animate-rotate-3d">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Donate</h3>
+          <p class="text-gray-600 mb-5">Your financial support helps provide school supplies, meals, and teacher salaries.</p>
+
+          <!-- Help card image -->
+          <div class="mb-5">
+            <div class="image-placeholder image-placeholder-wide">
+              <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">School supplies being distributed</span>
+            </div>
+          </div>
+
+          <a href="/donate" class="help-link">
+            Make a Donation
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="help-card animate-on-scroll delay-100">
+          <div class="help-icon help-icon-orange">
+            <div class="icon-3d">
+              <div class="icon-3d-inner animate-wobble">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Volunteer Trip</h3>
+          <p class="text-gray-600 mb-5">Join a service trip to work directly with students and teachers at FUCPE.</p>
+
+          <!-- Help card image -->
+          <div class="mb-5">
+            <div class="image-placeholder image-placeholder-wide">
+              <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Volunteer team with students</span>
+            </div>
+          </div>
+
+          <a href="/get-involved/trips" class="help-link">
+            Join a Trip
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="help-card animate-on-scroll delay-200">
+          <div class="help-icon help-icon-teal">
+            <div class="icon-3d">
+              <div class="icon-3d-inner animate-scale-pulse">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Spread the Word</h3>
+          <p class="text-gray-600 mb-5">Share our mission with friends and family to help raise awareness.</p>
+
+          <!-- Help card image -->
+          <div class="mb-5">
+            <div class="image-placeholder image-placeholder-wide">
+              <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Social media sharing moment</span>
+            </div>
+          </div>
+
+          <a href="/about" class="help-link">
+            Learn More
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA -->
+  <CTASection
+    title="Support Education in the DR"
+    subtitle="Help us provide quality education to children who need it most."
+    icon="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+    primaryButtonText="Donate to FUCPE"
+    primaryButtonLink="/donate"
+    secondaryButtonText="Plan a Visit"
+    secondaryButtonLink="/get-involved/trips"
+  />
+</BaseLayout>
+
+<style>
+  /* Context intro */
+  .context-intro {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    border-left: 4px solid #2D8B4E;
+  }
+
+  /* School badge */
+  .school-badge {
+    display: inline-block;
+    padding: 0.75rem 1.25rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    border-radius: 12px;
+    border: 1px solid rgba(45, 139, 78, 0.2);
+  }
+
+  .school-badge-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #2D8B4E;
+  }
+
+  /* School stats */
+  .school-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .school-stat {
+    text-align: center;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.05), rgba(247, 147, 30, 0.05));
+    border-radius: 16px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .school-stat:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.1);
+  }
+
+  .school-stat-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #2D8B4E;
+  }
+
+  .school-stat-label {
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 0.5rem;
+  }
+
+  /* Timeline wrapper */
+  .timeline {
+    position: relative;
+  }
+
+  /* Help cards */
+  .help-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .help-card:hover {
+    border-color: rgba(45, 139, 78, 0.2);
+    box-shadow: 0 15px 40px rgba(45, 139, 78, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .help-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+  }
+
+  .help-icon-green {
+    background: rgba(45, 139, 78, 0.1);
+    color: #2D8B4E;
+  }
+
+  .help-icon-orange {
+    background: rgba(247, 147, 30, 0.1);
+    color: #F7931E;
+  }
+
+  .help-icon-teal {
+    background: rgba(61, 154, 139, 0.1);
+    color: #3D9A8B;
+  }
+
+  .help-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: #2D8B4E;
+    transition: all 0.3s ease;
+  }
+
+  .help-link:hover {
+    color: #F7931E;
+    gap: 0.75rem;
+  }
+
+</style>

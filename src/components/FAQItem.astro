@@ -1,0 +1,94 @@
+---
+interface Props {
+  question: string;
+  answer: string;
+  index: number;
+  animationDelay?: number;
+}
+
+const { question, answer, index, animationDelay = 0 } = Astro.props;
+const delayClass = animationDelay > 0 ? `delay-${animationDelay}` : '';
+---
+
+<div class={`faq-item animate-on-scroll ${delayClass}`}>
+  <button class="faq-question" data-faq={index}>
+    <div class="flex items-center gap-3">
+      <div class="faq-icon-wrapper">
+        <svg class="w-5 h-5 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <span>{question}</span>
+    </div>
+    <svg class="w-5 h-5 faq-chevron transition-transform text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+  <div class="faq-answer" data-faq-answer={index}>
+    <p>{answer}</p>
+  </div>
+</div>
+
+<style>
+  .faq-item {
+    background: white;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .faq-item:hover {
+    border-color: rgba(45, 139, 78, 0.2);
+    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.08);
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-align: left;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .faq-question:hover {
+    color: #2D8B4E;
+  }
+
+  .faq-icon-wrapper {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(45, 139, 78, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .faq-answer:global(.open) {
+    max-height: 500px;
+  }
+
+  .faq-answer p {
+    padding: 0 1.5rem 1.5rem;
+    color: #666;
+    line-height: 1.7;
+  }
+
+  .faq-chevron:global(.open) {
+    transform: rotate(180deg);
+  }
+</style>

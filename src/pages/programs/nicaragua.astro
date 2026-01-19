@@ -1,0 +1,1045 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import Section from '../../components/Section.astro';
+import Container from '../../components/Container.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CTASection from '../../components/CTASection.astro';
+
+const stats = [
+  { value: '300+', label: 'Houses Built', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+  { value: '150+', label: 'Scholarship Students', icon: 'M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z' },
+  { value: '120', label: 'Pediatric Patients', icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' },
+  { value: '5.7', label: 'Acre Farm', icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064' },
+];
+
+const housingDetails = {
+  cost: '$5,500',
+  familyContribution: '30%',
+  fneContribution: '70%',
+  features: [
+    'One-room brick house',
+    'Latrine included',
+    'Built by local workers',
+    'Families help with construction',
+  ],
+};
+
+const educationPrograms = [
+  {
+    name: 'Tengo un Sueño (Dreamers)',
+    description: 'An after-school program providing ESL instruction and math tutoring to help children dream bigger.',
+    stats: '11 students aged 8-12',
+    features: ['English as Second Language', 'Mathematics tutoring', 'Personal development', 'Dream building activities'],
+    imagePlaceholder: 'Students in after-school ESL class practicing English conversation',
+  },
+  {
+    name: 'Scholarship Program',
+    description: 'Monthly stipends supporting students from elementary through university, covering school fees, uniforms, and supplies.',
+    stats: '150+ students, $30-60/month',
+    features: ['Elementary through university', 'Covers school fees', 'Uniforms and supplies', '5 communities in León'],
+    imagePlaceholder: 'Scholarship student in uniform receiving educational materials',
+  },
+  {
+    name: 'Biblioteca Ricardo Streb',
+    description: 'The only library in the Chacraseca region, providing books, computer lab access, WiFi, and tutoring services.',
+    stats: 'Serving entire Chacraseca region',
+    features: ['Book lending library', 'Computer lab', 'Free WiFi access', 'Tutoring programs'],
+    imagePlaceholder: 'Children reading books in the Ricardo Streb Library',
+  },
+  {
+    name: 'Niño Feliz School',
+    description: 'Supporting a special education school in Chichigalpa that provides essential services to children with disabilities.',
+    stats: 'Special education support',
+    features: ['Special needs education', 'Teacher training', 'Educational materials', 'Community integration'],
+    imagePlaceholder: 'Special needs classroom with teacher and students engaged in learning',
+  },
+];
+
+const healthPrograms = [
+  {
+    name: 'Salud para Todos los Niños (SPTLN)',
+    description: 'A pediatric health program providing ongoing care for approximately 120 children with chronic conditions, including many with muscular dystrophy.',
+    stats: '~120 pediatric patients',
+    focus: 'Focus on Duchenne muscular dystrophy',
+    services: ['Regular check-ups', 'Medication support', 'Physical therapy', 'Family counseling'],
+    imagePlaceholder: 'Medical staff providing care to pediatric patient at SPTLN clinic',
+  },
+  {
+    name: 'Medical Brigades',
+    description: 'Organizing volunteer medical professionals to provide free healthcare services in underserved communities.',
+    services: ['General medical care', 'Dental services', 'Vision screenings', 'Health education'],
+    imagePlaceholder: 'Volunteer doctors examining patients during medical brigade',
+  },
+];
+
+const agriculturePrograms = [
+  {
+    name: 'Finca Girasol (Sunflower Farm)',
+    description: 'A 14-manzana (5.7 acre) agroecological farm demonstrating sustainable farming practices and providing training to local farmers.',
+    stats: '5.7 acres of demonstration farm',
+    features: ['Organic farming methods', 'Crop diversification', 'Water conservation', 'Farmer training programs'],
+    imagePlaceholder: 'Aerial view of Finca Girasol showing diverse crop areas',
+  },
+  {
+    name: 'Sow Eat Grow',
+    description: 'A nutrition and agriculture education program teaching families to grow their own vegetables and improve their diets.',
+    features: ['Home garden setup', 'Nutrition education', 'Seed distribution', 'Cooking workshops'],
+    imagePlaceholder: 'Family learning to plant vegetables in their home garden',
+  },
+];
+
+const communities = [
+  'Chacraseca',
+  'La Ceiba',
+  'Los Lechecuagos',
+  'Salinas Grandes',
+  'Monte Redondo',
+];
+
+const housingGallery = [
+  'Before photo of original dwelling needing replacement',
+  'Volunteers and family members laying brick foundation',
+  'Construction progress showing wall framing',
+  'Completed house with family standing proudly in front',
+];
+---
+
+<BaseLayout title="Nicaragua Programs">
+  <!-- Hero Section -->
+  <HeroSection
+    badge="Nicaragua"
+    title="Programs in"
+    titleAccent="Nicaragua"
+    subtitle="Our longest-running initiative, serving communities in the León Department since 1990 with comprehensive programs in housing, education, health, and agriculture."
+    image="/housing.jpg"
+    imageAlt="Housing construction in Nicaragua"
+  />
+
+  <!-- Quick Stats -->
+  <Section background="white" padding="sm">
+    <Container>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {stats.map((stat, index) => (
+          <div class={`stat-card animate-on-scroll delay-${(index + 1) * 100}`}>
+            <div class="stat-icon icon-glow">
+              <div class="animate-scale-pulse">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={stat.icon} />
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value">{stat.value}</div>
+            <div class="stat-label">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Nicaragua Photo Banner -->
+  <Section background="gray" spacing="small">
+    <div class="w-full overflow-hidden">
+      <div class="photo-grid photo-grid-4 max-w-7xl mx-auto px-4">
+        <div class="photo-card animate-on-scroll delay-100">
+          <div class="image-placeholder">
+            <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="image-placeholder-text">Scenic view of León countryside with volcanos</span>
+          </div>
+        </div>
+        <div class="photo-card animate-on-scroll delay-200">
+          <div class="image-placeholder">
+            <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="image-placeholder-text">Local community members gathering in village center</span>
+          </div>
+        </div>
+        <div class="photo-card animate-on-scroll delay-300">
+          <div class="image-placeholder">
+            <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="image-placeholder-text">Children smiling and playing in Chacraseca</span>
+          </div>
+        </div>
+        <div class="photo-card animate-on-scroll delay-400">
+          <div class="image-placeholder">
+            <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="image-placeholder-text">Volunteer team group photo with local partners</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- About Nicaragua -->
+  <Section background="white">
+    <Container size="md">
+      <SectionHeader
+        label="About Nicaragua"
+        title="The Heart of Our Work"
+        labelColor="teal"
+      />
+
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
+        <div class="info-card animate-slide-left">
+          <div class="info-card-icon">
+            <div class="icon-3d">
+              <div class="icon-3d-inner animate-rotate-3d">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Country Overview</h3>
+          <p class="text-gray-600 mb-5">Nicaragua is the largest country in Central America and one of the poorest in the Western Hemisphere. Despite these challenges, the Nicaraguan people are known for their resilience and warmth.</p>
+          <ul class="space-y-3 text-sm text-gray-600">
+            <li class="flex items-start gap-2">
+              <span class="text-[#2D8B4E] font-bold">Population:</span>
+              <span>~6.5 million</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-[#2D8B4E] font-bold">Capital:</span>
+              <span>Managua</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-[#2D8B4E] font-bold">Language:</span>
+              <span>Spanish</span>
+            </li>
+          </ul>
+        </div>
+        <div class="info-card animate-slide-right">
+          <div class="info-card-icon info-card-icon-orange">
+            <div class="icon-float">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Our Focus Region: León</h3>
+          <p class="text-gray-600 mb-5">We work primarily in the León Department, focusing on rural communities where access to healthcare, education, and infrastructure is limited.</p>
+          <div class="flex flex-wrap gap-2">
+            {communities.map((community) => (
+              <span class="community-tag">{community}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Region Map Placeholder -->
+      <div class="animate-on-scroll">
+        <div class="image-placeholder image-placeholder-wide">
+          <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+          </svg>
+          <span class="image-placeholder-text">Map of León Department showing FNE program communities</span>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Infrastructure / Housing -->
+  <Section background="gray" withGrid>
+    <Container>
+      <SectionHeader
+        label="Infrastructure"
+        title="Housing Program"
+        subtitle="Building safe, dignified homes for families in need through a unique cost-sharing model."
+      />
+
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <div class="animate-slide-left">
+          <!-- 3D animated house icon -->
+          <div class="section-icon-large mb-8">
+            <div class="icon-3d">
+              <div class="icon-3d-inner animate-rotate-3d">
+                <div class="section-icon-circle">
+                  <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="housing-stat-grid mb-8">
+            <div class="housing-stat">
+              <div class="housing-stat-value">{housingDetails.cost}</div>
+              <div class="housing-stat-label">Average Cost Per Home</div>
+            </div>
+            <div class="housing-stat">
+              <div class="housing-stat-value">{housingDetails.familyContribution}</div>
+              <div class="housing-stat-label">Family Contribution</div>
+            </div>
+            <div class="housing-stat">
+              <div class="housing-stat-value">{housingDetails.fneContribution}</div>
+              <div class="housing-stat-label">FNE Contribution</div>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-bold text-gray-900 mb-4">What Each Home Includes</h3>
+          <ul class="space-y-3 mb-6">
+            {housingDetails.features.map((feature) => (
+              <li class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-[#2D8B4E]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span class="text-gray-700">{feature}</span>
+              </li>
+            ))}
+          </ul>
+
+          <p class="text-gray-600 bg-white p-5 rounded-xl border-l-4 border-[#2D8B4E]">
+            <strong>Our Model:</strong> Families contribute 30% of the cost (often through labor), creating ownership and pride while making homes affordable. Local workers are employed for construction, keeping money in the community.
+          </p>
+        </div>
+
+        <!-- Housing Gallery -->
+        <div class="animate-slide-right">
+          <div class="housing-gallery">
+            <div class="housing-main-image">
+              <img src="/housing.jpg" alt="Housing construction" class="content-image" />
+              <div class="housing-badge">
+                <div class="text-2xl font-bold neon-text">300+</div>
+                <div class="text-xs text-gray-600">Houses Built</div>
+              </div>
+            </div>
+            <div class="housing-thumbnails">
+              {housingGallery.map((photo, index) => (
+                <div class={`gallery-item animate-on-scroll delay-${(index + 1) * 100}`}>
+                  <div class="image-placeholder image-placeholder-square">
+                    <svg class="image-placeholder-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span class="image-placeholder-text text-xs">{photo}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 p-6 bg-white rounded-2xl animate-on-scroll">
+        <h3 class="text-lg font-bold text-gray-900 mb-6">Additional Infrastructure Programs</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-xl bg-[#2D8B4E]/10 flex items-center justify-center flex-shrink-0 icon-glow">
+              <svg class="w-7 h-7 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900 mb-2">Latrine Construction</h4>
+              <p class="text-sm text-gray-600">Building sanitary facilities to improve health and dignity in rural communities.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-xl bg-[#F7931E]/10 flex items-center justify-center flex-shrink-0 icon-glow">
+              <svg class="w-7 h-7 text-[#F7931E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900 mb-2">Home Repair Loans</h4>
+              <p class="text-sm text-gray-600">Low-interest loans helping families make essential repairs to existing homes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Education Programs -->
+  <Section background="white">
+    <Container>
+      <SectionHeader
+        label="Education"
+        title="Building Futures Through Learning"
+        subtitle="Comprehensive education programs from early childhood through university, breaking the cycle of poverty through knowledge."
+        labelColor="teal"
+      />
+
+      <!-- Education Hero Image -->
+      <div class="education-hero mb-12 animate-on-scroll">
+        <div class="image-placeholder image-placeholder-wide">
+          <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <span class="image-placeholder-text">Wide shot of students in classroom raising hands during lesson</span>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        {educationPrograms.map((program, index) => (
+          <div class={`program-card animate-on-scroll delay-${(index + 1) * 100}`}>
+            <!-- Program Image -->
+            <div class="program-image-wrapper">
+              <div class="image-placeholder">
+                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="image-placeholder-text">{program.imagePlaceholder}</span>
+              </div>
+            </div>
+            <div class="program-content">
+              <!-- Floating animated icon -->
+              <div class="program-icon icon-float">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <div class="program-header">
+                <h3 class="text-xl font-bold text-gray-900">{program.name}</h3>
+                {program.stats && <span class="program-stat">{program.stats}</span>}
+              </div>
+              <p class="text-gray-600 mb-5">{program.description}</p>
+              <ul class="space-y-2">
+                {program.features.map((feature) => (
+                  <li class="flex items-center gap-2 text-sm text-gray-700">
+                    <svg class="w-4 h-4 text-[#3D9A8B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Health Programs -->
+  <Section background="gray" withGrid>
+    <Container>
+      <SectionHeader
+        label="Health"
+        title="Caring for Our Communities"
+        subtitle="Providing essential healthcare services with a special focus on children with chronic conditions."
+        labelColor="orange"
+      />
+
+      <div class="grid md:grid-cols-2 gap-8 mb-12">
+        {healthPrograms.map((program, index) => (
+          <div class={`health-card animate-on-scroll delay-${(index + 1) * 100}`}>
+            <!-- Health Program Image -->
+            <div class="health-image-wrapper">
+              <div class="image-placeholder">
+                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="image-placeholder-text">{program.imagePlaceholder}</span>
+              </div>
+            </div>
+            <div class="health-content">
+              <!-- Animated heart icon -->
+              <div class="health-icon icon-glow">
+                <div class="animate-scale-pulse">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">{program.name}</h3>
+              <div class="health-meta">
+                {program.stats && <span class="health-stat">{program.stats}</span>}
+                {program.focus && <span class="health-focus">{program.focus}</span>}
+              </div>
+              <p class="text-gray-600 mb-5 mt-4">{program.description}</p>
+              <div class="flex flex-wrap gap-2">
+                {program.services.map((service) => (
+                  <span class="service-tag">{service}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="health-highlight animate-on-scroll">
+        <div class="flex flex-col md:flex-row gap-6 items-start">
+          <div class="health-highlight-image flex-shrink-0">
+            <div class="image-placeholder image-placeholder-square w-full md:w-64">
+              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Child receiving physical therapy at SPTLN</span>
+            </div>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-start gap-4">
+              <div class="w-16 h-16 rounded-2xl bg-[#F7931E]/10 flex items-center justify-center flex-shrink-0">
+                <div class="animate-rotate-3d">
+                  <svg class="w-8 h-8 text-[#F7931E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </div>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-3">Fighting Duchenne Muscular Dystrophy</h3>
+                <p class="text-gray-600 leading-relaxed">
+                  Our SPTLN program has a special focus on children with Duchenne muscular dystrophy, a rare genetic condition that causes progressive muscle weakness. We provide ongoing medical care, physical therapy, wheelchairs, and emotional support to these children and their families.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Agriculture Programs -->
+  <Section background="white">
+    <Container>
+      <SectionHeader
+        label="Food & Agriculture"
+        title="Growing Sustainable Futures"
+        subtitle="Teaching sustainable farming practices and improving nutrition through hands-on education."
+        labelColor="green"
+      />
+
+      <div class="agriculture-showcase">
+        {agriculturePrograms.map((program, index) => (
+          <div class={`agriculture-card-large ${index === 1 ? 'agriculture-card-reverse' : ''} animate-on-scroll`}>
+            <div class="agriculture-image">
+              <div class="image-placeholder">
+                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="image-placeholder-text">{program.imagePlaceholder}</span>
+              </div>
+            </div>
+            <div class="agriculture-content">
+              <!-- Floating leaf icon -->
+              <div class="agriculture-icon icon-float">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-gray-900 mb-2">{program.name}</h3>
+              {program.stats && <div class="agriculture-stat">{program.stats}</div>}
+              <p class="text-gray-600 mb-6 mt-4 leading-relaxed">{program.description}</p>
+              <ul class="space-y-3">
+                {program.features.map((feature) => (
+                  <li class="flex items-center gap-3 text-gray-700">
+                    <svg class="w-5 h-5 text-[#8DC63F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Farm Photo Gallery -->
+      <div class="farm-gallery mt-12 animate-on-scroll">
+        <h3 class="text-lg font-bold text-gray-900 mb-6 text-center">Finca Girasol in Action</h3>
+        <div class="photo-grid photo-grid-4">
+          <div class="photo-card">
+            <div class="image-placeholder">
+              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Farmers harvesting vegetables at the farm</span>
+            </div>
+          </div>
+          <div class="photo-card">
+            <div class="image-placeholder">
+              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Training session on organic methods</span>
+            </div>
+          </div>
+          <div class="photo-card">
+            <div class="image-placeholder">
+              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Irrigation system and crop rows</span>
+            </div>
+          </div>
+          <div class="photo-card">
+            <div class="image-placeholder">
+              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Family home garden started from program</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Get Involved CTA -->
+  <CTASection
+    title="Support Our Nicaragua Programs"
+    subtitle="Join a volunteer trip, sponsor a scholarship student, or donate to help us continue this vital work."
+    primaryButtonText="Join a Trip"
+    primaryButtonLink="/get-involved/trips"
+    secondaryButtonText="Donate Now"
+    secondaryButtonLink="/donate"
+  />
+</BaseLayout>
+
+<style>
+  /* Stat cards */
+  .stat-card {
+    text-align: center;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.1);
+  }
+
+  .stat-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2D8B4E;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #2D8B4E, #F7931E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 0.75rem;
+  }
+
+  /* Info cards */
+  .info-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    position: relative;
+  }
+
+  .info-card-icon {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(61, 154, 139, 0.1));
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2D8B4E;
+  }
+
+  .info-card-icon-orange {
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.1), rgba(45, 139, 78, 0.1));
+    color: #F7931E;
+  }
+
+  .community-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(45, 139, 78, 0.08);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #2D8B4E;
+  }
+
+  /* Section icon */
+  .section-icon-large {
+    display: flex;
+    justify-content: center;
+  }
+
+  .section-icon-circle {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    border-radius: 28px;
+    color: #2D8B4E;
+    border: 2px solid rgba(45, 139, 78, 0.2);
+  }
+
+  /* Housing stats */
+  .housing-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .housing-stat {
+    text-align: center;
+    padding: 1.25rem;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+  }
+
+  .housing-stat-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #2D8B4E;
+  }
+
+  .housing-stat-label {
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 0.5rem;
+  }
+
+  /* Housing gallery */
+  .housing-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .housing-main-image {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .housing-main-image .content-image {
+    border-radius: 20px;
+  }
+
+  .housing-badge {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: white;
+    padding: 1rem 1.25rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    text-align: center;
+  }
+
+  .housing-thumbnails {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+
+  .gallery-item .image-placeholder {
+    padding: 0.75rem;
+  }
+
+  /* Program cards with images */
+  .program-card {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .program-card:hover {
+    border-color: rgba(45, 139, 78, 0.3);
+    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .program-image-wrapper {
+    position: relative;
+  }
+
+  .program-image-wrapper .image-placeholder {
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px dashed rgba(45, 139, 78, 0.2);
+  }
+
+  .program-content {
+    padding: 2rem;
+    position: relative;
+  }
+
+  .program-icon {
+    position: absolute;
+    top: -24px;
+    right: 1.5rem;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #3D9A8B, #2D8B4E);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 8px 20px rgba(61, 154, 139, 0.3);
+  }
+
+  .program-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .program-stat {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #3D9A8B;
+    background: rgba(61, 154, 139, 0.1);
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+  }
+
+  /* Health cards */
+  .health-card {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(247, 147, 30, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .health-card:hover {
+    border-color: rgba(247, 147, 30, 0.3);
+    box-shadow: 0 10px 30px rgba(247, 147, 30, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .health-image-wrapper .image-placeholder {
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px dashed rgba(247, 147, 30, 0.2);
+  }
+
+  .health-content {
+    padding: 2rem;
+    position: relative;
+  }
+
+  .health-icon {
+    position: absolute;
+    top: -24px;
+    right: 1.5rem;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 8px 20px rgba(247, 147, 30, 0.3);
+  }
+
+  .health-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .health-stat {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #F7931E;
+  }
+
+  .health-focus {
+    font-size: 0.75rem;
+    color: #666;
+    background: rgba(247, 147, 30, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+  }
+
+  .service-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(247, 147, 30, 0.08);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #F7931E;
+  }
+
+  .health-highlight {
+    background: white;
+    padding: 2rem;
+    border-radius: 24px;
+    border: 1px solid rgba(247, 147, 30, 0.1);
+  }
+
+  .health-highlight-image {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .health-highlight-image {
+      width: 250px;
+    }
+  }
+
+  /* Agriculture cards */
+  .agriculture-showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .agriculture-card-large {
+    display: grid;
+    gap: 2rem;
+    background: white;
+    border-radius: 24px;
+    border: 1px solid rgba(141, 198, 63, 0.2);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  @media (min-width: 768px) {
+    .agriculture-card-large {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .agriculture-card-reverse {
+      direction: rtl;
+    }
+
+    .agriculture-card-reverse > * {
+      direction: ltr;
+    }
+  }
+
+  .agriculture-card-large:hover {
+    border-color: rgba(141, 198, 63, 0.4);
+    box-shadow: 0 20px 60px rgba(141, 198, 63, 0.1);
+  }
+
+  .agriculture-image .image-placeholder {
+    height: 100%;
+    min-height: 250px;
+    border-radius: 0;
+    border: none;
+  }
+
+  .agriculture-content {
+    padding: 2.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .agriculture-icon {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #8DC63F, #6BA32D);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 8px 24px rgba(141, 198, 63, 0.3);
+  }
+
+  .agriculture-stat {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #8DC63F;
+    background: rgba(141, 198, 63, 0.1);
+    padding: 0.375rem 1rem;
+    border-radius: 9999px;
+    margin-top: 0.5rem;
+    width: fit-content;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    position: relative;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 32px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    overflow: hidden;
+  }
+
+  .cta-icon-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cta-icon-circle {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.15), rgba(45, 139, 78, 0.15));
+    border-radius: 24px;
+    color: #F7931E;
+    border: 2px solid rgba(247, 147, 30, 0.2);
+  }
+
+  .cta-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .cta-orb-1 {
+    width: 300px;
+    height: 300px;
+    background: #2D8B4E;
+    top: -100px;
+    right: -100px;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .cta-orb-2 {
+    width: 200px;
+    height: 200px;
+    background: #F7931E;
+    bottom: -50px;
+    left: -50px;
+    animation: float 6s ease-in-out infinite reverse;
+  }
+</style>

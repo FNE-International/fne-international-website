@@ -1,0 +1,61 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+  animationDelay?: number;
+}
+
+const { title, description, icon, animationDelay = 0 } = Astro.props;
+const delayClass = animationDelay > 0 ? `delay-${animationDelay}` : '';
+---
+
+<div class={`value-card animate-on-scroll ${delayClass}`}>
+  <div class="value-icon">
+    <div class="icon-3d">
+      <div class="icon-3d-inner animate-wobble">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={icon} />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <h3 class="text-lg font-bold text-gray-900 mt-4">{title}</h3>
+  <p class="text-gray-600 mt-2 text-sm leading-relaxed">{description}</p>
+</div>
+
+<style>
+  .value-card {
+    padding: 2rem;
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.4s ease;
+    text-align: center;
+  }
+
+  .value-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(45, 139, 78, 0.3);
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+  }
+
+  .value-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(61, 154, 139, 0.1));
+    border-radius: 16px;
+    color: #2D8B4E;
+    transition: all 0.4s ease;
+  }
+
+  .value-card:hover .value-icon {
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+    transform: scale(1.1);
+  }
+</style>

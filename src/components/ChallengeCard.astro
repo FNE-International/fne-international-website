@@ -1,0 +1,48 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+  animationDelay?: number;
+}
+
+const { title, description, icon, animationDelay = 0 } = Astro.props;
+const delayClass = animationDelay > 0 ? `delay-${animationDelay}` : '';
+---
+
+<div class={`challenge-card animate-on-scroll ${delayClass}`}>
+  <div class="challenge-icon">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={icon} />
+    </svg>
+  </div>
+  <h3 class="text-base font-bold text-gray-900 mb-2">{title}</h3>
+  <p class="text-gray-600 text-sm leading-relaxed">{description}</p>
+</div>
+
+<style>
+  .challenge-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid rgba(247, 147, 30, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .challenge-card:hover {
+    border-color: rgba(247, 147, 30, 0.3);
+    box-shadow: 0 10px 30px rgba(247, 147, 30, 0.1);
+  }
+
+  .challenge-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.1), rgba(45, 139, 78, 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #F7931E;
+    margin-bottom: 1rem;
+  }
+</style>

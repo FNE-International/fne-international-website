@@ -1,0 +1,434 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import Section from '../../components/Section.astro';
+import Container from '../../components/Container.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CTASection from '../../components/CTASection.astro';
+import StatCard from '../../components/StatCard.astro';
+
+const involvementOptions = [
+  {
+    title: 'Volunteer Trips',
+    description: 'Join a service trip to Nicaragua, Peru, or the Dominican Republic. Work alongside communities on construction, education, and health projects.',
+    icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    link: '/get-involved/trips',
+    color: 'green',
+    stats: ['Group & individual trips', '1-2 weeks duration', 'All skill levels welcome'],
+  },
+  {
+    title: 'Remote Volunteering',
+    description: 'Make an impact from anywhere in the world. Use your professional skills to support our programs through virtual opportunities.',
+    icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+    link: '/get-involved/remote',
+    color: 'teal',
+    stats: ['Flexible hours', 'Work from home', 'Various skill sets needed'],
+  },
+  {
+    title: 'Internships',
+    description: 'Gain hands-on experience in international development. Our internship program offers meaningful work in nonprofit management.',
+    icon: 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+    link: '/get-involved/internships',
+    color: 'orange',
+    stats: ['3-6 month programs', 'Remote & in-person', 'College credit available'],
+  },
+  {
+    title: 'Partner With Us',
+    description: 'Explore corporate partnerships, group volunteering, and organizational collaborations that create lasting impact.',
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+    link: '/get-involved/partners',
+    color: 'green',
+    stats: ['Corporate giving', 'Team building trips', 'Cause marketing'],
+  },
+];
+
+const stats = [
+  { value: '1,000+', label: 'Volunteers Annually', icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z' },
+  { value: '15,000+', label: 'Volunteer Hours', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
+  { value: '35+', label: 'Years of Service', icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
+  { value: '3', label: 'Countries', icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064' },
+];
+
+const otherWays = [
+  {
+    title: 'Donate',
+    description: 'Support our programs with a one-time or monthly gift.',
+    icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+    link: '/donate',
+  },
+  {
+    title: 'Join Hope Collective',
+    description: 'Become a monthly donor and join our community of changemakers.',
+    icon: 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z',
+    link: '/hope-collective',
+  },
+  {
+    title: 'Spread the Word',
+    description: 'Follow us on social media and share our mission with your network.',
+    icon: 'M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z',
+    link: '#social',
+  },
+  {
+    title: 'In-Kind Donations',
+    description: 'Donate supplies, equipment, or professional services.',
+    icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4',
+    link: '/contact',
+  },
+];
+---
+
+<BaseLayout title="Get Involved">
+  <!-- Hero Section -->
+  <HeroSection
+    badge="Make a Difference"
+    title="Get"
+    titleAccent="Involved"
+    subtitle="There are many ways to join our mission. Whether you can give your time, talents, or resources, you can make a lasting impact."
+    image="/team.jpg"
+    imageAlt="Volunteers working with community"
+  />
+
+  <!-- Stats Section -->
+  <Section background="white" padding="sm">
+    <Container>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {stats.map((stat, index) => (
+          <StatCard
+            value={stat.value}
+            label={stat.label}
+            icon={stat.icon}
+            animationDelay={(index + 1) * 100}
+          />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Main Involvement Options -->
+  <Section background="gray" withGrid>
+    <Container>
+      <SectionHeader
+        label="Ways to Help"
+        title="Find Your Path to Impact"
+        subtitle="Choose the opportunity that fits your schedule, skills, and passion."
+      />
+
+      <div class="involvement-grid">
+        {involvementOptions.map((option, index) => (
+          <a href={option.link} class={`involvement-card involvement-card-${option.color} animate-on-scroll delay-${(index + 1) * 100}`}>
+            <div class={`involvement-icon involvement-icon-${option.color}`}>
+              <div class="icon-3d">
+                <div class="icon-3d-inner animate-rotate-3d">
+                  <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={option.icon} />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mt-6">{option.title}</h3>
+            <p class="text-gray-600 mt-3 leading-relaxed">{option.description}</p>
+            <ul class="involvement-stats mt-6">
+              {option.stats.map((stat) => (
+                <li class="flex items-center gap-2 text-sm text-gray-500">
+                  <svg class="w-4 h-4 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  {stat}
+                </li>
+              ))}
+            </ul>
+            <div class="involvement-link mt-6">
+              <span>Learn More</span>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Other Ways to Help -->
+  <Section background="white">
+    <Container>
+      <SectionHeader
+        label="More Options"
+        title="Other Ways to Support"
+        subtitle="Every contribution makes a difference."
+        labelColor="orange"
+      />
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {otherWays.map((way, index) => (
+          <a href={way.link} class={`other-way-card animate-on-scroll delay-${(index + 1) * 100}`}>
+            <div class="other-way-icon">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={way.icon} />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mt-4">{way.title}</h3>
+            <p class="text-gray-600 text-sm mt-2">{way.description}</p>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Testimonial Section -->
+  <Section background="gradient">
+    <Container size="md">
+      <div class="testimonial-card animate-on-scroll">
+        <div class="icon-3d mb-6">
+          <div class="icon-3d-inner animate-rotate-3d">
+            <div class="testimonial-quote-icon">
+              <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <blockquote class="text-xl md:text-2xl text-gray-700 italic leading-relaxed mb-6">
+          Volunteering with FNE changed my perspective on what it means to truly help a community. Working hand-in-hand with families, not just doing things for them, made all the difference.
+        </blockquote>
+        <div class="testimonial-attribution">
+          <div class="text-gray-900 font-semibold">Maria S.</div>
+          <div class="text-sm text-gray-500">Volunteer, Nicaragua 2023</div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Ready to Start -->
+  <Section background="white">
+    <Container size="md">
+      <div class="ready-card animate-on-scroll">
+        <div class="ready-icon">
+          <div class="icon-3d">
+            <div class="icon-3d-inner animate-float">
+              <svg class="w-12 h-12 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900 mt-6 mb-4">Not Sure Where to Start?</h2>
+        <p class="text-gray-600 mb-6">We're here to help you find the perfect opportunity. Reach out and let's talk about how you can make a difference.</p>
+        <a href="/contact" class="inline-flex items-center gap-3 px-8 py-4 bg-[#2D8B4E] text-white font-bold rounded-full hover:bg-[#246b3e] transition-all duration-300 shadow-lg hover:shadow-xl">
+          <span>Contact Us</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA -->
+  <CTASection
+    title="Ready to Make an Impact?"
+    subtitle="Join thousands of volunteers and supporters who are creating lasting change in communities across Latin America."
+    icon="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+    primaryButtonText="View Upcoming Trips"
+    primaryButtonLink="/get-involved/trips"
+    secondaryButtonText="Donate Now"
+    secondaryButtonLink="/donate"
+  />
+</BaseLayout>
+
+<style>
+  /* Involvement grid */
+  .involvement-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .involvement-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Involvement card */
+  .involvement-card {
+    display: block;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 24px;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+    text-decoration: none;
+  }
+
+  .involvement-card-green {
+    border-color: rgba(45, 139, 78, 0.15);
+  }
+
+  .involvement-card-teal {
+    border-color: rgba(61, 154, 139, 0.15);
+  }
+
+  .involvement-card-orange {
+    border-color: rgba(247, 147, 30, 0.15);
+  }
+
+  .involvement-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(45, 139, 78, 0.15);
+  }
+
+  .involvement-card-green:hover {
+    border-color: rgba(45, 139, 78, 0.4);
+  }
+
+  .involvement-card-teal:hover {
+    border-color: rgba(61, 154, 139, 0.4);
+  }
+
+  .involvement-card-orange:hover {
+    border-color: rgba(247, 147, 30, 0.4);
+  }
+
+  .involvement-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+  }
+
+  .involvement-icon-green {
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(61, 154, 139, 0.1));
+    color: #2D8B4E;
+  }
+
+  .involvement-icon-teal {
+    background: linear-gradient(135deg, rgba(61, 154, 139, 0.1), rgba(45, 139, 78, 0.1));
+    color: #3D9A8B;
+  }
+
+  .involvement-icon-orange {
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.1), rgba(45, 139, 78, 0.1));
+    color: #F7931E;
+  }
+
+  .involvement-card:hover .involvement-icon-green {
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+  }
+
+  .involvement-card:hover .involvement-icon-teal {
+    background: linear-gradient(135deg, #3D9A8B, #2D8B4E);
+    color: white;
+  }
+
+  .involvement-card:hover .involvement-icon-orange {
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    color: white;
+  }
+
+  .involvement-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .involvement-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #2D8B4E;
+    font-weight: 600;
+    transition: gap 0.3s ease;
+  }
+
+  .involvement-card:hover .involvement-link {
+    gap: 1rem;
+  }
+
+  /* Other ways card */
+  .other-way-card {
+    display: block;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.03), rgba(247, 147, 30, 0.03));
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.4s ease;
+  }
+
+  .other-way-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(45, 139, 78, 0.3);
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+  }
+
+  .other-way-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2D8B4E;
+    transition: all 0.4s ease;
+  }
+
+  .other-way-card:hover .other-way-icon {
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+    transform: scale(1.1);
+  }
+
+  /* Testimonial */
+  .testimonial-card {
+    text-align: center;
+    background: white;
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+  }
+
+  .testimonial-quote-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    border-radius: 20px;
+    color: #2D8B4E;
+  }
+
+  .testimonial-attribution {
+    margin-top: 1.5rem;
+  }
+
+  /* Ready card */
+  .ready-card {
+    text-align: center;
+    padding: 3rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.03), rgba(247, 147, 30, 0.03));
+    border-radius: 24px;
+    border: 2px solid rgba(45, 139, 78, 0.1);
+  }
+
+  .ready-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 40px rgba(45, 139, 78, 0.15);
+  }
+</style>

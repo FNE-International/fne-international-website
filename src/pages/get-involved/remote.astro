@@ -1,0 +1,432 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import Section from '../../components/Section.astro';
+import Container from '../../components/Container.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CTASection from '../../components/CTASection.astro';
+import ValueCard from '../../components/ValueCard.astro';
+
+const opportunities = [
+  {
+    title: 'Social Media & Marketing',
+    description: 'Help us share our story through content creation, social media management, and digital marketing campaigns.',
+    skills: ['Content writing', 'Graphic design', 'Social media platforms'],
+    commitment: '3-5 hours/week',
+    icon: 'M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z',
+    color: 'green',
+  },
+  {
+    title: 'Translation Services',
+    description: 'Translate documents, communications, and educational materials between English and Spanish.',
+    skills: ['Fluent Spanish & English', 'Written communication', 'Cultural awareness'],
+    commitment: '2-4 hours/week',
+    icon: 'M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129',
+    color: 'teal',
+  },
+  {
+    title: 'Grant Writing & Research',
+    description: 'Research funding opportunities and help write compelling grant proposals to support our programs.',
+    skills: ['Research skills', 'Grant writing', 'Nonprofit experience a plus'],
+    commitment: '5-10 hours/week',
+    icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+    color: 'orange',
+  },
+  {
+    title: 'Web & Tech Support',
+    description: 'Assist with website updates, database management, and technical projects.',
+    skills: ['Web development', 'Database skills', 'Technical troubleshooting'],
+    commitment: '3-5 hours/week',
+    icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
+    color: 'green',
+  },
+  {
+    title: 'Virtual Tutoring',
+    description: 'Teach English or other subjects to students in our programs through video calls.',
+    skills: ['Teaching experience', 'Patience', 'Basic Spanish helpful'],
+    commitment: '2-3 hours/week',
+    icon: 'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z',
+    color: 'teal',
+  },
+  {
+    title: 'Administrative Support',
+    description: 'Help with data entry, donor communications, event planning, and general administrative tasks.',
+    skills: ['Organization', 'Attention to detail', 'Microsoft Office/Google Suite'],
+    commitment: '3-5 hours/week',
+    icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01',
+    color: 'orange',
+  },
+];
+
+const benefits = [
+  {
+    title: 'Flexible Schedule',
+    description: 'Work on your own time, from anywhere in the world.',
+    icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+  },
+  {
+    title: 'Real Impact',
+    description: 'Your skills directly support communities in Latin America.',
+    icon: 'M13 10V3L4 14h7v7l9-11h-7z',
+  },
+  {
+    title: 'Professional Growth',
+    description: 'Gain nonprofit experience and expand your portfolio.',
+    icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
+  },
+  {
+    title: 'Community Connection',
+    description: 'Join a network of passionate volunteers worldwide.',
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+  },
+];
+
+const process = [
+  {
+    step: '1',
+    title: 'Apply Online',
+    description: 'Fill out our volunteer interest form with your skills and availability.',
+  },
+  {
+    step: '2',
+    title: 'Introduction Call',
+    description: 'Chat with our volunteer coordinator to find the right fit.',
+  },
+  {
+    step: '3',
+    title: 'Onboarding',
+    description: 'Get oriented to FNE and your specific role.',
+  },
+  {
+    step: '4',
+    title: 'Start Contributing',
+    description: 'Begin making an impact from wherever you are!',
+  },
+];
+---
+
+<BaseLayout title="Remote Volunteering">
+  <!-- Hero Section -->
+  <HeroSection
+    badge="Virtual Opportunities"
+    title="Remote"
+    titleAccent="Volunteering"
+    subtitle="Make a meaningful impact from anywhere in the world. Use your professional skills to support communities across Latin America."
+    image="/team.jpg"
+    imageAlt="Remote volunteer working"
+  />
+
+  <!-- Benefits Section -->
+  <Section background="white" padding="sm">
+    <Container>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {benefits.map((benefit, index) => (
+          <ValueCard
+            title={benefit.title}
+            description={benefit.description}
+            icon={benefit.icon}
+            animationDelay={(index + 1) * 100}
+          />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Opportunities -->
+  <Section background="gray" withGrid>
+    <Container>
+      <SectionHeader
+        label="Open Roles"
+        title="Current Opportunities"
+        subtitle="Find a volunteer role that matches your skills and interests."
+        labelColor="green"
+      />
+
+      <div class="opportunities-grid">
+        {opportunities.map((opp, index) => (
+          <div class={`opportunity-card opportunity-card-${opp.color} animate-on-scroll delay-${(index + 1) * 100}`}>
+            <div class={`opportunity-icon opportunity-icon-${opp.color}`}>
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={opp.icon} />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mt-4">{opp.title}</h3>
+            <p class="text-gray-600 mt-2 text-sm leading-relaxed">{opp.description}</p>
+
+            <div class="opportunity-details mt-4">
+              <div class="opportunity-commitment">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{opp.commitment}</span>
+              </div>
+            </div>
+
+            <div class="opportunity-skills mt-4">
+              <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Skills Needed</p>
+              <div class="flex flex-wrap gap-1">
+                {opp.skills.map((skill) => (
+                  <span class="skill-tag">{skill}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-8">
+        <p class="text-gray-500">
+          Don't see your skill listed? <a href="/contact" class="text-[#2D8B4E] font-semibold hover:underline">Tell us how you'd like to help</a>
+        </p>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- How It Works -->
+  <Section background="white">
+    <Container size="md">
+      <SectionHeader
+        label="Getting Started"
+        title="How It Works"
+        subtitle="Joining our remote volunteer team is easy."
+        labelColor="orange"
+      />
+
+      <div class="process-steps">
+        {process.map((step, index) => (
+          <div class={`process-step animate-on-scroll delay-${(index + 1) * 100}`}>
+            <div class="process-step-number">{step.step}</div>
+            <div class="process-step-content">
+              <h3 class="text-lg font-bold text-gray-900">{step.title}</h3>
+              <p class="text-gray-600 text-sm mt-1">{step.description}</p>
+            </div>
+            {index < process.length - 1 && (
+              <div class="process-step-line"></div>
+            )}
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Testimonial -->
+  <Section background="gradient">
+    <Container size="md">
+      <div class="testimonial-card animate-on-scroll">
+        <div class="icon-3d mb-6">
+          <div class="icon-3d-inner animate-rotate-3d">
+            <div class="testimonial-quote-icon">
+              <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <blockquote class="text-xl md:text-2xl text-gray-700 italic leading-relaxed mb-6">
+          Even though I can't travel right now, I feel connected to FNE's mission through my remote work. Translating letters between sponsors and students is incredibly rewarding.
+        </blockquote>
+        <div class="testimonial-attribution">
+          <div class="text-gray-900 font-semibold">Carmen L.</div>
+          <div class="text-sm text-gray-500">Remote Volunteer, Translation Team</div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA -->
+  <CTASection
+    title="Ready to Volunteer Remotely?"
+    subtitle="Apply today and start making an impact from wherever you are."
+    icon="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+    primaryButtonText="Apply Now"
+    primaryButtonLink="/contact"
+    secondaryButtonText="Learn More"
+    secondaryButtonLink="/get-involved"
+  />
+</BaseLayout>
+
+<style>
+  /* Opportunities grid */
+  .opportunities-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    .opportunities-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .opportunities-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Opportunity card */
+  .opportunity-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+  }
+
+  .opportunity-card-green {
+    border-color: rgba(45, 139, 78, 0.15);
+  }
+
+  .opportunity-card-teal {
+    border-color: rgba(61, 154, 139, 0.15);
+  }
+
+  .opportunity-card-orange {
+    border-color: rgba(247, 147, 30, 0.15);
+  }
+
+  .opportunity-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(45, 139, 78, 0.15);
+  }
+
+  .opportunity-card-green:hover {
+    border-color: rgba(45, 139, 78, 0.4);
+  }
+
+  .opportunity-card-teal:hover {
+    border-color: rgba(61, 154, 139, 0.4);
+  }
+
+  .opportunity-card-orange:hover {
+    border-color: rgba(247, 147, 30, 0.4);
+  }
+
+  .opportunity-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+  }
+
+  .opportunity-icon-green {
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(61, 154, 139, 0.1));
+    color: #2D8B4E;
+  }
+
+  .opportunity-icon-teal {
+    background: linear-gradient(135deg, rgba(61, 154, 139, 0.1), rgba(45, 139, 78, 0.1));
+    color: #3D9A8B;
+  }
+
+  .opportunity-icon-orange {
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.1), rgba(45, 139, 78, 0.1));
+    color: #F7931E;
+  }
+
+  .opportunity-card:hover .opportunity-icon-green {
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+  }
+
+  .opportunity-card:hover .opportunity-icon-teal {
+    background: linear-gradient(135deg, #3D9A8B, #2D8B4E);
+    color: white;
+  }
+
+  .opportunity-card:hover .opportunity-icon-orange {
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    color: white;
+  }
+
+  .opportunity-commitment {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.875rem;
+  }
+
+  .skill-tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background: rgba(45, 139, 78, 0.08);
+    color: #2D8B4E;
+    font-size: 0.7rem;
+    font-weight: 500;
+    border-radius: 6px;
+  }
+
+  /* Process steps */
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .process-step {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+  }
+
+  .process-step-number {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .process-step-content {
+    flex: 1;
+    padding-top: 0.5rem;
+  }
+
+  .process-step-line {
+    position: absolute;
+    left: 23px;
+    top: 64px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #2D8B4E, #F7931E);
+  }
+
+  /* Testimonial */
+  .testimonial-card {
+    text-align: center;
+    background: white;
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+  }
+
+  .testimonial-quote-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    border-radius: 20px;
+    color: #2D8B4E;
+  }
+
+  .testimonial-attribution {
+    margin-top: 1.5rem;
+  }
+</style>

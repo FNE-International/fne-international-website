@@ -1,0 +1,48 @@
+---
+interface Props {
+  class?: string;
+  background?: 'white' | 'gray' | 'gradient' | 'gradient-dark';
+  padding?: 'sm' | 'md' | 'lg';
+  spacing?: 'small' | 'medium' | 'large';
+  withGrid?: boolean;
+}
+
+const {
+  class: className = '',
+  background = 'white',
+  padding,
+  spacing,
+  withGrid = false
+} = Astro.props;
+
+const bgClasses: Record<string, string> = {
+  white: 'bg-white',
+  gray: 'bg-gray-50',
+  gradient: 'bg-gradient-to-b from-white to-gray-50',
+  'gradient-dark': 'section-gradient-dark',
+};
+
+// Support both 'padding' and 'spacing' props for backwards compatibility
+const spacingValue = spacing || padding || 'md';
+const paddingClasses: Record<string, string> = {
+  small: 'py-12',
+  sm: 'py-16',
+  medium: 'py-24',
+  md: 'py-24',
+  large: 'py-32',
+  lg: 'py-32',
+};
+---
+
+<section class:list={[bgClasses[background], paddingClasses[spacingValue], 'relative', className]}>
+  {withGrid && <div class="absolute inset-0 cyber-grid opacity-20"></div>}
+  <div class="relative">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section-gradient-dark {
+    background: linear-gradient(135deg, #2D8B4E 0%, #3D9A8B 50%, #2D8B4E 100%);
+  }
+</style>

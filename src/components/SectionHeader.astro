@@ -1,0 +1,42 @@
+---
+interface Props {
+  label?: string;
+  title: string;
+  subtitle?: string;
+  align?: 'left' | 'center';
+  labelColor?: 'green' | 'orange' | 'teal';
+}
+
+const {
+  label,
+  title,
+  subtitle,
+  align = 'center',
+  labelColor = 'green'
+} = Astro.props;
+
+const labelColors = {
+  green: 'text-[#2D8B4E]',
+  orange: 'text-[#F7931E]',
+  teal: 'text-[#3D9A8B]',
+};
+
+const alignClasses = align === 'center' ? 'text-center' : 'text-left';
+const subtitleAlign = align === 'center' ? 'max-w-2xl mx-auto' : 'max-w-2xl';
+---
+
+<div class:list={[alignClasses, 'mb-16']}>
+  {label && (
+    <p class:list={[labelColors[labelColor], 'font-semibold tracking-[0.3em] uppercase mb-4 text-sm']}>
+      {label}
+    </p>
+  )}
+  <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+    <slot name="title">{title}</slot>
+  </h2>
+  {subtitle && (
+    <p class:list={['text-xl text-gray-500', subtitleAlign]}>
+      {subtitle}
+    </p>
+  )}
+</div>

@@ -1,0 +1,1109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from '../components/CTASection.astro';
+---
+
+<BaseLayout title="Home">
+  <!-- Hero Section - Ultra Futuristic Light Mode -->
+  <section class="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
+    <!-- Animated gradient mesh -->
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(45,139,78,0.15),transparent)]"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_80%_80%,rgba(247,147,30,0.1),transparent)]"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_20%_60%,rgba(61,154,139,0.1),transparent)]"></div>
+    </div>
+
+    <!-- Animated orbs -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="orb orb-4"></div>
+    </div>
+
+    <!-- Cyber grid -->
+    <div class="absolute inset-0 cyber-grid opacity-30"></div>
+
+    <!-- Floating particles -->
+    <div class="particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <!-- Glowing badge -->
+          <div class="inline-flex items-center gap-3 glass-card px-5 py-3 rounded-full mb-8 border border-[#2D8B4E]/20 shadow-lg">
+            <span class="relative flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2D8B4E] opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-[#2D8B4E]"></span>
+            </span>
+            <span class="text-[#2D8B4E] text-sm font-semibold tracking-wider uppercase">Pathways Out of Poverty</span>
+          </div>
+
+          <h1 class="text-6xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tight">
+            <span class="block text-gray-900 text-reveal">Facilitate.</span>
+            <span class="block neon-text text-reveal" style="animation-delay: 0.2s">Network.</span>
+            <span class="block text-gray-900 text-reveal" style="animation-delay: 0.4s">Empower.</span>
+          </h1>
+
+          <p class="text-xl md:text-2xl mb-12 text-gray-600 max-w-xl leading-relaxed font-light">
+            Building <span class="text-gray-900 font-medium">pathways out of poverty</span> through education, healthcare, and sustainable community development.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-5">
+            <a href="/donate" class="cyber-button primary group">
+              <span class="relative z-10 flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                </svg>
+                Donate Now
+              </span>
+              <div class="cyber-button-glitch"></div>
+            </a>
+            <a href="/get-involved" class="cyber-button secondary group">
+              <span class="relative z-10">Get Involved</span>
+              <svg class="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero image placeholder -->
+        <div class="relative hidden lg:block">
+          <div class="image-frame">
+            <div class="image-placeholder aspect-square">
+              <div class="placeholder-content">
+                <svg class="w-16 h-16 text-[#2D8B4E]/30 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="text-gray-400 text-sm">Hero Image</span>
+                <span class="text-gray-500 text-xs mt-1">Your volunteers in action</span>
+              </div>
+            </div>
+            <!-- Floating accent images -->
+            <div class="absolute -bottom-8 -left-8 w-32 h-32 image-frame-small">
+              <div class="image-placeholder-small">
+                <span class="text-gray-400 text-xs">Photo 1</span>
+              </div>
+            </div>
+            <div class="absolute -top-8 -right-8 w-24 h-24 image-frame-small">
+              <div class="image-placeholder-small">
+                <span class="text-gray-400 text-xs">Photo 2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator with glow -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+      <div class="scroll-indicator">
+        <div class="scroll-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Stats - Holographic cards -->
+  <section class="py-32 bg-white relative overflow-hidden">
+    <!-- Background effects -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(45,139,78,0.05),transparent_50%)]"></div>
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2D8B4E]/30 to-transparent"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center mb-20">
+        <p class="text-[#F7931E] font-semibold tracking-[0.3em] uppercase mb-4 text-sm">Our Impact</p>
+        <h2 class="text-5xl md:text-6xl font-black text-gray-900">
+          Creating <span class="neon-text">Lasting</span> Change
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6" id="stats-grid">
+        <div class="stat-card group">
+          <div class="stat-card-inner">
+            <div class="stat-number">
+              <span class="counter text-transparent bg-clip-text bg-gradient-to-r from-[#2D8B4E] to-[#8DC63F]" data-target="15000" data-suffix="k+" data-divide="1000">0</span>
+            </div>
+            <p class="text-gray-500 mt-3 font-medium tracking-wide">Volunteer Hours</p>
+            <div class="stat-bar">
+              <div class="stat-bar-fill" style="--bar-width: 100%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card group">
+          <div class="stat-card-inner">
+            <div class="stat-number">
+              <span class="counter text-transparent bg-clip-text bg-gradient-to-r from-[#3D9A8B] to-[#2D8B4E]" data-target="12000" data-suffix="k+" data-divide="1000">0</span>
+            </div>
+            <p class="text-gray-500 mt-3 font-medium tracking-wide">Lives Impacted</p>
+            <div class="stat-bar">
+              <div class="stat-bar-fill" style="--bar-width: 100%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card group">
+          <div class="stat-card-inner">
+            <div class="stat-number">
+              <span class="counter text-transparent bg-clip-text bg-gradient-to-r from-[#8DC63F] to-[#F7931E]" data-target="100" data-suffix="+">0</span>
+            </div>
+            <p class="text-gray-500 mt-3 font-medium tracking-wide">Eco-Latrines Built</p>
+            <div class="stat-bar">
+              <div class="stat-bar-fill" style="--bar-width: 100%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card group">
+          <div class="stat-card-inner">
+            <div class="stat-number">
+              <span class="counter text-transparent bg-clip-text bg-gradient-to-r from-[#F7931E] to-[#ff6b00]" data-target="12" data-suffix="">0</span>
+            </div>
+            <p class="text-gray-500 mt-3 font-medium tracking-wide">Medical Brigades</p>
+            <div class="stat-bar">
+              <div class="stat-bar-fill" style="--bar-width: 100%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photo Gallery Showcase -->
+  <section class="py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(61,154,139,0.05),transparent_70%)]"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center mb-16">
+        <p class="text-[#3D9A8B] font-semibold tracking-[0.3em] uppercase mb-4 text-sm">See Our Work</p>
+        <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-6">
+          Stories of <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#F7931E] to-[#8DC63F]">Impact</span>
+        </h2>
+      </div>
+
+      <!-- Bento grid for photos -->
+      <div class="bento-grid">
+        <div class="bento-item bento-large">
+          <div class="bento-image-placeholder">
+            <div class="placeholder-content">
+              <svg class="w-12 h-12 text-[#2D8B4E]/20 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="text-gray-400 text-sm">Community Project</span>
+              <span class="text-gray-500 text-xs">Featured photo from trips</span>
+            </div>
+          </div>
+          <div class="bento-overlay">
+            <span class="text-white font-bold text-xl">Nicaragua 2024</span>
+            <span class="text-gray-200 text-sm">Building homes together</span>
+          </div>
+        </div>
+
+        <div class="bento-item bento-tall">
+          <div class="bento-image-placeholder">
+            <div class="placeholder-content">
+              <svg class="w-10 h-10 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <span class="text-gray-400 text-xs">Volunteers</span>
+            </div>
+          </div>
+          <div class="bento-overlay">
+            <span class="text-white font-semibold">Our Team</span>
+          </div>
+        </div>
+
+        <div class="bento-item">
+          <div class="bento-image-placeholder">
+            <div class="placeholder-content">
+              <svg class="w-8 h-8 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+              <span class="text-gray-400 text-xs">Healthcare</span>
+            </div>
+          </div>
+          <div class="bento-overlay">
+            <span class="text-white font-semibold text-sm">Medical Brigade</span>
+          </div>
+        </div>
+
+        <div class="bento-item">
+          <div class="bento-image-placeholder">
+            <div class="placeholder-content">
+              <svg class="w-8 h-8 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+              <span class="text-gray-400 text-xs">Education</span>
+            </div>
+          </div>
+          <div class="bento-overlay">
+            <span class="text-white font-semibold text-sm">Classrooms</span>
+          </div>
+        </div>
+
+        <div class="bento-item bento-wide">
+          <div class="bento-image-placeholder">
+            <div class="placeholder-content">
+              <svg class="w-10 h-10 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <span class="text-gray-400 text-xs">Housing Projects</span>
+            </div>
+          </div>
+          <div class="bento-overlay">
+            <span class="text-white font-semibold">Building Homes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs Section - Cyberpunk cards -->
+  <section class="py-32 bg-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(247,147,30,0.05),transparent_60%)]"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#F7931E]/30 to-transparent"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center mb-20">
+        <p class="text-[#F7931E] font-semibold tracking-[0.3em] uppercase mb-4 text-sm">Where We Work</p>
+        <h2 class="text-5xl md:text-6xl font-black text-gray-900">Our Programs</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Nicaragua -->
+        <a href="/programs/nicaragua" class="program-card group">
+          <div class="program-card-inner">
+            <!-- Image placeholder -->
+            <div class="program-image">
+              <div class="image-placeholder-light">
+                <svg class="w-12 h-12 text-[#2D8B4E]/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div class="program-flag">🇳🇮</div>
+            </div>
+            <div class="program-content">
+              <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#2D8B4E] transition-colors">Nicaragua</h3>
+              <p class="text-gray-500 text-sm leading-relaxed mb-4">Education programs, health initiatives, and housing construction in communities across Nicaragua.</p>
+              <div class="program-link">
+                <span>Explore programs</span>
+                <svg class="w-4 h-4 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </div>
+            </div>
+            <div class="program-glow program-glow-green"></div>
+          </div>
+        </a>
+
+        <!-- Peru -->
+        <a href="/programs/peru" class="program-card group">
+          <div class="program-card-inner">
+            <div class="program-image">
+              <div class="image-placeholder-light">
+                <svg class="w-12 h-12 text-[#3D9A8B]/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div class="program-flag">🇵🇪</div>
+            </div>
+            <div class="program-content">
+              <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#3D9A8B] transition-colors">Peru</h3>
+              <p class="text-gray-500 text-sm leading-relaxed mb-4">Sustainable development and community empowerment programs throughout Peru.</p>
+              <div class="program-link teal">
+                <span>Explore programs</span>
+                <svg class="w-4 h-4 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </div>
+            </div>
+            <div class="program-glow program-glow-teal"></div>
+          </div>
+        </a>
+
+        <!-- Dominican Republic -->
+        <a href="/programs/dominican-republic" class="program-card group">
+          <div class="program-card-inner">
+            <div class="program-image">
+              <div class="image-placeholder-light">
+                <svg class="w-12 h-12 text-[#F7931E]/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div class="program-flag">🇩🇴</div>
+            </div>
+            <div class="program-content">
+              <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#F7931E] transition-colors">Dominican Republic</h3>
+              <p class="text-gray-500 text-sm leading-relaxed mb-4">Healthcare access and community development initiatives in the Dominican Republic.</p>
+              <div class="program-link orange">
+                <span>Explore programs</span>
+                <svg class="w-4 h-4 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </div>
+            </div>
+            <div class="program-glow program-glow-orange"></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hope Collective - Epic CTA -->
+  <section class="py-40 relative overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-orange-50/30">
+    <!-- Massive gradient orbs -->
+    <div class="absolute inset-0">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#2D8B4E] rounded-full filter blur-[200px] opacity-10 animate-pulse-slow"></div>
+      <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-[#F7931E] rounded-full filter blur-[150px] opacity-5 animate-float"></div>
+      <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#3D9A8B] rounded-full filter blur-[150px] opacity-8 animate-float-delayed"></div>
+    </div>
+
+    <!-- Grid pattern -->
+    <div class="absolute inset-0 cyber-grid opacity-20"></div>
+
+    <!-- Animated lines -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#8DC63F]/20 to-transparent animate-scan"></div>
+      <div class="absolute top-2/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#F7931E]/20 to-transparent animate-scan" style="animation-delay: 2s"></div>
+      <div class="absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#3D9A8B]/20 to-transparent animate-scan" style="animation-delay: 4s"></div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-3 glass-card px-6 py-3 rounded-full mb-10 border border-[#2D8B4E]/20 shadow-lg">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2D8B4E] opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-[#2D8B4E]"></span>
+        </span>
+        <span class="text-[#2D8B4E] text-sm font-semibold">Join 500+ monthly supporters</span>
+      </div>
+
+      <h2 class="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.95]">
+        <span class="text-gray-900">Join The</span><br/>
+        <span class="neon-text-large">Hope Collective</span>
+      </h2>
+
+      <p class="text-xl md:text-2xl mb-14 text-gray-600 max-w-2xl mx-auto leading-relaxed font-light">
+        Become a monthly donor and help us create <span class="text-gray-900 font-medium">sustainable, lasting change</span> in communities that need it most.
+      </p>
+
+      <a href="/hope-collective" class="mega-button group">
+        <span class="mega-button-content">
+          <span class="text-xl font-bold">Become a Member</span>
+          <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </span>
+        <div class="mega-button-glow"></div>
+        <div class="mega-button-shine"></div>
+      </a>
+
+      <!-- Floating elements -->
+      <div class="absolute top-20 left-10 w-4 h-4 border-2 border-[#2D8B4E]/20 rotate-45 animate-float"></div>
+      <div class="absolute bottom-20 right-10 w-6 h-6 border-2 border-[#F7931E]/20 rotate-12 animate-float-delayed"></div>
+      <div class="absolute top-40 right-20 w-3 h-3 bg-[#3D9A8B]/20 rounded-full animate-pulse"></div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <CTASection
+    title="Ready to Make a Difference?"
+    subtitle="Whether you want to volunteer, donate, or partner with us, we'd love to hear from you."
+    icon="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+    primaryButtonText="Get in Touch"
+    primaryButtonLink="/contact"
+    secondaryButtonText="Learn More"
+    secondaryButtonLink="/about"
+  />
+</BaseLayout>
+
+<style>
+  /* Orb animations - Light mode */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: float-orb 20s ease-in-out infinite;
+  }
+
+  .orb-1 {
+    top: 10%;
+    left: 10%;
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, #2D8B4E, #8DC63F);
+    opacity: 0.08;
+  }
+
+  .orb-2 {
+    top: 60%;
+    right: 10%;
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    opacity: 0.06;
+    animation-delay: -5s;
+  }
+
+  .orb-3 {
+    bottom: 10%;
+    left: 30%;
+    width: 350px;
+    height: 350px;
+    background: linear-gradient(135deg, #3D9A8B, #2D8B4E);
+    opacity: 0.07;
+    animation-delay: -10s;
+  }
+
+  .orb-4 {
+    top: 30%;
+    right: 30%;
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(135deg, #8DC63F, #3D9A8B);
+    opacity: 0.05;
+    animation-delay: -15s;
+  }
+
+  @keyframes float-orb {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    25% {
+      transform: translate(50px, -50px) scale(1.1);
+    }
+    50% {
+      transform: translate(-30px, 30px) scale(0.95);
+    }
+    75% {
+      transform: translate(-50px, -30px) scale(1.05);
+    }
+  }
+
+  /* Cyber grid - Light mode */
+  .cyber-grid {
+    background-image:
+      linear-gradient(rgba(45, 139, 78, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(45, 139, 78, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* Particles - Light mode */
+  .particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #2D8B4E;
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: particle-float 15s linear infinite;
+  }
+
+  .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+  .particle:nth-child(2) { left: 20%; animation-delay: -2s; background: #3D9A8B; }
+  .particle:nth-child(3) { left: 35%; animation-delay: -4s; }
+  .particle:nth-child(4) { left: 50%; animation-delay: -6s; background: #8DC63F; }
+  .particle:nth-child(5) { left: 65%; animation-delay: -8s; }
+  .particle:nth-child(6) { left: 75%; animation-delay: -10s; background: #F7931E; }
+  .particle:nth-child(7) { left: 85%; animation-delay: -12s; }
+  .particle:nth-child(8) { left: 95%; animation-delay: -14s; background: #3D9A8B; }
+
+  @keyframes particle-float {
+    0% {
+      transform: translateY(100vh) scale(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.3;
+    }
+    90% {
+      opacity: 0.3;
+    }
+    100% {
+      transform: translateY(-100vh) scale(1);
+      opacity: 0;
+    }
+  }
+
+  /* Glass cards - Light mode */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Neon text - Light mode */
+  .neon-text {
+    background: linear-gradient(135deg, #2D8B4E, #F7931E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px rgba(45, 139, 78, 0.2));
+  }
+
+  .neon-text-large {
+    background: linear-gradient(135deg, #2D8B4E, #F7931E, #2D8B4E);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 40px rgba(45, 139, 78, 0.3));
+    animation: gradient-shift 5s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+  }
+
+  /* Text reveal */
+  .text-reveal {
+    animation: text-reveal 0.8s cubic-bezier(0.77, 0, 0.175, 1) both;
+  }
+
+  @keyframes text-reveal {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Cyber buttons - Light mode */
+  .cyber-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 9999px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .cyber-button.primary {
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    color: white;
+    box-shadow: 0 4px 20px rgba(247, 147, 30, 0.3);
+  }
+
+  .cyber-button.primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 40px rgba(247, 147, 30, 0.4);
+  }
+
+  .cyber-button.secondary {
+    background: white;
+    color: #2D8B4E;
+    border: 2px solid #2D8B4E;
+    box-shadow: 0 4px 20px rgba(45, 139, 78, 0.1);
+  }
+
+  .cyber-button.secondary:hover {
+    background: #2D8B4E;
+    color: white;
+    box-shadow: 0 8px 30px rgba(45, 139, 78, 0.3);
+  }
+
+  .cyber-button.tertiary {
+    background: transparent;
+    color: #2D8B4E;
+    border: 2px solid #2D8B4E;
+  }
+
+  .cyber-button.tertiary:hover {
+    background: #2D8B4E;
+    color: white;
+    box-shadow: 0 8px 30px rgba(45, 139, 78, 0.3);
+  }
+
+  .cyber-button-glitch {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+  }
+
+  .cyber-button:hover .cyber-button-glitch {
+    transform: translateX(100%);
+  }
+
+  /* Scroll indicator - Light mode */
+  .scroll-indicator {
+    width: 24px;
+    height: 40px;
+    border: 2px solid rgba(45, 139, 78, 0.3);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    padding-top: 8px;
+  }
+
+  .scroll-dot {
+    width: 4px;
+    height: 8px;
+    background: #2D8B4E;
+    border-radius: 2px;
+    animation: scroll-bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes scroll-bounce {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(12px); opacity: 0.3; }
+  }
+
+  /* Image frames - Light mode */
+  .image-frame {
+    position: relative;
+    border-radius: 24px;
+    padding: 4px;
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B, #8DC63F);
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.2);
+  }
+
+  .image-placeholder {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .image-frame-small {
+    border-radius: 16px;
+    padding: 2px;
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    box-shadow: 0 10px 40px rgba(247, 147, 30, 0.25);
+  }
+
+  .image-placeholder-small {
+    background: #f8f9fa;
+    border-radius: 14px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .placeholder-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  /* Stat cards - Light mode */
+  .stat-card {
+    position: relative;
+    background: white;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(45, 139, 78, 0.2);
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  .stat-card:hover::before {
+    opacity: 1;
+  }
+
+  .stat-card-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .stat-number {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .stat-bar {
+    margin-top: 1rem;
+    height: 3px;
+    background: rgba(45, 139, 78, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .stat-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2D8B4E, #8DC63F);
+    border-radius: 2px;
+    width: 0;
+    transition: width 1.5s ease-out;
+  }
+
+  .stat-bar-fill.animated {
+    width: var(--bar-width);
+  }
+
+  /* Bento grid - Light mode */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 200px);
+    gap: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(4, 150px);
+    }
+  }
+
+  .bento-item {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: white;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.5s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  }
+
+  .bento-item:hover {
+    transform: scale(1.02);
+    border-color: rgba(45, 139, 78, 0.2);
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+  }
+
+  .bento-large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .bento-tall {
+    grid-row: span 2;
+  }
+
+  .bento-wide {
+    grid-column: span 2;
+  }
+
+  .bento-image-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  }
+
+  .bento-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(45, 139, 78, 0.9), transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+  }
+
+  .bento-item:hover .bento-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Program cards - Light mode */
+  .program-card {
+    display: block;
+    position: relative;
+  }
+
+  .program-card-inner {
+    position: relative;
+    background: white;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  }
+
+  .program-card:hover .program-card-inner {
+    transform: translateY(-8px);
+    border-color: rgba(45, 139, 78, 0.2);
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+  }
+
+  .program-image {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+  }
+
+  .image-placeholder-light {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .program-flag {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+  }
+
+  .program-content {
+    padding: 1.5rem;
+  }
+
+  .program-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #2D8B4E;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  .program-link.teal {
+    color: #3D9A8B;
+  }
+
+  .program-link.orange {
+    color: #F7931E;
+  }
+
+  .program-glow {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150%;
+    height: 100px;
+    filter: blur(60px);
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+  }
+
+  .program-card:hover .program-glow {
+    opacity: 0.15;
+  }
+
+  .program-glow-green {
+    background: linear-gradient(to top, #2D8B4E, transparent);
+  }
+
+  .program-glow-teal {
+    background: linear-gradient(to top, #3D9A8B, transparent);
+  }
+
+  .program-glow-orange {
+    background: linear-gradient(to top, #F7931E, transparent);
+  }
+
+  /* Mega button - Light mode */
+  .mega-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 3rem;
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    border-radius: 9999px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 30px rgba(247, 147, 30, 0.3);
+  }
+
+  .mega-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 50px rgba(247, 147, 30, 0.4);
+  }
+
+  .mega-button-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: white;
+  }
+
+  .mega-button-glow {
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, #F7931E, #ff6b00, #F7931E);
+    background-size: 200% 200%;
+    animation: glow-rotate 3s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .mega-button:hover .mega-button-glow {
+    opacity: 1;
+  }
+
+  @keyframes glow-rotate {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  .mega-button-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .mega-button:hover .mega-button-shine {
+    left: 100%;
+  }
+
+  /* Utility animations */
+  .animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.15; }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: -3s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .animate-scan {
+    animation: scan 8s linear infinite;
+  }
+
+  @keyframes scan {
+    0% { opacity: 0; transform: translateX(-100%); }
+    50% { opacity: 1; }
+    100% { opacity: 0; transform: translateX(100%); }
+  }
+</style>
+
+<script>
+  // Counter animation with easing
+  function animateCounter(element: HTMLElement) {
+    const target = parseInt(element.dataset.target || '0');
+    const suffix = element.dataset.suffix || '';
+    const divide = parseInt(element.dataset.divide || '1');
+    const duration = 2000; // 2 seconds
+    const startTime = performance.now();
+
+    function easeOutExpo(t: number): number {
+      return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    }
+
+    function update(currentTime: number) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easedProgress = easeOutExpo(progress);
+      const currentValue = Math.floor(easedProgress * target);
+
+      // Display value (optionally divided for "k" format)
+      const displayValue = divide > 1 ? Math.floor(currentValue / divide) : currentValue;
+      element.textContent = displayValue + suffix;
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  // Intersection Observer for triggering animations
+  const statsGrid = document.getElementById('stats-grid');
+  let hasAnimated = false;
+
+  if (statsGrid) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          hasAnimated = true;
+
+          // Animate all counters
+          const counters = statsGrid.querySelectorAll('.counter');
+          counters.forEach((counter, index) => {
+            // Stagger the animations slightly
+            setTimeout(() => {
+              animateCounter(counter as HTMLElement);
+            }, index * 100);
+          });
+
+          // Animate all progress bars
+          const bars = statsGrid.querySelectorAll('.stat-bar-fill');
+          bars.forEach((bar, index) => {
+            setTimeout(() => {
+              bar.classList.add('animated');
+            }, index * 100);
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    observer.observe(statsGrid);
+  }
+</script>

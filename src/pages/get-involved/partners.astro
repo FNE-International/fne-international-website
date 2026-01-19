@@ -1,0 +1,843 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import Section from '../../components/Section.astro';
+import Container from '../../components/Container.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CTASection from '../../components/CTASection.astro';
+import ValueCard from '../../components/ValueCard.astro';
+
+const partnershipTypes = [
+  {
+    title: 'Corporate Partnerships',
+    description: 'Align your brand with meaningful social impact through sponsorships, employee engagement programs, and cause marketing initiatives.',
+    benefits: [
+      'Employee volunteer trip opportunities',
+      'Branded impact reports',
+      'Social media recognition',
+      'Executive site visits'
+    ],
+    icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+    color: 'green',
+    cta: 'Explore Corporate Partnerships'
+  },
+  {
+    title: 'Academic Partnerships',
+    description: 'Universities and schools can partner with FNE for study abroad programs, service-learning courses, and research collaborations.',
+    benefits: [
+      'Custom program development',
+      'Faculty-led trip support',
+      'Student internship placements',
+      'Research collaboration'
+    ],
+    icon: 'M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222',
+    color: 'teal',
+    cta: 'Learn About Academic Programs'
+  },
+  {
+    title: 'Faith-Based Partnerships',
+    description: 'Churches and faith communities can organize mission trips, mobilize congregations, and support ongoing community development.',
+    benefits: [
+      'Mission trip coordination',
+      'Youth group programs',
+      'Congregation engagement',
+      'Ongoing community support'
+    ],
+    icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+    color: 'orange',
+    cta: 'Plan a Mission Trip'
+  },
+  {
+    title: 'Foundation & Grant Partners',
+    description: 'Foundations can partner with FNE to fund specific programs, support capacity building, or invest in innovative development approaches.',
+    benefits: [
+      'Program-specific funding',
+      'Detailed impact reporting',
+      'Site visits and evaluation',
+      'Collaborative program design'
+    ],
+    icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    color: 'green',
+    cta: 'Discuss Foundation Giving'
+  }
+];
+
+const partnerBenefits = [
+  {
+    title: 'Measurable Impact',
+    description: 'Receive detailed reports showing exactly how your partnership translates to changed lives.',
+    icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+  },
+  {
+    title: 'Authentic Engagement',
+    description: 'Connect your team directly with communities through trips and virtual exchanges.',
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+  },
+  {
+    title: 'Sustainable Approach',
+    description: 'Your investment supports community-led development that creates lasting change.',
+    icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
+  },
+  {
+    title: 'Story Sharing',
+    description: 'Access compelling stories, photos, and videos to share your impact with stakeholders.',
+    icon: 'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z',
+  },
+];
+
+const engagementLevels = [
+  {
+    level: 'Community Partner',
+    investment: '$5,000 - $15,000',
+    description: 'Support specific projects or sponsor a volunteer trip',
+    includes: [
+      'Project sponsorship recognition',
+      'Impact report',
+      'Social media mentions',
+      'Newsletter features'
+    ],
+    color: 'green'
+  },
+  {
+    level: 'Impact Partner',
+    investment: '$15,000 - $50,000',
+    description: 'Fund a program area or multiple volunteer trips annually',
+    includes: [
+      'Named program sponsorship',
+      'Employee volunteer opportunities',
+      'Quarterly impact updates',
+      'Executive site visit option'
+    ],
+    featured: true,
+    color: 'teal'
+  },
+  {
+    level: 'Transformation Partner',
+    investment: '$50,000+',
+    description: 'Multi-year commitment to transformational community development',
+    includes: [
+      'Custom partnership design',
+      'Board-level engagement',
+      'Annual impact presentation',
+      'Co-branded initiatives'
+    ],
+    color: 'orange'
+  }
+];
+
+const impactStats = [
+  { number: '25+', label: 'Partner Organizations' },
+  { number: '50+', label: 'Corporate Trips' },
+  { number: '$2M+', label: 'Partner Contributions' },
+  { number: '15', label: 'Years Experience' },
+];
+---
+
+<BaseLayout title="Partner With Us">
+  <!-- Hero Section -->
+  <HeroSection
+    badge="Partnerships"
+    title="Partner"
+    titleAccent="With Us"
+    subtitle="Join forces with FNE International to create lasting change. Together, we can transform communities and empower futures."
+    image="/team.jpg"
+    imageAlt="FNE partners working together"
+  />
+
+  <!-- Impact Stats -->
+  <Section background="white" padding="sm">
+    <Container>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {impactStats.map((stat, index) => (
+          <div class={`stat-card animate-on-scroll delay-${(index + 1) * 100}`}>
+            <span class="stat-number">{stat.number}</span>
+            <span class="stat-label">{stat.label}</span>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Why Partner -->
+  <Section background="gray">
+    <Container size="md">
+      <SectionHeader
+        label="Why Partner"
+        title="More Than a Donation"
+        subtitle="Join a movement that creates authentic connections and lasting impact."
+        labelColor="green"
+      />
+
+      <div class="why-content animate-on-scroll">
+        <p class="why-text">
+          When you partner with FNE International, you're not just writing a check—you're joining a movement.
+          Our unique approach connects partners directly with communities, creating authentic relationships
+          that benefit everyone involved. Your employees, members, or students don't just give; they grow.
+          And the communities we serve don't just receive; they lead.
+        </p>
+        <div class="why-highlight">
+          <div class="highlight-icon-wrapper">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+          </div>
+          <p>
+            <strong>Hand-in-hand, not hand-over-hand.</strong> Our philosophy ensures that
+            your partnership empowers communities to drive their own development, creating
+            sustainable impact that lasts long after your support.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Partnership Types -->
+  <Section background="white" withGrid>
+    <Container>
+      <SectionHeader
+        label="Partnership Options"
+        title="Ways to Partner"
+        subtitle="Find the partnership that aligns with your organization's goals."
+        labelColor="teal"
+      />
+
+      <div class="partnership-grid">
+        {partnershipTypes.map((type, index) => (
+          <div class={`partnership-card partnership-card-${type.color} animate-on-scroll delay-${(index + 1) * 100}`}>
+            <div class={`partnership-icon partnership-icon-${type.color}`}>
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={type.icon} />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mt-4">{type.title}</h3>
+            <p class="text-gray-600 mt-2 text-sm leading-relaxed">{type.description}</p>
+
+            <div class="partnership-benefits mt-4">
+              <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">What's Included</p>
+              <ul class="benefit-list">
+                {type.benefits.map((benefit) => (
+                  <li>
+                    <svg class="w-4 h-4 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <a href="/contact" class={`partnership-cta partnership-cta-${type.color}`}>
+              {type.cta}
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Benefits -->
+  <Section background="gray">
+    <Container>
+      <SectionHeader
+        label="Partner Benefits"
+        title="What You'll Receive"
+        subtitle="Every partnership includes these core benefits."
+        labelColor="orange"
+      />
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {partnerBenefits.map((benefit, index) => (
+          <ValueCard
+            title={benefit.title}
+            description={benefit.description}
+            icon={benefit.icon}
+            animationDelay={(index + 1) * 100}
+          />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Engagement Levels -->
+  <Section background="white">
+    <Container>
+      <SectionHeader
+        label="Investment Levels"
+        title="Partnership Tiers"
+        subtitle="Choose a level that fits your organization's capacity."
+        labelColor="green"
+      />
+
+      <div class="levels-grid">
+        {engagementLevels.map((level, index) => (
+          <div class={`level-card level-card-${level.color} ${level.featured ? 'level-card-featured' : ''} animate-on-scroll delay-${(index + 1) * 100}`}>
+            {level.featured && (
+              <div class="level-featured-badge">Most Popular</div>
+            )}
+            <div class="level-header">
+              <h3 class="text-xl font-bold text-gray-900">{level.level}</h3>
+              <span class={`level-investment level-investment-${level.color}`}>{level.investment}</span>
+            </div>
+            <p class="text-gray-600 text-sm mt-2">{level.description}</p>
+
+            <ul class="level-includes mt-4">
+              {level.includes.map((item) => (
+                <li>
+                  <svg class="w-4 h-4 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a href="/contact" class={`level-cta level-cta-${level.color}`}>
+              Get Started
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-center text-gray-500 mt-8 text-sm animate-on-scroll">
+        Looking for something different? <a href="/contact" class="text-[#2D8B4E] font-semibold hover:underline">Let's create a custom partnership</a>
+      </p>
+    </Container>
+  </Section>
+
+  <!-- Testimonial -->
+  <Section background="gradient">
+    <Container size="md">
+      <div class="testimonial-card animate-on-scroll">
+        <div class="icon-3d mb-6">
+          <div class="icon-3d-inner animate-rotate-3d">
+            <div class="testimonial-quote-icon">
+              <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <blockquote class="text-xl md:text-2xl text-gray-700 italic leading-relaxed mb-6">
+          Our partnership with FNE has transformed our company's approach to social responsibility. Our employees come back from volunteer trips energized and more connected to our mission of making a difference.
+        </blockquote>
+        <div class="testimonial-attribution">
+          <div class="text-gray-900 font-semibold">Michael Torres</div>
+          <div class="text-sm text-gray-500">CSR Director, Corporate Partner</div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Contact Section -->
+  <Section background="white">
+    <Container size="md">
+      <SectionHeader
+        label="Get Started"
+        title="Start a Conversation"
+        subtitle="Let's explore how we can work together."
+        labelColor="teal"
+      />
+
+      <div class="contact-grid">
+        <div class="contact-card contact-card-green animate-on-scroll delay-100">
+          <div class="contact-icon contact-icon-green">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mt-4">Email Us</h3>
+          <p class="text-gray-600 text-sm mt-1">Reach out to our partnerships team</p>
+          <a href="mailto:partnerships@fneinternational.org" class="contact-link">
+            partnerships@fneinternational.org
+          </a>
+        </div>
+
+        <div class="contact-card contact-card-teal animate-on-scroll delay-200">
+          <div class="contact-icon contact-icon-teal">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mt-4">Call Us</h3>
+          <p class="text-gray-600 text-sm mt-1">Speak directly with our team</p>
+          <a href="tel:+16173831956" class="contact-link">
+            (617) 383-1956
+          </a>
+        </div>
+
+        <div class="contact-card contact-card-orange animate-on-scroll delay-300">
+          <div class="contact-icon contact-icon-orange">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mt-4">Schedule a Meeting</h3>
+          <p class="text-gray-600 text-sm mt-1">Book a time to discuss partnership</p>
+          <a href="mailto:partnerships@fneinternational.org?subject=Partnership Meeting Request" class="contact-link">
+            Request a Meeting
+          </a>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA -->
+  <CTASection
+    title="Together, We Can Do More"
+    subtitle="Partner with FNE International to create lasting change in communities across Latin America."
+    icon="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+    primaryButtonText="Contact Our Team"
+    primaryButtonLink="/contact"
+    secondaryButtonText="Learn About Our Work"
+    secondaryButtonLink="/programs"
+  />
+</BaseLayout>
+
+<style>
+  /* Stat cards */
+  .stat-card {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.03), rgba(247, 147, 30, 0.03));
+    border-radius: 16px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  /* Why content */
+  .why-content {
+    text-align: center;
+  }
+
+  .why-text {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #666;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+  }
+
+  .why-highlight {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    text-align: left;
+    border: 2px solid rgba(45, 139, 78, 0.15);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .highlight-icon-wrapper {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(61, 154, 139, 0.1));
+    color: #2D8B4E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .why-highlight p {
+    margin: 0;
+    color: #666;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  .why-highlight strong {
+    color: #1a1a1a;
+  }
+
+  /* Partnership grid */
+  .partnership-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .partnership-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Partnership card */
+  .partnership-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .partnership-card-green {
+    border-color: rgba(45, 139, 78, 0.15);
+  }
+
+  .partnership-card-teal {
+    border-color: rgba(61, 154, 139, 0.15);
+  }
+
+  .partnership-card-orange {
+    border-color: rgba(247, 147, 30, 0.15);
+  }
+
+  .partnership-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(45, 139, 78, 0.15);
+  }
+
+  .partnership-card-green:hover {
+    border-color: rgba(45, 139, 78, 0.4);
+  }
+
+  .partnership-card-teal:hover {
+    border-color: rgba(61, 154, 139, 0.4);
+  }
+
+  .partnership-card-orange:hover {
+    border-color: rgba(247, 147, 30, 0.4);
+  }
+
+  .partnership-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+  }
+
+  .partnership-icon-green {
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(61, 154, 139, 0.1));
+    color: #2D8B4E;
+  }
+
+  .partnership-icon-teal {
+    background: linear-gradient(135deg, rgba(61, 154, 139, 0.1), rgba(45, 139, 78, 0.1));
+    color: #3D9A8B;
+  }
+
+  .partnership-icon-orange {
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.1), rgba(45, 139, 78, 0.1));
+    color: #F7931E;
+  }
+
+  .partnership-card:hover .partnership-icon-green {
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+  }
+
+  .partnership-card:hover .partnership-icon-teal {
+    background: linear-gradient(135deg, #3D9A8B, #2D8B4E);
+    color: white;
+  }
+
+  .partnership-card:hover .partnership-icon-orange {
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    color: white;
+  }
+
+  .benefit-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .benefit-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+
+  .partnership-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: gap 0.3s ease;
+  }
+
+  .partnership-cta-green { color: #2D8B4E; }
+  .partnership-cta-teal { color: #3D9A8B; }
+  .partnership-cta-orange { color: #F7931E; }
+
+  .partnership-cta:hover {
+    gap: 0.75rem;
+  }
+
+  /* Levels grid */
+  .levels-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    .levels-grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  /* Level card */
+  .level-card {
+    position: relative;
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .level-card-green { border-color: rgba(45, 139, 78, 0.15); }
+  .level-card-teal { border-color: rgba(61, 154, 139, 0.15); }
+  .level-card-orange { border-color: rgba(247, 147, 30, 0.15); }
+
+  .level-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(45, 139, 78, 0.15);
+  }
+
+  .level-card-featured {
+    border-color: #2D8B4E;
+  }
+
+  .level-featured-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.35rem 1rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .level-header {
+    text-align: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(45, 139, 78, 0.1);
+  }
+
+  .level-investment {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+  }
+
+  .level-investment-green { color: #2D8B4E; }
+  .level-investment-teal { color: #3D9A8B; }
+  .level-investment-orange { color: #F7931E; }
+
+  .level-includes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+  }
+
+  .level-includes li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.75rem;
+  }
+
+  .level-includes li svg {
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  .level-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.875rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .level-cta-green {
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+  }
+
+  .level-cta-teal {
+    background: linear-gradient(135deg, #3D9A8B, #2D8B4E);
+    color: white;
+  }
+
+  .level-cta-orange {
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    color: white;
+  }
+
+  .level-cta:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.3);
+  }
+
+  /* Testimonial */
+  .testimonial-card {
+    text-align: center;
+    background: white;
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+  }
+
+  .testimonial-quote-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    border-radius: 20px;
+    color: #2D8B4E;
+  }
+
+  .testimonial-attribution {
+    margin-top: 1.5rem;
+  }
+
+  /* Contact grid */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .contact-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    text-align: center;
+    transition: all 0.4s ease;
+  }
+
+  .contact-card-green { border-color: rgba(45, 139, 78, 0.15); }
+  .contact-card-teal { border-color: rgba(61, 154, 139, 0.15); }
+  .contact-card-orange { border-color: rgba(247, 147, 30, 0.15); }
+
+  .contact-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(45, 139, 78, 0.15);
+  }
+
+  .contact-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: all 0.4s ease;
+  }
+
+  .contact-icon-green {
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(61, 154, 139, 0.1));
+    color: #2D8B4E;
+  }
+
+  .contact-icon-teal {
+    background: linear-gradient(135deg, rgba(61, 154, 139, 0.1), rgba(45, 139, 78, 0.1));
+    color: #3D9A8B;
+  }
+
+  .contact-icon-orange {
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.1), rgba(45, 139, 78, 0.1));
+    color: #F7931E;
+  }
+
+  .contact-card:hover .contact-icon-green {
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+  }
+
+  .contact-card:hover .contact-icon-teal {
+    background: linear-gradient(135deg, #3D9A8B, #2D8B4E);
+    color: white;
+  }
+
+  .contact-card:hover .contact-icon-orange {
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    color: white;
+  }
+
+  .contact-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #2D8B4E;
+    font-weight: 600;
+    font-size: 0.9rem;
+    word-break: break-word;
+  }
+
+  .contact-link:hover {
+    text-decoration: underline;
+  }
+</style>

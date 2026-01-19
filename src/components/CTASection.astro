@@ -1,0 +1,124 @@
+---
+import Section from './Section.astro';
+import Container from './Container.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  icon?: string;
+  primaryButtonText?: string;
+  primaryButtonLink?: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
+}
+
+const {
+  title,
+  subtitle,
+  icon = 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z',
+  primaryButtonText = 'Donate Now',
+  primaryButtonLink = '/donate',
+  secondaryButtonText = 'Get Involved',
+  secondaryButtonLink = '/get-involved',
+} = Astro.props;
+---
+
+<Section background="gradient-dark">
+  <Container size="md">
+    <div class="text-center relative animate-on-scroll">
+      <!-- Floating orbs -->
+      <div class="floating-orb floating-orb-1"></div>
+      <div class="floating-orb floating-orb-2"></div>
+      <div class="floating-orb floating-orb-3"></div>
+
+      <div class="cta-icon mx-auto mb-6">
+        <div class="icon-3d">
+          <div class="icon-3d-inner animate-rotate-3d">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={icon} />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="text-3xl md:text-4xl font-black text-white mb-4">{title}</h2>
+      <p class="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+        {subtitle}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href={primaryButtonLink} class="mega-button mega-button-white group">
+          <span class="mega-button-content">
+            <span class="text-lg font-bold">{primaryButtonText}</span>
+            <svg class="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </span>
+          <div class="mega-button-shine"></div>
+        </a>
+        {secondaryButtonText && (
+          <a href={secondaryButtonLink} class="inline-flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-bold rounded-full hover:bg-white hover:text-[#2D8B4E] transition-all duration-300">
+            <span>{secondaryButtonText}</span>
+          </a>
+        )}
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<style>
+  /* CTA Icon */
+  .cta-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  /* Floating orbs */
+  .floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .floating-orb-1 {
+    width: 200px;
+    height: 200px;
+    background: #F7931E;
+    top: -50px;
+    left: 10%;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .floating-orb-2 {
+    width: 150px;
+    height: 150px;
+    background: #8DC63F;
+    bottom: -30px;
+    right: 15%;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  .floating-orb-3 {
+    width: 100px;
+    height: 100px;
+    background: white;
+    top: 50%;
+    right: 5%;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    25% { transform: translateY(-20px) translateX(10px); }
+    50% { transform: translateY(0) translateX(20px); }
+    75% { transform: translateY(20px) translateX(10px); }
+  }
+</style>

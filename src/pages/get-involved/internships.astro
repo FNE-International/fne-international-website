@@ -1,0 +1,762 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import Section from '../../components/Section.astro';
+import Container from '../../components/Container.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CTASection from '../../components/CTASection.astro';
+import ValueCard from '../../components/ValueCard.astro';
+import FAQItem from '../../components/FAQItem.astro';
+
+const internshipPositions = [
+  {
+    title: "Program Development Intern",
+    location: "Remote / Nicaragua",
+    duration: "3-6 months",
+    commitment: "15-20 hours/week",
+    description: "Work directly with our program team to develop, implement, and evaluate community development initiatives across education, health, and housing.",
+    responsibilities: [
+      "Assist in program planning and implementation",
+      "Conduct needs assessments with community partners",
+      "Create program reports and documentation",
+      "Support grant writing efforts"
+    ],
+    skills: ["Project management", "Research", "Writing", "Spanish helpful"],
+    icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01',
+    color: 'green'
+  },
+  {
+    title: "Communications & Marketing Intern",
+    location: "Remote",
+    duration: "3-6 months",
+    commitment: "10-15 hours/week",
+    description: "Help share FNE's story with the world through compelling content, social media engagement, and donor communications.",
+    responsibilities: [
+      "Create social media content and manage posting schedule",
+      "Write blog posts and impact stories",
+      "Design graphics and visual content",
+      "Support email marketing campaigns"
+    ],
+    skills: ["Writing", "Social media", "Graphic design", "Canva/Adobe"],
+    icon: 'M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z',
+    color: 'teal'
+  },
+  {
+    title: "Fundraising & Development Intern",
+    location: "Remote",
+    duration: "3-6 months",
+    commitment: "10-15 hours/week",
+    description: "Support our fundraising efforts through donor research, grant writing, and campaign coordination.",
+    responsibilities: [
+      "Research foundation and corporate funding opportunities",
+      "Assist with grant applications and reports",
+      "Help coordinate fundraising campaigns",
+      "Support donor stewardship activities"
+    ],
+    skills: ["Research", "Writing", "Detail-oriented", "Database skills"],
+    icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    color: 'orange'
+  },
+  {
+    title: "Field Operations Intern",
+    location: "Nicaragua (On-site)",
+    duration: "2-4 months",
+    commitment: "Full-time",
+    description: "Immerse yourself in our field operations, working alongside local staff and community members to coordinate programs and volunteer trips.",
+    responsibilities: [
+      "Support daily program operations",
+      "Assist with volunteer trip logistics and coordination",
+      "Build relationships with community partners",
+      "Document program activities and impact"
+    ],
+    skills: ["Spanish required", "Flexibility", "Cultural sensitivity", "Self-motivated"],
+    icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    color: 'green'
+  }
+];
+
+const benefits = [
+  {
+    title: "Professional Development",
+    description: "Gain hands-on experience in international nonprofit work with mentorship.",
+    icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+  },
+  {
+    title: "Global Perspective",
+    description: "Develop cross-cultural competency and sustainable development understanding.",
+    icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  },
+  {
+    title: "Meaningful Impact",
+    description: "Your work directly contributes to improving lives in Latin America.",
+    icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+  },
+  {
+    title: "Academic Credit",
+    description: "Most positions qualify for academic credit—we work with your institution.",
+    icon: 'M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222',
+  },
+];
+
+const requirements = [
+  "Currently enrolled in or recently graduated from an undergraduate or graduate program",
+  "Strong communication skills, both written and verbal",
+  "Self-motivated with the ability to work independently",
+  "Commitment to FNE's mission of community-led development",
+  "Reliable internet connection for remote positions",
+  "For field positions: Spanish proficiency and ability to travel"
+];
+
+const applicationSteps = [
+  {
+    step: '1',
+    title: 'Submit Application',
+    description: 'Complete our online application with your resume, cover letter, and availability.',
+  },
+  {
+    step: '2',
+    title: 'Initial Interview',
+    description: 'Selected candidates have a video call with our team to discuss interests and fit.',
+  },
+  {
+    step: '3',
+    title: 'Position Matching',
+    description: 'We work with you to find the best fit based on your skills and our needs.',
+  },
+  {
+    step: '4',
+    title: 'Onboarding',
+    description: 'Complete orientation and meet your mentor to start making an impact!',
+  },
+];
+
+const faqs = [
+  {
+    question: "Are internships paid?",
+    answer: "Most of our internships are unpaid, but we offer academic credit coordination, professional development opportunities, and for field positions in Nicaragua, we provide housing assistance. We're committed to making internships accessible and can discuss arrangements on a case-by-case basis."
+  },
+  {
+    question: "What is the time commitment?",
+    answer: "Time commitments vary by position, ranging from 10-20 hours per week for remote positions to full-time for field positions. We're flexible and can work with your schedule, especially during academic terms."
+  },
+  {
+    question: "Do I need to speak Spanish?",
+    answer: "Spanish proficiency is required for field positions in Nicaragua. For remote positions, Spanish is helpful but not required—we have roles that don't require language skills."
+  },
+  {
+    question: "Can I receive academic credit?",
+    answer: "Yes! Most of our internship positions qualify for academic credit. We'll provide the documentation and supervision hours your institution requires. Please check with your academic advisor about specific requirements."
+  },
+  {
+    question: "When can I start?",
+    answer: "We accept applications on a rolling basis and have positions available throughout the year. Start dates are flexible and can be coordinated with your academic calendar."
+  },
+  {
+    question: "What support will I receive?",
+    answer: "Every intern is paired with a supervisor who provides regular feedback, mentorship, and professional development guidance. For field interns, we also provide pre-departure orientation and in-country support."
+  }
+];
+
+const impactStats = [
+  { number: '50+', label: 'Past Interns' },
+  { number: '85%', label: 'Work in Nonprofit Sector' },
+  { number: '100%', label: 'Would Recommend' },
+];
+---
+
+<BaseLayout title="Internships">
+  <!-- Hero Section -->
+  <HeroSection
+    badge="Career Development"
+    title="Internship"
+    titleAccent="Program"
+    subtitle="Launch your career in international development while making a real difference in communities across Latin America."
+    image="/team.jpg"
+    imageAlt="FNE interns working"
+  />
+
+  <!-- Impact Stats -->
+  <Section background="white" padding="sm">
+    <Container>
+      <div class="grid md:grid-cols-3 gap-6">
+        {impactStats.map((stat, index) => (
+          <div class={`stat-card animate-on-scroll delay-${(index + 1) * 100}`}>
+            <span class="stat-number">{stat.number}</span>
+            <span class="stat-label">{stat.label}</span>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Introduction -->
+  <Section background="gray">
+    <Container size="md">
+      <div class="intro-content animate-on-scroll">
+        <p class="intro-text">
+          Our internship program offers meaningful opportunities for students and recent graduates
+          to gain hands-on experience in international nonprofit work. Whether you're interested in
+          program development, communications, fundraising, or field operations, you'll work alongside
+          our team to create lasting change.
+        </p>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Available Positions -->
+  <Section background="white" withGrid>
+    <Container>
+      <SectionHeader
+        label="Open Positions"
+        title="Available Internships"
+        subtitle="Find an internship that matches your skills and career goals."
+        labelColor="green"
+      />
+
+      <div class="positions-grid">
+        {internshipPositions.map((position, index) => (
+          <div class={`position-card position-card-${position.color} animate-on-scroll delay-${(index + 1) * 100}`}>
+            <div class={`position-icon position-icon-${position.color}`}>
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={position.icon} />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mt-4">{position.title}</h3>
+
+            <div class="position-badges mt-2">
+              <span class="badge badge-location">{position.location}</span>
+              <span class="badge badge-duration">{position.duration}</span>
+            </div>
+
+            <p class="text-gray-500 text-sm mt-2">{position.commitment}</p>
+            <p class="text-gray-600 mt-3 text-sm leading-relaxed">{position.description}</p>
+
+            <div class="position-details mt-4">
+              <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Key Responsibilities</p>
+              <ul class="responsibility-list">
+                {position.responsibilities.map((resp) => (
+                  <li>
+                    <svg class="w-4 h-4 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>{resp}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="position-skills mt-4">
+              <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Skills Needed</p>
+              <div class="flex flex-wrap gap-1">
+                {position.skills.map((skill) => (
+                  <span class="skill-tag">{skill}</span>
+                ))}
+              </div>
+            </div>
+
+            <a href="#apply" class={`position-cta position-cta-${position.color}`}>
+              Apply for this position
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- What You'll Gain -->
+  <Section background="gray">
+    <Container>
+      <SectionHeader
+        label="Benefits"
+        title="What You'll Gain"
+        subtitle="More than just experience—a foundation for your career."
+        labelColor="teal"
+      />
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {benefits.map((benefit, index) => (
+          <ValueCard
+            title={benefit.title}
+            description={benefit.description}
+            icon={benefit.icon}
+            animationDelay={(index + 1) * 100}
+          />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Requirements -->
+  <Section background="white">
+    <Container size="md">
+      <SectionHeader
+        label="Qualifications"
+        title="Requirements"
+        subtitle="What we're looking for in our interns."
+        labelColor="orange"
+      />
+
+      <div class="requirements-card animate-on-scroll">
+        <ul class="requirements-list">
+          {requirements.map((req) => (
+            <li>
+              <svg class="w-5 h-5 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>{req}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Testimonial -->
+  <Section background="gradient">
+    <Container size="md">
+      <div class="testimonial-card animate-on-scroll">
+        <div class="icon-3d mb-6">
+          <div class="icon-3d-inner animate-rotate-3d">
+            <div class="testimonial-quote-icon">
+              <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <blockquote class="text-xl md:text-2xl text-gray-700 italic leading-relaxed mb-6">
+          My internship with FNE was transformative. I started as a communications intern and ended up spending a summer in Nicaragua. The experience shaped my understanding of community development and launched my career in international nonprofits.
+        </blockquote>
+        <div class="testimonial-attribution">
+          <div class="text-gray-900 font-semibold">Sarah Martinez</div>
+          <div class="text-sm text-gray-500">Former Communications Intern, 2022</div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Application Process -->
+  <Section background="white" id="apply">
+    <Container size="md">
+      <SectionHeader
+        label="Getting Started"
+        title="How to Apply"
+        subtitle="Four simple steps to start your journey."
+        labelColor="green"
+      />
+
+      <div class="process-steps">
+        {applicationSteps.map((step, index) => (
+          <div class={`process-step animate-on-scroll delay-${(index + 1) * 100}`}>
+            <div class="process-step-number">{step.step}</div>
+            <div class="process-step-content">
+              <h3 class="text-lg font-bold text-gray-900">{step.title}</h3>
+              <p class="text-gray-600 text-sm mt-1">{step.description}</p>
+            </div>
+            {index < applicationSteps.length - 1 && (
+              <div class="process-step-line"></div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div class="apply-card animate-on-scroll">
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Ready to Apply?</h3>
+        <p class="text-gray-600 mb-4">Submit your application and take the first step toward meaningful work.</p>
+        <a href="mailto:internships@fneinternational.org?subject=Internship Application" class="apply-btn">
+          Start Application
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <p class="text-gray-500 text-sm mt-4">
+          Questions? Email us at <a href="mailto:internships@fneinternational.org" class="text-[#2D8B4E] font-semibold hover:underline">internships@fneinternational.org</a>
+        </p>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- FAQ -->
+  <Section background="gray">
+    <Container size="md">
+      <SectionHeader
+        label="Questions?"
+        title="Frequently Asked Questions"
+      />
+
+      <div class="space-y-4">
+        {faqs.map((faq, index) => (
+          <FAQItem
+            question={faq.question}
+            answer={faq.answer}
+            index={index}
+            animationDelay={(index + 1) * 100}
+          />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA -->
+  <CTASection
+    title="Shape Your Future While Changing Lives"
+    subtitle="Join a community of passionate changemakers and gain the skills to launch your career in international development."
+    icon="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
+    primaryButtonText="Apply Now"
+    primaryButtonLink="mailto:internships@fneinternational.org?subject=Internship Application"
+    secondaryButtonText="Contact Us"
+    secondaryButtonLink="/contact"
+  />
+</BaseLayout>
+
+<style>
+  /* Stat cards */
+  .stat-card {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.03), rgba(247, 147, 30, 0.03));
+    border-radius: 16px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  /* Introduction */
+  .intro-content {
+    text-align: center;
+  }
+
+  .intro-text {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #666;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Positions Grid */
+  .positions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    .positions-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Position card */
+  .position-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .position-card-green {
+    border-color: rgba(45, 139, 78, 0.15);
+  }
+
+  .position-card-teal {
+    border-color: rgba(61, 154, 139, 0.15);
+  }
+
+  .position-card-orange {
+    border-color: rgba(247, 147, 30, 0.15);
+  }
+
+  .position-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(45, 139, 78, 0.15);
+  }
+
+  .position-card-green:hover {
+    border-color: rgba(45, 139, 78, 0.4);
+  }
+
+  .position-card-teal:hover {
+    border-color: rgba(61, 154, 139, 0.4);
+  }
+
+  .position-card-orange:hover {
+    border-color: rgba(247, 147, 30, 0.4);
+  }
+
+  .position-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+  }
+
+  .position-icon-green {
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(61, 154, 139, 0.1));
+    color: #2D8B4E;
+  }
+
+  .position-icon-teal {
+    background: linear-gradient(135deg, rgba(61, 154, 139, 0.1), rgba(45, 139, 78, 0.1));
+    color: #3D9A8B;
+  }
+
+  .position-icon-orange {
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.1), rgba(45, 139, 78, 0.1));
+    color: #F7931E;
+  }
+
+  .position-card:hover .position-icon-green {
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+  }
+
+  .position-card:hover .position-icon-teal {
+    background: linear-gradient(135deg, #3D9A8B, #2D8B4E);
+    color: white;
+  }
+
+  .position-card:hover .position-icon-orange {
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    color: white;
+  }
+
+  .position-badges {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-location {
+    background: rgba(45, 139, 78, 0.1);
+    color: #2D8B4E;
+  }
+
+  .badge-duration {
+    background: rgba(61, 154, 139, 0.1);
+    color: #3D9A8B;
+  }
+
+  .responsibility-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .responsibility-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+
+  .responsibility-list li svg {
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  .skill-tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background: rgba(45, 139, 78, 0.08);
+    color: #2D8B4E;
+    font-size: 0.7rem;
+    font-weight: 500;
+    border-radius: 6px;
+  }
+
+  .position-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: gap 0.3s ease;
+  }
+
+  .position-cta-green { color: #2D8B4E; }
+  .position-cta-teal { color: #3D9A8B; }
+  .position-cta-orange { color: #F7931E; }
+
+  .position-cta:hover {
+    gap: 0.75rem;
+  }
+
+  /* Requirements */
+  .requirements-card {
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.03), rgba(247, 147, 30, 0.03));
+    border-radius: 20px;
+    padding: 2rem;
+    border: 2px solid rgba(45, 139, 78, 0.15);
+  }
+
+  .requirements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .requirements-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    color: #444;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .requirements-list li svg {
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  /* Process steps */
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 3rem;
+  }
+
+  .process-step {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+  }
+
+  .process-step-number {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .process-step-content {
+    flex: 1;
+    padding-top: 0.5rem;
+  }
+
+  .process-step-line {
+    position: absolute;
+    left: 23px;
+    top: 64px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #2D8B4E, #F7931E);
+  }
+
+  /* Apply card */
+  .apply-card {
+    text-align: center;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 2px solid rgba(45, 139, 78, 0.15);
+  }
+
+  .apply-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+    font-weight: 600;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+  }
+
+  .apply-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.3);
+  }
+
+  /* Testimonial */
+  .testimonial-card {
+    text-align: center;
+    background: white;
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+  }
+
+  .testimonial-quote-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    border-radius: 20px;
+    color: #2D8B4E;
+  }
+
+  .testimonial-attribution {
+    margin-top: 1.5rem;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+      const index = button.getAttribute('data-faq');
+      const answer = document.querySelector(`[data-faq-answer="${index}"]`);
+      const chevron = button.querySelector('.faq-chevron');
+
+      answer?.classList.toggle('open');
+      chevron?.classList.toggle('open');
+    });
+  });
+</script>

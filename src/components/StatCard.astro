@@ -1,0 +1,67 @@
+---
+interface Props {
+  value: string;
+  label: string;
+  icon: string;
+  animationDelay?: number;
+}
+
+const { value, label, icon, animationDelay = 0 } = Astro.props;
+const delayClass = animationDelay > 0 ? `delay-${animationDelay}` : '';
+---
+
+<div class={`stat-card animate-on-scroll ${delayClass}`}>
+  <div class="stat-icon icon-glow">
+    <div class="animate-scale-pulse">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={icon} />
+      </svg>
+    </div>
+  </div>
+  <div class="stat-value">{value}</div>
+  <div class="stat-label">{label}</div>
+</div>
+
+<style>
+  .stat-card {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.03), rgba(247, 147, 30, 0.03));
+    border-radius: 16px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.1);
+  }
+
+  .stat-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2D8B4E;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #2D8B4E, #F7931E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 0.75rem;
+  }
+</style>

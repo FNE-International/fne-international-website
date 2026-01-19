@@ -1,0 +1,61 @@
+---
+interface Props {
+  name: string;
+  icon: string;
+  animationDelay?: number;
+}
+
+const { name, icon, animationDelay = 0 } = Astro.props;
+const delayClass = animationDelay > 0 ? `delay-${animationDelay}` : '';
+---
+
+<div class={`partner-badge animate-on-scroll ${delayClass}`}>
+  <div class="partner-badge-icon">
+    <div class="icon-3d">
+      <div class="icon-3d-inner animate-rotate-3d">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={icon} />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <span class="text-sm font-medium text-gray-700">{name}</span>
+</div>
+
+<style>
+  .partner-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    background: white;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    border-radius: 16px;
+    min-width: 150px;
+    transition: all 0.3s ease;
+  }
+
+  .partner-badge:hover {
+    border-color: rgba(45, 139, 78, 0.3);
+    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .partner-badge-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2D8B4E;
+    transition: all 0.4s ease;
+  }
+
+  .partner-badge:hover .partner-badge-icon {
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+  }
+</style>

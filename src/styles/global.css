@@ -1,0 +1,649 @@
+@import "tailwindcss";
+
+/* FNE International Brand Colors - From Logo */
+:root {
+  --color-primary: #2D8B4E;      /* Main green - text & icons */
+  --color-secondary: #3D9A8B;    /* Teal - tagline */
+  --color-light-green: #8DC63F;  /* Light green - accents */
+  --color-accent: #F7931E;       /* Orange - highlights */
+  --color-dark: #1a1a1a;
+  --color-light: #f8f9fa;
+}
+
+/* Base styles */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--color-dark);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ================================
+   SHARED UTILITY CLASSES
+   ================================ */
+
+/* Cyber grid background pattern */
+.cyber-grid {
+  background-image:
+    linear-gradient(rgba(45, 139, 78, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45, 139, 78, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Glass card effect */
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+/* Neon text gradient (green to orange) */
+.neon-text {
+  background: linear-gradient(135deg, #2D8B4E, #F7931E);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(45, 139, 78, 0.2));
+}
+
+/* Neon text large (animated gradient) */
+.neon-text-large {
+  background: linear-gradient(135deg, #2D8B4E, #F7931E, #2D8B4E);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 30px rgba(45, 139, 78, 0.2));
+  animation: gradient-shift 5s ease infinite;
+}
+
+/* Neon text orange variant */
+.neon-text-orange {
+  background: linear-gradient(135deg, #F7931E, #ff6b00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(247, 147, 30, 0.2));
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+
+/* ================================
+   ANIMATIONS
+   ================================ */
+
+/* Slow pulse for orbs */
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.15; }
+}
+
+/* Float animation for orbs */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* ================================
+   3D ICON ANIMATIONS
+   ================================ */
+
+/* Slow 3D rotation */
+.animate-rotate-3d {
+  animation: rotate3d 8s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+@keyframes rotate3d {
+  0% { transform: rotateY(0deg) rotateX(0deg); }
+  25% { transform: rotateY(15deg) rotateX(5deg); }
+  50% { transform: rotateY(0deg) rotateX(0deg); }
+  75% { transform: rotateY(-15deg) rotateX(-5deg); }
+  100% { transform: rotateY(0deg) rotateX(0deg); }
+}
+
+/* Slow Y-axis rotation */
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+@keyframes spin-slow {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+/* Gentle wobble */
+.animate-wobble {
+  animation: wobble 3s ease-in-out infinite;
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+/* Bounce on hover */
+.animate-bounce-hover:hover {
+  animation: bounce-subtle 0.5s ease;
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Scale pulse */
+.animate-scale-pulse {
+  animation: scale-pulse 3s ease-in-out infinite;
+}
+
+@keyframes scale-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ================================
+   SCROLL ANIMATIONS (CSS-only)
+   ================================ */
+
+/* Fade in on scroll (using intersection observer in JS) */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade in from left */
+.animate-slide-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-slide-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Fade in from right */
+.animate-slide-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-slide-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger delay utilities */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+
+/* ================================
+   3D ICON CONTAINERS
+   ================================ */
+
+/* 3D icon wrapper */
+.icon-3d {
+  perspective: 1000px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-3d-inner {
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+}
+
+.icon-3d:hover .icon-3d-inner {
+  transform: rotateY(180deg);
+}
+
+/* Floating icon container */
+.icon-float {
+  animation: icon-float 4s ease-in-out infinite;
+}
+
+@keyframes icon-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+  66% {
+    transform: translateY(-4px) rotate(-2deg);
+  }
+}
+
+/* Glowing icon effect */
+.icon-glow {
+  position: relative;
+}
+
+.icon-glow::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  opacity: 0;
+  filter: blur(12px);
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.icon-glow:hover::after {
+  opacity: 0.5;
+}
+
+/* ================================
+   IMAGE GALLERY STYLES
+   ================================ */
+
+/* Photo grid container */
+.photo-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.photo-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.photo-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.photo-grid-4 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 768px) {
+  .photo-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Photo card with hover effect */
+.photo-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  aspect-ratio: 4/3;
+}
+
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.photo-card:hover img {
+  transform: scale(1.08);
+}
+
+.photo-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.5rem;
+}
+
+.photo-card:hover .photo-card-overlay {
+  opacity: 1;
+}
+
+.photo-card-caption {
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+/* Image placeholder */
+.image-placeholder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  border: 2px dashed rgba(45, 139, 78, 0.3);
+  transition: all 0.3s ease;
+}
+
+.image-placeholder:hover {
+  border-color: rgba(45, 139, 78, 0.5);
+  background: linear-gradient(135deg, #e8f5e9, #fff3e0);
+}
+
+.image-placeholder-icon {
+  width: 48px;
+  height: 48px;
+  color: #999;
+}
+
+.image-placeholder-text {
+  text-align: center;
+  color: #666;
+  font-size: 0.875rem;
+  font-weight: 500;
+  max-width: 200px;
+}
+
+.image-placeholder-square {
+  aspect-ratio: 1/1;
+}
+
+.image-placeholder-wide {
+  aspect-ratio: 16/9;
+}
+
+/* ================================
+   PARALLAX EFFECTS
+   ================================ */
+
+.parallax-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.parallax-bg {
+  position: absolute;
+  inset: -20%;
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+}
+
+/* ================================
+   CARD HOVER LIFT EFFECT
+   ================================ */
+
+.card-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(45, 139, 78, 0.15);
+}
+
+/* ================================
+   SHIMMER LOADING EFFECT
+   ================================ */
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ================================
+   BUTTON STYLES
+   ================================ */
+
+/* Mega button (primary CTA) */
+.mega-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 2.5rem;
+  background: linear-gradient(135deg, #F7931E, #ff6b00);
+  border-radius: 9999px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 30px rgba(247, 147, 30, 0.3);
+}
+
+.mega-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 50px rgba(247, 147, 30, 0.4);
+}
+
+.mega-button-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: white;
+}
+
+.mega-button-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.mega-button:hover .mega-button-shine {
+  left: 100%;
+}
+
+/* ================================
+   IMAGE STYLES
+   ================================ */
+
+/* Hero image standard */
+.hero-image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(45, 139, 78, 0.15);
+}
+
+/* Content image (smaller, for inline use) */
+.content-image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+}
+
+/* Content image wrapper - for futuristic effects */
+.content-image-wrapper {
+  position: relative;
+  border-radius: 20px;
+  padding: 3px;
+  background: linear-gradient(135deg, rgba(45, 139, 78, 0.2), rgba(247, 147, 30, 0.2));
+  transition: all 0.4s ease;
+}
+
+.content-image-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #2D8B4E, #3D9A8B, #F7931E);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+  filter: blur(8px);
+}
+
+.content-image-wrapper:hover::before {
+  opacity: 0.6;
+}
+
+.content-image-wrapper:hover {
+  background: linear-gradient(135deg, rgba(45, 139, 78, 0.4), rgba(247, 147, 30, 0.4));
+  transform: translateY(-4px);
+}
+
+.content-image-wrapper:hover .content-image {
+  box-shadow: 0 20px 60px rgba(45, 139, 78, 0.2);
+}
+
+.content-image-wrapper .content-image {
+  border-radius: 17px;
+}
+
+/* Square image (for thumbnails, team photos) */
+.square-image {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ================================
+   FEATURE CARD COMPONENT
+   ================================ */
+
+.feature-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(45, 139, 78, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.feature-card:hover {
+  border-color: rgba(45, 139, 78, 0.3);
+  box-shadow: 0 10px 30px rgba(45, 139, 78, 0.1);
+  transform: translateY(-4px);
+}
+
+/* Feature card icon */
+.feature-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+.feature-card-icon-green {
+  background: rgba(45, 139, 78, 0.1);
+  color: #2D8B4E;
+}
+
+.feature-card-icon-orange {
+  background: rgba(247, 147, 30, 0.1);
+  color: #F7931E;
+}
+
+.feature-card-icon-teal {
+  background: rgba(61, 154, 139, 0.1);
+  color: #3D9A8B;
+}
+
+/* Feature card content */
+.feature-card-content {
+  flex-grow: 1;
+}
+
+.feature-card-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.75rem;
+}
+
+.feature-card-description {
+  font-size: 0.875rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+/* Feature card image */
+.feature-card-image {
+  margin-top: auto;
+  padding-top: 1.5rem;
+}
+
+.feature-card-image .image-placeholder {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+
+.feature-card-image .image-placeholder-text {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+}
+
+/* Feature card action/link */
+.feature-card-action {
+  margin-top: auto;
+  padding-top: 1.5rem;
+}
+
+.feature-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #2D8B4E;
+  transition: all 0.3s ease;
+}
+
+.feature-card-link:hover {
+  color: #F7931E;
+  gap: 0.75rem;
+}

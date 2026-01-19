@@ -1,0 +1,76 @@
+---
+interface Props {
+  label?: string;
+  title: string;
+  titleAccent?: string;
+  image?: string;
+  imageAlt?: string;
+  imagePosition?: string;
+  reverse?: boolean;
+  labelColor?: 'green' | 'orange' | 'teal';
+}
+
+const {
+  label,
+  title,
+  titleAccent,
+  image,
+  imageAlt = '',
+  imagePosition = 'center',
+  reverse = false,
+  labelColor = 'green'
+} = Astro.props;
+
+const labelColors = {
+  green: 'text-[#2D8B4E]',
+  orange: 'text-[#F7931E]',
+  teal: 'text-[#3D9A8B]',
+};
+
+const lineColors = {
+  green: 'bg-[#2D8B4E]',
+  orange: 'bg-[#F7931E]',
+  teal: 'bg-[#3D9A8B]',
+};
+
+const accentClasses = {
+  green: 'neon-text',
+  orange: 'neon-text-orange',
+  teal: 'neon-text',
+};
+---
+
+<div class:list={['flex flex-col gap-8 items-center', reverse ? 'md:flex-row-reverse' : 'md:flex-row']}>
+  <!-- Image -->
+  {image && (
+    <div class="md:w-1/3">
+      <div class="content-image-wrapper">
+        <img
+          src={image}
+          alt={imageAlt}
+          class="content-image"
+          style={`object-position: ${imagePosition};`}
+        />
+      </div>
+    </div>
+  )}
+
+  <!-- Content -->
+  <div class:list={[image ? 'md:w-2/3' : 'w-full']}>
+    {label && (
+      <div class="inline-flex items-center gap-2 mb-4">
+        <div class:list={['w-8 h-[2px]', lineColors[labelColor]]}></div>
+        <span class:list={[labelColors[labelColor], 'text-sm font-semibold tracking-wider uppercase']}>{label}</span>
+      </div>
+    )}
+
+    <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+      {title}
+      {titleAccent && <span class:list={[accentClasses[labelColor]]}> {titleAccent}</span>}
+    </h3>
+
+    <div class="text-lg text-gray-600 leading-relaxed">
+      <slot />
+    </div>
+  </div>
+</div>

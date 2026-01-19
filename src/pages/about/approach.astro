@@ -1,0 +1,571 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import Section from '../../components/Section.astro';
+import Container from '../../components/Container.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CTASection from '../../components/CTASection.astro';
+import PillarCard from '../../components/PillarCard.astro';
+import ValueCard from '../../components/ValueCard.astro';
+import QuoteCard from '../../components/QuoteCard.astro';
+
+const fnePhilosophy = [
+  {
+    letter: 'F',
+    word: 'Facilitate',
+    tagline: 'Building Bridges',
+    description: 'We facilitate collaboration between communities, volunteers, and organizations. Rather than imposing solutions, we create pathways for meaningful partnerships that address real needs identified by communities themselves.',
+    examples: [
+      'Connecting volunteer groups with community projects',
+      'Coordinating between local organizations and international resources',
+      'Creating spaces for dialogue and shared decision-making',
+    ],
+    icon: 'M13 10V3L4 14h7v7l9-11h-7z',
+    color: 'green',
+  },
+  {
+    letter: 'N',
+    word: 'Network',
+    tagline: 'Expanding Reach',
+    description: 'We network with local and international organizations to expand our impact and bring fresh perspectives. These partnerships multiply our effectiveness and spark innovation in how we approach community development.',
+    examples: [
+      'Partnering with local health organizations for medical brigades',
+      'Collaborating with universities for educational programs',
+      'Working with local governments on infrastructure projects',
+    ],
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+    color: 'teal',
+  },
+  {
+    letter: 'E',
+    word: 'Empower',
+    tagline: 'Building Capacity',
+    description: 'We empower individuals to become engaged members of their community and the world. Our ultimate goal is self-sustainability—enabling people to take charge of their own growth and continue thriving long after our direct involvement ends.',
+    examples: [
+      'Training local leaders to manage programs independently',
+      'Providing scholarships that open doors to new opportunities',
+      'Supporting community-owned initiatives and businesses',
+    ],
+    icon: 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z',
+    color: 'orange',
+  },
+];
+
+const coreValues = [
+  {
+    title: 'Horizontal Relationships',
+    description: 'We build partnerships based on mutual respect, not charity. We work alongside communities as equals, learning as much as we contribute.',
+    icon: 'M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4',
+  },
+  {
+    title: 'Community-Led Development',
+    description: 'Communities identify their own needs and opportunities. We provide support and resources, but decisions are made by those who will live with the results.',
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+  },
+  {
+    title: 'Self-Sustainability',
+    description: 'Every project is designed with an exit strategy. Our goal is to build capacity so communities can thrive independently, not depend on outside aid.',
+    icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
+  },
+  {
+    title: 'Integrity & Transparency',
+    description: 'We hold ourselves to the highest ethical standards. Donors and partners can trust that resources go directly to the communities we serve.',
+    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+  },
+];
+
+const focusAreas = [
+  {
+    title: 'Infrastructure',
+    description: 'Building homes, schools, and essential facilities that provide families with safety, dignity, and a foundation for success.',
+    icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+    color: 'green',
+    stat: '300+',
+    statLabel: 'Houses Built',
+  },
+  {
+    title: 'Education',
+    description: 'Creating pathways to opportunity through scholarships, tutoring, libraries, and special education support.',
+    icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
+    color: 'teal',
+    stat: '150+',
+    statLabel: 'Scholarship Students',
+  },
+  {
+    title: 'Health',
+    description: 'Providing medical care, health education, and ongoing support for children with chronic conditions.',
+    icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+    color: 'orange',
+    stat: '120+',
+    statLabel: 'Pediatric Patients',
+  },
+  {
+    title: 'Food Systems',
+    description: 'Teaching sustainable farming practices and ensuring families have access to nutritious food for food sovereignty.',
+    icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064',
+    color: 'green',
+    stat: '3',
+    statLabel: 'Demo Farms',
+  },
+];
+
+const differentiators = [
+  {
+    traditional: 'Hand over hand',
+    fne: 'Hand in hand',
+    explanation: 'We work alongside communities as partners, not as outside saviors delivering charity.',
+  },
+  {
+    traditional: 'Short-term relief',
+    fne: 'Long-term development',
+    explanation: 'Our projects are designed for lasting impact, building capacity that remains after we leave.',
+  },
+  {
+    traditional: 'Outsider-driven priorities',
+    fne: 'Community-identified needs',
+    explanation: 'Communities tell us what they need. We listen first, then work together on solutions.',
+  },
+  {
+    traditional: 'Dependency creation',
+    fne: 'Self-sustainability',
+    explanation: 'Every program includes training and transition plans so communities can continue independently.',
+  },
+];
+---
+
+<BaseLayout title="Our Approach">
+  <!-- Hero Section -->
+  <HeroSection
+    badge="Our Philosophy"
+    title="Our"
+    titleAccent="Approach"
+    subtitle="Empowerment and fostering horizontal relationships with our partner communities lie at the core of everything we do."
+    image="/team.jpg"
+    imageAlt="FNE International team working with community"
+  />
+
+  <!-- Introduction -->
+  <Section background="white">
+    <Container size="md">
+      <div class="intro-content animate-on-scroll">
+        <p class="text-xl md:text-2xl text-gray-700 leading-relaxed mb-6 font-light">
+          At FNE International, we believe sustainable change doesn't come from outsiders imposing solutions—it comes from <span class="text-[#2D8B4E] font-semibold">empowering communities</span> to identify their own opportunities and build their own futures.
+        </p>
+        <p class="text-lg text-gray-600 leading-relaxed">
+          Our name reflects our methodology: <strong>F</strong>acilitate, <strong>N</strong>etwork, <strong>E</strong>mpower. These three principles guide every project, partnership, and decision we make.
+        </p>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- FNE Philosophy -->
+  <Section background="gray" withGrid>
+    <Container>
+      <SectionHeader
+        label="The FNE Model"
+        title="Facilitate. Network. Empower."
+        subtitle="Three principles that define how we create lasting change."
+      />
+
+      <div class="philosophy-grid">
+        {fnePhilosophy.map((item, index) => (
+          <div class={`philosophy-card philosophy-card-${item.color} animate-on-scroll delay-${(index + 1) * 100}`}>
+            <div class="philosophy-header">
+              <div class="philosophy-letter-wrapper">
+                <div class="icon-3d">
+                  <div class="icon-3d-inner animate-rotate-3d">
+                    <div class="philosophy-letter">{item.letter}</div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold text-gray-900">{item.word}</h3>
+                <p class="text-sm text-gray-500 font-medium">{item.tagline}</p>
+              </div>
+            </div>
+
+            <p class="text-gray-600 leading-relaxed mb-6">{item.description}</p>
+
+            <div class="philosophy-examples">
+              <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">In Practice</p>
+              <ul class="space-y-2">
+                {item.examples.map((example) => (
+                  <li class="flex items-start gap-2 text-sm text-gray-600">
+                    <svg class="w-4 h-4 text-[#2D8B4E] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>{example}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Hand in Hand -->
+  <Section background="white">
+    <Container size="md">
+      <div class="animate-on-scroll">
+        <SectionHeader
+          label="Our Difference"
+          title="Hand in Hand, Not Hand Over Hand"
+          subtitle="We don't provide charity—we build partnerships."
+          labelColor="orange"
+        />
+      </div>
+
+      <div class="hand-in-hand-visual animate-on-scroll delay-100">
+        <div class="hih-icon-wrapper">
+          <div class="icon-3d">
+            <div class="icon-3d-inner animate-rotate-3d">
+              <svg class="w-16 h-16 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <p class="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
+          Traditional aid often creates dependency. We take a different approach: working <span class="text-[#2D8B4E] font-semibold">alongside</span> communities as equal partners, sharing knowledge and resources while respecting local expertise and decision-making.
+        </p>
+      </div>
+
+      <div class="differentiators-grid">
+        {differentiators.map((item, index) => (
+          <div class={`diff-card animate-on-scroll delay-${(index + 1) * 100}`}>
+            <div class="diff-comparison">
+              <div class="diff-traditional">
+                <span class="diff-label">Traditional</span>
+                <span class="diff-value">{item.traditional}</span>
+              </div>
+              <div class="diff-arrow">
+                <svg class="w-6 h-6 text-[#F7931E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </div>
+              <div class="diff-fne">
+                <span class="diff-label">FNE Approach</span>
+                <span class="diff-value">{item.fne}</span>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 mt-4">{item.explanation}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Core Values -->
+  <Section background="gray" withGrid>
+    <Container>
+      <SectionHeader
+        label="What Guides Us"
+        title="Core Values"
+        subtitle="The principles that shape every partnership and project."
+        labelColor="teal"
+      />
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {coreValues.map((value, index) => (
+          <ValueCard
+            title={value.title}
+            description={value.description}
+            icon={value.icon}
+            animationDelay={(index + 1) * 100}
+          />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Focus Areas -->
+  <Section background="white">
+    <Container>
+      <SectionHeader
+        label="Where We Focus"
+        title="Four Pillars of Development"
+        subtitle="Our integrated approach addresses multiple dimensions of community well-being."
+      />
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {focusAreas.map((area, index) => (
+          <PillarCard
+            title={area.title}
+            description={area.description}
+            icon={area.icon}
+            color={area.color}
+            stat={area.stat}
+            statLabel={area.statLabel}
+            animationDelay={(index + 1) * 100}
+          />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Quote/Impact -->
+  <Section background="gradient">
+    <Container size="md">
+      <QuoteCard
+        quote="We partner with communities in developing nations to identify opportunities to advance housing, health and education. By Facilitating collaboration and Networking with local and international organizations, we strive to seize those opportunities and Empower individuals to do the same as engaged members of their community and the world."
+        attribution="FNE International Mission"
+        subtext="Our guiding purpose since 1990"
+      />
+    </Container>
+  </Section>
+
+  <!-- Our Vision -->
+  <Section background="white">
+    <Container size="md">
+      <div class="vision-section animate-on-scroll">
+        <SectionHeader
+          label="Looking Forward"
+          title="Our Vision"
+          labelColor="green"
+        />
+        <div class="vision-content">
+          <div class="vision-icon-wrapper">
+            <div class="icon-3d">
+              <div class="icon-3d-inner animate-float">
+                <svg class="w-12 h-12 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="text-xl text-gray-700 leading-relaxed">
+            Communities throughout Latin America have <span class="text-[#2D8B4E] font-semibold">equal opportunities</span> for all in education, infrastructure, health and food sovereignty.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA -->
+  <CTASection
+    title="Put Our Approach Into Action"
+    subtitle="Join us in building partnerships that create lasting change. Your involvement makes a difference."
+    icon="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+    primaryButtonText="Get Involved"
+    primaryButtonLink="/get-involved"
+    secondaryButtonText="View Our Programs"
+    secondaryButtonLink="/programs"
+  />
+</BaseLayout>
+
+<style>
+  /* Introduction */
+  .intro-content {
+    text-align: center;
+  }
+
+  /* Philosophy Grid */
+  .philosophy-grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .philosophy-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .philosophy-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 24px;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+  }
+
+  .philosophy-card-green {
+    border-color: rgba(45, 139, 78, 0.15);
+  }
+
+  .philosophy-card-teal {
+    border-color: rgba(61, 154, 139, 0.15);
+  }
+
+  .philosophy-card-orange {
+    border-color: rgba(247, 147, 30, 0.15);
+  }
+
+  .philosophy-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(45, 139, 78, 0.15);
+  }
+
+  .philosophy-card-green:hover {
+    border-color: rgba(45, 139, 78, 0.4);
+  }
+
+  .philosophy-card-teal:hover {
+    border-color: rgba(61, 154, 139, 0.4);
+  }
+
+  .philosophy-card-orange:hover {
+    border-color: rgba(247, 147, 30, 0.4);
+  }
+
+  .philosophy-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .philosophy-letter-wrapper {
+    flex-shrink: 0;
+  }
+
+  .philosophy-letter {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #2D8B4E, #F7931E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    border: 2px solid rgba(45, 139, 78, 0.2);
+    border-radius: 16px;
+  }
+
+  .philosophy-examples {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(45, 139, 78, 0.1);
+  }
+
+  /* Hand in Hand */
+  .hand-in-hand-visual {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .hih-icon-wrapper {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    border-radius: 32px;
+    border: 2px solid rgba(45, 139, 78, 0.2);
+  }
+
+  .differentiators-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .differentiators-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .diff-card {
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.03), rgba(247, 147, 30, 0.03));
+    padding: 1.5rem;
+    border-radius: 20px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .diff-card:hover {
+    border-color: rgba(45, 139, 78, 0.3);
+    box-shadow: 0 10px 40px rgba(45, 139, 78, 0.1);
+  }
+
+  .diff-comparison {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .diff-traditional,
+  .diff-fne {
+    flex: 1;
+    text-align: center;
+  }
+
+  .diff-label {
+    display: block;
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #999;
+    margin-bottom: 0.25rem;
+  }
+
+  .diff-traditional .diff-value {
+    color: #999;
+    font-weight: 500;
+    text-decoration: line-through;
+    font-size: 0.875rem;
+  }
+
+  .diff-fne .diff-value {
+    color: #2D8B4E;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  .diff-arrow {
+    flex-shrink: 0;
+  }
+
+  /* Vision Section */
+  .vision-section {
+    text-align: center;
+  }
+
+  .vision-content {
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.05), rgba(247, 147, 30, 0.05));
+    padding: 3rem;
+    border-radius: 24px;
+    border: 2px solid rgba(45, 139, 78, 0.1);
+  }
+
+  .vision-icon-wrapper {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 28px;
+    box-shadow: 0 10px 40px rgba(45, 139, 78, 0.15);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .philosophy-card {
+      padding: 1.5rem;
+    }
+
+    .philosophy-header {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .diff-comparison {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .diff-arrow {
+      transform: rotate(90deg);
+    }
+  }
+</style>

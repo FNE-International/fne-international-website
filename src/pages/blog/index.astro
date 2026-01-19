@@ -1,0 +1,379 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import Section from '../../components/Section.astro';
+import Container from '../../components/Container.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CTASection from '../../components/CTASection.astro';
+import { useStoryblokApi } from '@storyblok/astro';
+import {
+  formatDate,
+  getCategoryLabel,
+  getCategoryColors,
+  getOptimizedImageUrl,
+  truncateText,
+  categoryLabels,
+  type BlogPost,
+} from '../../lib/storyblok';
+
+// Get page from query params (SSR mode) or default to 1
+const currentPage = Number(Astro.url.searchParams.get('page')) || 1;
+const selectedCategory = Astro.url.searchParams.get('category') || '';
+const perPage = 9;
+
+// Fetch posts from Storyblok
+const storyblokApi = useStoryblokApi();
+let posts: BlogPost[] = [];
+let totalPages = 0;
+
+try {
+  const filterQuery: Record<string, unknown> = {};
+  if (selectedCategory) {
+    filterQuery['category'] = { in: selectedCategory };
+  }
+
+  const { data, total } = await storyblokApi.get('cdn/stories', {
+    version: import.meta.env.DEV ? 'draft' : 'published',
+    starts_with: 'blog/',
+    is_startpage: false,
+    sort_by: 'content.publish_date:desc',
+    per_page: perPage,
+    page: currentPage,
+    filter_query: Object.keys(filterQuery).length > 0 ? filterQuery : undefined,
+  });
+
+  posts = data.stories as BlogPost[];
+  totalPages = Math.ceil((total || 0) / perPage);
+} catch {
+  // Handle case where Storyblok API is unavailable or no content exists
+  posts = [];
+  totalPages = 0;
+}
+
+// Get all unique categories from posts for filter chips
+const allCategories = Object.keys(categoryLabels);
+---
+
+<BaseLayout title="Blog" description="Stories, updates, and insights from FNE International's work around the world.">
+  <!-- Hero Section -->
+  <HeroSection
+    badge="Our Stories"
+    title="Blog &"
+    titleAccent="Updates"
+    subtitle="Stories, updates, and insights from our work transforming communities around the world."
+    image="/team.jpg"
+    imageAlt="FNE International community work"
+  />
+
+  <!-- Category Filter -->
+  <Section background="white" padding="sm">
+    <Container>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a
+          href="/blog"
+          class:list={[
+            'filter-chip',
+            !selectedCategory && 'filter-chip-active',
+          ]}
+        >
+          All Posts
+        </a>
+        {allCategories.map((category) => {
+          return (
+            <a
+              href={`/blog/category/${category}`}
+              class="filter-chip"
+            >
+              {getCategoryLabel(category)}
+            </a>
+          );
+        })}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Blog Posts Grid -->
+  <Section background="gray" padding="lg">
+    <Container>
+      {posts.length > 0 ? (
+        <>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {posts.map((post) => {
+              const colors = getCategoryColors(post.content.category);
+              const postSlug = post.slug.replace('blog/', '');
+              return (
+                <article class="blog-card group animate-on-scroll">
+                  <!-- Image -->
+                  <a href={`/blog/${postSlug}`} class="block relative aspect-[16/10] overflow-hidden rounded-t-2xl">
+                    {post.content.featured_image?.filename ? (
+                      <img
+                        src={getOptimizedImageUrl(post.content.featured_image.filename, { width: 600 })}
+                        alt={post.content.featured_image.alt || post.content.title}
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div class="w-full h-full bg-gradient-to-br from-emerald-100 to-emerald-200 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                    )}
+                    <!-- Category Badge -->
+                    <span class={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold ${colors.bg} ${colors.text}`}>
+                      {getCategoryLabel(post.content.category)}
+                    </span>
+                  </a>
+
+                  <!-- Content -->
+                  <div class="p-6 bg-white rounded-b-2xl flex flex-col card-content">
+                    <!-- Date -->
+                    <time datetime={post.content.publish_date} class="text-sm text-gray-500">
+                      {formatDate(post.content.publish_date)}
+                    </time>
+
+                    <!-- Title -->
+                    <h2 class="mt-2 mb-3 card-title">
+                      <a
+                        href={`/blog/${postSlug}`}
+                        class="text-xl font-bold text-gray-900 hover:text-[#2D8B4E] transition-colors line-clamp-2"
+                      >
+                        {post.content.title}
+                      </a>
+                    </h2>
+
+                    <!-- Excerpt -->
+                    <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 card-excerpt">
+                      {truncateText(post.content.excerpt, 150)}
+                    </p>
+
+                    <!-- Author & Read More -->
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto gap-2">
+                      <div class="flex items-center gap-2 min-w-0 flex-1">
+                        {post.content.author_image?.filename ? (
+                          <img
+                            src={getOptimizedImageUrl(post.content.author_image.filename, { width: 32, height: 32 })}
+                            alt={post.content.author_name}
+                            class="w-8 h-8 rounded-full object-cover flex-shrink-0"
+                          />
+                        ) : (
+                          <div class="w-8 h-8 rounded-full bg-[#2D8B4E] flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
+                            {post.content.author_name?.charAt(0) || 'A'}
+                          </div>
+                        )}
+                        <span class="text-sm text-gray-600 truncate">{post.content.author_name || 'Anonymous'}</span>
+                      </div>
+                      <a
+                        href={`/blog/${postSlug}`}
+                        class="text-sm font-semibold text-[#2D8B4E] hover:text-[#F7931E] transition-colors inline-flex items-center gap-1 flex-shrink-0"
+                      >
+                        Read
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <!-- Pagination -->
+          {totalPages > 1 && (
+            <nav class="mt-12 flex justify-center items-center gap-2" aria-label="Pagination">
+              {currentPage > 1 && (
+                <a
+                  href={`/blog?page=${currentPage - 1}${selectedCategory ? `&category=${selectedCategory}` : ''}`}
+                  class="pagination-btn"
+                >
+                  Previous
+                </a>
+              )}
+
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <a
+                  href={`/blog?page=${page}${selectedCategory ? `&category=${selectedCategory}` : ''}`}
+                  class:list={[
+                    'pagination-number',
+                    page === currentPage && 'pagination-number-active',
+                  ]}
+                >
+                  {page}
+                </a>
+              ))}
+
+              {currentPage < totalPages && (
+                <a
+                  href={`/blog?page=${currentPage + 1}${selectedCategory ? `&category=${selectedCategory}` : ''}`}
+                  class="pagination-btn"
+                >
+                  Next
+                </a>
+              )}
+            </nav>
+          )}
+        </>
+      ) : (
+        <div class="text-center py-16">
+          <div class="icon-3d mb-6 mx-auto w-fit">
+            <div class="w-20 h-20 bg-gradient-to-br from-[#2D8B4E]/10 to-[#F7931E]/10 rounded-2xl flex items-center justify-center border border-[#2D8B4E]/20">
+              <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+              </svg>
+            </div>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">No posts found</h2>
+          <p class="text-gray-600 mb-6">
+            {selectedCategory
+              ? `No posts found in the "${getCategoryLabel(selectedCategory)}" category.`
+              : "We haven't published any blog posts yet. Check back soon!"}
+          </p>
+          {selectedCategory && (
+            <a href="/blog" class="inline-flex items-center gap-2 text-[#2D8B4E] font-semibold hover:text-[#F7931E] transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+              View all posts
+            </a>
+          )}
+        </div>
+      )}
+    </Container>
+  </Section>
+
+  <!-- CTA Section -->
+  <CTASection
+    title="Stay Connected"
+    subtitle="Follow us on social media to get the latest updates, stories, and ways to get involved."
+    icon="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+    primaryButtonText="Get Involved"
+    primaryButtonLink="/get-involved/remote"
+    secondaryButtonText="Donate"
+    secondaryButtonLink="/donate"
+  />
+</BaseLayout>
+
+<style>
+  /* Filter chips */
+  .filter-chip {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: white;
+    border: 1px solid rgba(45, 139, 78, 0.15);
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    transition: all 0.3s ease;
+  }
+
+  .filter-chip:hover {
+    border-color: rgba(45, 139, 78, 0.4);
+    color: #2D8B4E;
+  }
+
+  .filter-chip-active {
+    background: #2D8B4E;
+    border-color: #2D8B4E;
+    color: white;
+  }
+
+  .filter-chip-active:hover {
+    background: #246b3e;
+    border-color: #246b3e;
+    color: white;
+  }
+
+  /* Blog card */
+  .blog-card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(45, 139, 78, 0.2);
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+  }
+
+  .card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Fixed height for title (2 lines) */
+  .card-title {
+    height: 3.5rem; /* ~2 lines at text-xl */
+    overflow: hidden;
+  }
+
+  /* Fixed height for excerpt (3 lines) */
+  .card-excerpt {
+    height: 4.5rem; /* ~3 lines at text-sm with leading-relaxed */
+    margin-bottom: 1rem;
+  }
+
+  /* Pagination */
+  .pagination-btn {
+    padding: 0.5rem 1rem;
+    background: white;
+    border: 1px solid rgba(45, 139, 78, 0.15);
+    border-radius: 0.5rem;
+    font-weight: 500;
+    color: #374151;
+    transition: all 0.3s ease;
+  }
+
+  .pagination-btn:hover {
+    border-color: rgba(45, 139, 78, 0.4);
+    color: #2D8B4E;
+  }
+
+  .pagination-number {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 1px solid rgba(45, 139, 78, 0.15);
+    border-radius: 0.5rem;
+    font-weight: 500;
+    color: #374151;
+    transition: all 0.3s ease;
+  }
+
+  .pagination-number:hover {
+    border-color: rgba(45, 139, 78, 0.4);
+    color: #2D8B4E;
+  }
+
+  .pagination-number-active {
+    background: #2D8B4E;
+    border-color: #2D8B4E;
+    color: white;
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

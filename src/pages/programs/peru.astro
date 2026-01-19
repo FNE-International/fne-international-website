@@ -1,0 +1,943 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import Section from '../../components/Section.astro';
+import Container from '../../components/Container.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CTASection from '../../components/CTASection.astro';
+import StatCard from '../../components/StatCard.astro';
+import PhotoCard from '../../components/PhotoCard.astro';
+
+const stats = [
+  { value: '3', label: 'Regional Partners', icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z' },
+  { value: '500+', label: 'Patients Served', icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' },
+  { value: '100+', label: 'Eco-Toilets Built', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
+  { value: '3', label: 'Regions Served', icon: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z' },
+];
+
+const regions = [
+  {
+    name: 'Lima',
+    type: 'Capital Region',
+    description: 'Working in informal settlements around Peru\'s capital city, where rapid urbanization has outpaced infrastructure development.',
+    programs: ['Eco-toilet construction', 'Health education'],
+    partner: 'NGO Arrebol',
+    imagePlaceholder: 'Aerial view of Lima informal settlements where FNE works',
+  },
+  {
+    name: 'Lambayeque',
+    type: 'Northwest Coast',
+    description: 'Partnering with Asociación Latidos to provide healthcare services in this agricultural region known for its rich archaeological heritage.',
+    programs: ['Medical brigades', 'Health post support', 'Water infrastructure'],
+    partner: 'Asociación Latidos',
+    imagePlaceholder: 'Lambayeque countryside with traditional agricultural areas',
+  },
+  {
+    name: 'Cusco',
+    type: 'Andean Highlands',
+    description: 'Collaborating with Asociación Wiñaypaq in the Sacred Valley to serve indigenous Quechua-speaking communities.',
+    programs: ['Health services', 'Community development'],
+    partner: 'Asociación Wiñaypaq',
+    imagePlaceholder: 'Mountain village in Sacred Valley near Cusco',
+  },
+];
+
+const partners = [
+  {
+    name: 'Asociación Latidos',
+    location: 'Lambayeque',
+    focus: 'Healthcare & Community Health',
+    description: 'A Peruvian nonprofit focused on improving healthcare access in the Lambayeque region. Together we organize medical brigades and support local health posts.',
+    services: ['Medical brigades', 'Health education', 'Community outreach', 'Primary care support'],
+    imagePlaceholder: 'Latidos team members providing care at community health post',
+  },
+  {
+    name: 'Asociación Wiñaypaq',
+    location: 'Cusco',
+    focus: 'Indigenous Health & Development',
+    description: 'Working with Quechua-speaking communities in the Sacred Valley to provide culturally appropriate healthcare and development programs.',
+    services: ['Traditional medicine integration', 'Health services', 'Cultural preservation', 'Community empowerment'],
+    imagePlaceholder: 'Wiñaypaq staff with indigenous community members in traditional dress',
+  },
+  {
+    name: 'NGO Arrebol',
+    location: 'Lima',
+    focus: 'Infrastructure & Sanitation',
+    description: 'Partnering to build eco-toilets in informal settlements around Lima, improving sanitation and environmental health.',
+    services: ['Eco-toilet construction', 'Sanitation education', 'Community organizing', 'Environmental health'],
+    imagePlaceholder: 'Arrebol team members during eco-toilet installation',
+  },
+];
+
+const infrastructurePrograms = [
+  {
+    name: 'Eco-Toilet Project',
+    location: 'Lima',
+    description: 'Building sustainable, waterless composting toilets in communities without access to sewage systems. These eco-toilets improve sanitation while producing compost for gardens.',
+    impact: '100+ eco-toilets built',
+    features: ['No water required', 'Produces compost', 'Low maintenance', 'Environmentally friendly'],
+    imagePlaceholder: 'Completed eco-toilet installation in Lima community',
+  },
+  {
+    name: 'Water Tank Financing',
+    location: 'Zaña, Lambayeque',
+    description: 'Providing financing for water storage tanks in communities with unreliable water access, ensuring families have clean water year-round.',
+    features: ['Low-interest financing', 'Clean water storage', 'Community training', 'Maintenance support'],
+    imagePlaceholder: 'Family with newly installed water storage tank',
+  },
+];
+
+const peruPhotos = [
+  'Panoramic view of Peruvian Andes mountains',
+  'Medical brigade team arriving at rural village',
+  'Community gathering for health education session',
+  'Volunteer team group photo with local partners',
+];
+---
+
+<BaseLayout title="Peru Programs">
+  <!-- Hero Section -->
+  <HeroSection
+    badge="Peru"
+    title="Programs in"
+    titleAccent="Peru"
+    subtitle="Partnering with local organizations across Peru to bring healthcare services, infrastructure improvements, and sustainable development to underserved communities."
+    image="/health.jpg"
+    imageAlt="Health services in Peru"
+  />
+
+  <!-- Quick Stats -->
+  <Section background="white" padding="sm">
+    <Container>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {stats.map((stat, index) => (
+          <StatCard
+            value={stat.value}
+            label={stat.label}
+            icon={stat.icon}
+            animationDelay={(index + 1) * 100}
+          />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Peru Photo Banner -->
+  <Section background="gray" spacing="small">
+    <div class="w-full overflow-hidden">
+      <div class="photo-grid photo-grid-4 max-w-7xl mx-auto px-4">
+        {peruPhotos.map((photo, index) => (
+          <PhotoCard placeholder={photo} animationDelay={(index + 1) * 100} />
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <!-- About Peru -->
+  <Section background="white">
+    <Container size="md">
+      <SectionHeader
+        label="About Peru"
+        title="Our Partnership Model"
+        subtitle="In Peru, we work through strong local partnerships, amplifying the impact of established organizations."
+        labelColor="teal"
+      />
+
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
+        <div class="info-card animate-slide-left">
+          <div class="info-card-icon">
+            <div class="icon-3d">
+              <div class="icon-3d-inner animate-rotate-3d">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Country Overview</h3>
+          <p class="text-gray-600 mb-5">Peru is a diverse nation spanning coastal deserts, Andean highlands, and Amazon rainforest. Despite economic growth, significant inequality persists, particularly in rural and indigenous communities.</p>
+          <ul class="space-y-3 text-sm text-gray-600">
+            <li class="flex items-start gap-2">
+              <span class="text-[#2D8B4E] font-bold">Population:</span>
+              <span>~33 million</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-[#2D8B4E] font-bold">Capital:</span>
+              <span>Lima</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-[#2D8B4E] font-bold">Languages:</span>
+              <span>Spanish, Quechua, Aymara</span>
+            </li>
+          </ul>
+        </div>
+        <div class="info-card animate-slide-right">
+          <div class="info-card-icon info-card-icon-orange">
+            <div class="icon-float">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Our Approach</h3>
+          <p class="text-gray-600 mb-5">Rather than running independent programs, we partner with established Peruvian organizations who understand local needs and culture. This model ensures sustainability and community ownership.</p>
+          <div class="partnership-highlight">
+            <span class="text-sm font-semibold text-[#2D8B4E]">Partnership Focus</span>
+            <p class="text-sm text-gray-600 mt-1">We provide funding, volunteers, and expertise while our partners lead implementation.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Placeholder -->
+      <div class="animate-on-scroll">
+        <div class="image-placeholder image-placeholder-wide">
+          <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+          </svg>
+          <span class="image-placeholder-text">Map of Peru showing FNE program regions: Lima, Lambayeque, and Cusco</span>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Regions We Serve -->
+  <Section background="gray" withGrid>
+    <Container>
+      <SectionHeader
+        label="Where We Work"
+        title="Three Regions, One Mission"
+        subtitle="From the capital to the highlands, we're making an impact across Peru."
+        labelColor="orange"
+      />
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {regions.map((region, index) => (
+          <div class={`region-card animate-on-scroll delay-${(index + 1) * 100}`}>
+            <!-- Region Image -->
+            <div class="region-image-wrapper">
+              <div class="image-placeholder">
+                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="image-placeholder-text">{region.imagePlaceholder}</span>
+              </div>
+            </div>
+            <div class="region-content">
+              <!-- Floating location icon -->
+              <div class="region-icon icon-float">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <div class="region-header">
+                <h3 class="text-xl font-bold text-gray-900">{region.name}</h3>
+                <span class="region-type">{region.type}</span>
+              </div>
+              <p class="text-gray-600 mb-5 mt-3">{region.description}</p>
+              <div class="region-partner">
+                <span class="text-xs text-gray-500 uppercase tracking-wider">Local Partner</span>
+                <span class="text-sm font-semibold text-[#2D8B4E]">{region.partner}</span>
+              </div>
+              <div class="flex flex-wrap gap-2 mt-4">
+                {region.programs.map((program) => (
+                  <span class="program-tag">{program}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Our Partners -->
+  <Section background="white">
+    <Container>
+      <SectionHeader
+        label="Partnerships"
+        title="Our Local Partners"
+        subtitle="These organizations are the backbone of our work in Peru. Together, we achieve more."
+        labelColor="green"
+      />
+
+      <div class="space-y-8">
+        {partners.map((partner, index) => (
+          <div class={`partner-card ${index % 2 === 1 ? 'partner-card-reverse' : ''} animate-on-scroll`}>
+            <!-- Partner Image -->
+            <div class="partner-image-wrapper">
+              <div class="image-placeholder">
+                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="image-placeholder-text">{partner.imagePlaceholder}</span>
+              </div>
+            </div>
+            <div class="partner-content">
+              <!-- Animated partner icon -->
+              <div class="partner-icon icon-glow">
+                <div class="animate-scale-pulse">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+              </div>
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <h3 class="text-xl font-bold text-gray-900">{partner.name}</h3>
+                <span class="partner-location">{partner.location}</span>
+              </div>
+              <div class="partner-focus">{partner.focus}</div>
+              <p class="text-gray-600 mt-3 mb-5">{partner.description}</p>
+              <div class="flex flex-wrap gap-2">
+                {partner.services.map((service) => (
+                  <span class="service-tag">{service}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Infrastructure Programs -->
+  <Section background="gray" withGrid>
+    <Container>
+      <SectionHeader
+        label="Infrastructure"
+        title="Building Essential Services"
+        subtitle="Improving sanitation and water access in communities that need it most."
+      />
+
+      <div class="grid md:grid-cols-2 gap-8">
+        {infrastructurePrograms.map((program, index) => (
+          <div class={`infrastructure-card animate-on-scroll delay-${(index + 1) * 100}`}>
+            <!-- Program Image -->
+            <div class="infrastructure-image-wrapper">
+              <div class="image-placeholder">
+                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="image-placeholder-text">{program.imagePlaceholder}</span>
+              </div>
+            </div>
+            <div class="infrastructure-content">
+              <!-- Animated building icon -->
+              <div class="infrastructure-icon icon-float">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <div class="infrastructure-header">
+                <h3 class="text-xl font-bold text-gray-900">{program.name}</h3>
+                <span class="infrastructure-location">{program.location}</span>
+              </div>
+              {program.impact && <div class="infrastructure-impact">{program.impact}</div>}
+              <p class="text-gray-600 mt-4 mb-5">{program.description}</p>
+              <ul class="space-y-2">
+                {program.features.map((feature) => (
+                  <li class="flex items-center gap-2 text-sm text-gray-700">
+                    <svg class="w-4 h-4 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Eco-Toilet Gallery -->
+      <div class="eco-gallery mt-12 animate-on-scroll">
+        <h3 class="text-lg font-bold text-gray-900 mb-6 text-center">Eco-Toilet Project Progress</h3>
+        <div class="photo-grid photo-grid-4">
+          <div class="photo-card">
+            <div class="image-placeholder">
+              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Site preparation for eco-toilet installation</span>
+            </div>
+          </div>
+          <div class="photo-card">
+            <div class="image-placeholder">
+              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Construction in progress with volunteer team</span>
+            </div>
+          </div>
+          <div class="photo-card">
+            <div class="image-placeholder">
+              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Community training on maintenance</span>
+            </div>
+          </div>
+          <div class="photo-card">
+            <div class="image-placeholder">
+              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text text-xs">Completed eco-toilet with proud family</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Health Focus -->
+  <Section background="white">
+    <Container size="md">
+      <div class="health-focus-section animate-on-scroll">
+        <!-- Floating orbs -->
+        <div class="health-orb health-orb-1"></div>
+        <div class="health-orb health-orb-2"></div>
+
+        <div class="relative z-10">
+          <div class="health-icon-wrapper">
+            <div class="icon-3d">
+              <div class="icon-3d-inner animate-rotate-3d">
+                <div class="health-icon">
+                  <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h2 class="text-3xl font-black text-gray-900 mb-4">Healthcare Through Partnership</h2>
+          <p class="text-lg text-gray-600 mb-8">
+            Our health initiatives in Peru focus on supporting medical brigades, strengthening local health posts, and ensuring communities have access to quality healthcare. By working through local partners, we ensure culturally appropriate care that respects traditional practices while introducing modern medicine.
+          </p>
+
+          <!-- Health Stats with Icons -->
+          <div class="grid sm:grid-cols-3 gap-6">
+            <div class="health-stat-box">
+              <div class="health-stat-icon icon-glow">
+                <div class="animate-scale-pulse">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+              </div>
+              <div class="health-stat-number">500+</div>
+              <div class="health-stat-label">Patients served annually</div>
+            </div>
+            <div class="health-stat-box">
+              <div class="health-stat-icon icon-glow">
+                <div class="animate-wobble">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </div>
+              </div>
+              <div class="health-stat-number">2</div>
+              <div class="health-stat-label">Health partners</div>
+            </div>
+            <div class="health-stat-box">
+              <div class="health-stat-icon icon-glow">
+                <div class="icon-float">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+              </div>
+              <div class="health-stat-number">3</div>
+              <div class="health-stat-label">Medical brigades/year</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Health Brigade Gallery -->
+  <Section background="gray" spacing="small">
+    <Container>
+      <div class="text-center mb-8">
+        <h3 class="text-xl font-bold text-gray-900">Medical Brigades in Action</h3>
+        <p class="text-gray-600">Bringing healthcare to remote communities</p>
+      </div>
+      <div class="photo-showcase">
+        <div class="photo-showcase-large animate-slide-left">
+          <div class="image-placeholder image-placeholder-wide">
+            <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="image-placeholder-text">Medical brigade setup in rural Cusco village with patients waiting</span>
+          </div>
+        </div>
+        <div class="photo-showcase-grid">
+          <div class="animate-slide-right delay-100">
+            <div class="image-placeholder">
+              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text">Doctor examining patient during brigade</span>
+            </div>
+          </div>
+          <div class="animate-slide-right delay-200">
+            <div class="image-placeholder">
+              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text">Pharmacy station distributing medications</span>
+            </div>
+          </div>
+          <div class="animate-slide-right delay-300">
+            <div class="image-placeholder">
+              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text">Health education presentation to community</span>
+            </div>
+          </div>
+          <div class="animate-slide-right delay-400">
+            <div class="image-placeholder">
+              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="image-placeholder-text">Children receiving vitamins and checkups</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Get Involved CTA -->
+  <CTASection
+    title="Support Our Peru Programs"
+    subtitle="Your support helps us strengthen our partnerships and expand our reach across Peru."
+    primaryButtonText="Join a Medical Brigade"
+    primaryButtonLink="/get-involved/trips"
+    secondaryButtonText="Donate Now"
+    secondaryButtonLink="/donate"
+  />
+</BaseLayout>
+
+<style>
+  /* Info cards */
+  .info-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+  }
+
+  .info-card-icon {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(61, 154, 139, 0.1));
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2D8B4E;
+  }
+
+  .info-card-icon-orange {
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.1), rgba(45, 139, 78, 0.1));
+    color: #F7931E;
+  }
+
+  .partnership-highlight {
+    background: rgba(45, 139, 78, 0.05);
+    padding: 1.25rem;
+    border-radius: 12px;
+    border-left: 3px solid #2D8B4E;
+  }
+
+  /* Region cards with images */
+  .region-card {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .region-card:hover {
+    border-color: rgba(45, 139, 78, 0.3);
+    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .region-image-wrapper .image-placeholder {
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px dashed rgba(45, 139, 78, 0.2);
+  }
+
+  .region-content {
+    padding: 2rem;
+    position: relative;
+  }
+
+  .region-icon {
+    position: absolute;
+    top: -22px;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 6px 16px rgba(247, 147, 30, 0.3);
+  }
+
+  .region-header {
+    margin-bottom: 0.5rem;
+  }
+
+  .region-type {
+    display: inline-block;
+    font-size: 0.75rem;
+    color: #666;
+    background: #f5f5f5;
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+    margin-top: 0.25rem;
+  }
+
+  .region-partner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    background: rgba(45, 139, 78, 0.05);
+    border-radius: 12px;
+  }
+
+  .program-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(45, 139, 78, 0.08);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #2D8B4E;
+  }
+
+  /* Partner cards with images */
+  .partner-card {
+    display: grid;
+    gap: 2rem;
+    background: white;
+    padding: 0;
+    border-radius: 24px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  @media (min-width: 768px) {
+    .partner-card {
+      grid-template-columns: 300px 1fr;
+    }
+
+    .partner-card-reverse {
+      grid-template-columns: 1fr 300px;
+    }
+
+    .partner-card-reverse .partner-image-wrapper {
+      order: 2;
+    }
+  }
+
+  .partner-card:hover {
+    border-color: rgba(45, 139, 78, 0.2);
+    box-shadow: 0 10px 40px rgba(45, 139, 78, 0.1);
+  }
+
+  .partner-image-wrapper .image-placeholder {
+    height: 100%;
+    min-height: 200px;
+    border-radius: 0;
+    border: none;
+  }
+
+  .partner-content {
+    padding: 2rem;
+    position: relative;
+  }
+
+  .partner-icon {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2D8B4E;
+  }
+
+  .partner-location {
+    font-size: 0.75rem;
+    color: white;
+    background: #3D9A8B;
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+  }
+
+  .partner-focus {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #F7931E;
+  }
+
+  .service-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(61, 154, 139, 0.08);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #3D9A8B;
+  }
+
+  /* Infrastructure cards with images */
+  .infrastructure-card {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .infrastructure-card:hover {
+    border-color: rgba(45, 139, 78, 0.3);
+    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .infrastructure-image-wrapper .image-placeholder {
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px dashed rgba(45, 139, 78, 0.2);
+  }
+
+  .infrastructure-content {
+    padding: 2rem;
+    position: relative;
+  }
+
+  .infrastructure-icon {
+    position: absolute;
+    top: -22px;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 6px 16px rgba(45, 139, 78, 0.3);
+  }
+
+  .infrastructure-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .infrastructure-location {
+    font-size: 0.75rem;
+    color: #666;
+    background: #f5f5f5;
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+  }
+
+  .infrastructure-impact {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #2D8B4E;
+    margin-top: 0.5rem;
+  }
+
+  /* Health focus section */
+  .health-focus-section {
+    position: relative;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 32px;
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+    overflow: hidden;
+  }
+
+  .health-icon-wrapper {
+    margin-bottom: 2rem;
+  }
+
+  .health-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.1), rgba(45, 139, 78, 0.1));
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #F7931E;
+    border: 2px solid rgba(247, 147, 30, 0.2);
+  }
+
+  .health-stat-box {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.05), rgba(247, 147, 30, 0.05));
+    border-radius: 20px;
+  }
+
+  .health-stat-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1rem;
+    background: white;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2D8B4E;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+  }
+
+  .health-stat-number {
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #2D8B4E, #F7931E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .health-stat-label {
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 0.5rem;
+  }
+
+  .health-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  .health-orb-1 {
+    width: 200px;
+    height: 200px;
+    background: #2D8B4E;
+    top: -50px;
+    left: -50px;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .health-orb-2 {
+    width: 150px;
+    height: 150px;
+    background: #F7931E;
+    bottom: -30px;
+    right: -30px;
+    animation: float 6s ease-in-out infinite reverse;
+  }
+
+  /* Photo showcase */
+  .photo-showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .photo-showcase {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  .photo-showcase-large .image-placeholder {
+    height: 100%;
+    min-height: 300px;
+  }
+
+  .photo-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    position: relative;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 32px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    overflow: hidden;
+  }
+
+  .cta-icon-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cta-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.15), rgba(45, 139, 78, 0.15));
+    border-radius: 24px;
+    color: #F7931E;
+    border: 2px solid rgba(247, 147, 30, 0.2);
+  }
+
+  .cta-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .cta-orb-1 {
+    width: 300px;
+    height: 300px;
+    background: #2D8B4E;
+    top: -100px;
+    right: -100px;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .cta-orb-2 {
+    width: 200px;
+    height: 200px;
+    background: #F7931E;
+    bottom: -50px;
+    left: -50px;
+    animation: float 6s ease-in-out infinite reverse;
+  }
+</style>

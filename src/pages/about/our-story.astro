@@ -1,0 +1,685 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import Section from '../../components/Section.astro';
+import Container from '../../components/Container.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CTASection from '../../components/CTASection.astro';
+
+const timeline = [
+  {
+    year: '1990',
+    month: 'October',
+    title: 'A Journey Begins',
+    description: 'Executive Director and Co-founder Michael Cipoletti travels to Nicaragua for the first time, witnessing firsthand the challenges facing communities and planting the seeds for what would become FNE International.',
+    icon: 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z'
+  },
+  {
+    year: '2009',
+    title: 'Joining Forces',
+    description: 'After years of grassroots work, the organization becomes a chapter of Friends of New England (FNE), gaining structure and expanding capacity to serve more communities.',
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z'
+  },
+  {
+    year: '2011',
+    title: 'Expanding to Peru',
+    description: 'Recognizing similar needs in South America, FNE launches its first project in Peru, bringing education and healthcare initiatives to underserved communities.',
+    icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+  },
+  {
+    year: '2012',
+    title: 'Independence',
+    description: 'FNE International transitions to an independent 501(c)(3) US nonprofit organization, allowing for greater autonomy and focused mission delivery.',
+    icon: 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z'
+  },
+  {
+    year: '2016',
+    title: 'Dominican Republic',
+    description: 'The organization extends its reach to the Dominican Republic, partnering with FUCPE school in Villa Caoba to serve low-income families and undocumented children.',
+    icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'
+  },
+  {
+    year: '2024',
+    month: 'August',
+    title: 'Growing Impact',
+    description: 'FNE International continues to expand its reach, establishing new partnerships and serving thousands of families across three countries in Latin America.',
+    icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'
+  },
+];
+
+const values = [
+  {
+    title: 'Empowerment',
+    description: 'We believe in enabling individuals to take charge of their own growth and self-sustainability.',
+    icon: 'M13 10V3L4 14h7v7l9-11h-7z'
+  },
+  {
+    title: 'Integrity',
+    description: 'We hold ourselves to the highest ethical standards in all our partnerships and operations.',
+    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'
+  },
+  {
+    title: 'Respect',
+    description: 'Our partnerships are built on the principles of mutual respect and horizontal relationships.',
+    icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z'
+  },
+  {
+    title: 'Solidarity',
+    description: 'We stand together with our partner communities, sharing in their challenges and celebrations.',
+    icon: 'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9'
+  },
+];
+---
+
+<BaseLayout title="Our Story">
+  <!-- Hero Section -->
+  <HeroSection
+    badge="Since 1990"
+    title="Our"
+    titleAccent="Story"
+    subtitle="From a single trip to Nicaragua to a movement spanning three countries, discover the journey that shaped FNE International."
+    image="/team.jpg"
+    imageAlt="FNE International Team"
+  />
+
+  <!-- Photo Banner -->
+  <Section background="gray" spacing="small">
+    <div class="w-full overflow-hidden">
+      <div class="photo-grid photo-grid-4 max-w-7xl mx-auto px-4">
+        <div class="photo-item photo-item-tall animate-on-scroll">
+          <div class="image-placeholder">
+            <svg class="image-placeholder-icon w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="image-placeholder-text text-xs">First trip to Nicaragua 1990</span>
+          </div>
+        </div>
+        <div class="photo-item animate-on-scroll delay-100">
+          <div class="image-placeholder">
+            <svg class="image-placeholder-icon w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="image-placeholder-text text-xs">Early community work</span>
+          </div>
+        </div>
+        <div class="photo-item animate-on-scroll delay-200">
+          <div class="image-placeholder">
+            <svg class="image-placeholder-icon w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="image-placeholder-text text-xs">FNE becomes independent</span>
+          </div>
+        </div>
+        <div class="photo-item photo-item-tall animate-on-scroll delay-300">
+          <div class="image-placeholder">
+            <svg class="image-placeholder-icon w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="image-placeholder-text text-xs">Today's impact</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- The Beginning -->
+  <Section background="white">
+    <Container size="md">
+      <div class="animate-on-scroll">
+        <SectionHeader
+          label="Where It Started"
+          title="A Vision Born from Experience"
+        />
+      </div>
+
+      <div class="prose-section animate-on-scroll delay-100">
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          In October 1990, Michael Cipoletti made his first trip to Nicaragua. What he witnessed—communities facing immense challenges yet filled with resilience and hope—ignited a passion that would shape the next three decades of his life.
+        </p>
+        <p class="text-lg text-gray-600 leading-relaxed mb-6">
+          That initial journey revealed a fundamental truth: sustainable change doesn't come from outsiders imposing solutions, but from <span class="text-[#2D8B4E] font-semibold">empowering communities</span> to identify their own opportunities and build their own futures.
+        </p>
+        <p class="text-lg text-gray-600 leading-relaxed">
+          This philosophy became the foundation of everything FNE International stands for today.
+        </p>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- The Name -->
+  <Section background="gray" withGrid>
+    <Container size="md">
+      <div class="animate-on-scroll">
+        <SectionHeader
+          label="What's in a Name"
+          title="FNE: More Than Letters"
+          labelColor="orange"
+        />
+      </div>
+
+      <div class="fne-meaning">
+        <div class="fne-letter animate-on-scroll animate-slide-left">
+          <div class="fne-letter-icon">
+            <div class="icon-3d">
+              <div class="icon-3d-inner animate-rotate-3d">F</div>
+            </div>
+          </div>
+          <div class="fne-letter-content">
+            <h3 class="text-xl font-bold text-gray-900">Facilitate</h3>
+            <p class="text-gray-600">We facilitate collaboration between communities and organizations, creating pathways for meaningful partnerships.</p>
+          </div>
+        </div>
+        <div class="fne-letter animate-on-scroll delay-100">
+          <div class="fne-letter-icon">
+            <div class="icon-3d">
+              <div class="icon-3d-inner animate-rotate-3d">N</div>
+            </div>
+          </div>
+          <div class="fne-letter-content">
+            <h3 class="text-xl font-bold text-gray-900">Network</h3>
+            <p class="text-gray-600">We network with local and international organizations, expanding our reach and sparking innovation through fresh perspectives.</p>
+          </div>
+        </div>
+        <div class="fne-letter animate-on-scroll animate-slide-right delay-200">
+          <div class="fne-letter-icon">
+            <div class="icon-3d">
+              <div class="icon-3d-inner animate-rotate-3d">E</div>
+            </div>
+          </div>
+          <div class="fne-letter-content">
+            <h3 class="text-xl font-bold text-gray-900">Empower</h3>
+            <p class="text-gray-600">We empower individuals to become engaged members of their community and the world, fostering self-sustainability.</p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Timeline -->
+  <Section background="white">
+    <Container size="lg">
+      <div class="animate-on-scroll">
+        <SectionHeader
+          label="Our Journey"
+          title="Milestones That Matter"
+          subtitle="From humble beginnings to international impact, every step has brought us closer to our vision."
+        />
+      </div>
+
+      <div class="timeline-vertical">
+        {timeline.map((item, index) => (
+          <div class={`timeline-entry animate-on-scroll delay-${(index % 3) * 100}`}>
+            <div class="timeline-marker">
+              <div class="timeline-dot">
+                <div class="timeline-icon">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon} />
+                  </svg>
+                </div>
+              </div>
+              {index < timeline.length - 1 && <div class="timeline-line"></div>}
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-year-badge">{item.year}</div>
+              {item.month && <span class="text-sm text-gray-500 ml-2">{item.month}</span>}
+              <h3 class="text-xl font-bold text-gray-900 mt-2">{item.title}</h3>
+              <p class="text-gray-600 mt-2">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Our Approach -->
+  <Section background="gray" withGrid>
+    <Container>
+      <div class="animate-on-scroll">
+        <SectionHeader
+          label="How We Work"
+          title="Our Approach"
+          subtitle="At FNEI, empowerment and fostering horizontal relationships with our partner communities lie at the core of our values."
+          labelColor="teal"
+        />
+      </div>
+
+      <div class="approach-content animate-on-scroll delay-100">
+        <div class="approach-text">
+          <p class="text-lg text-gray-700 leading-relaxed mb-6">
+            We are committed to facilitating projects that prioritize empowering individuals, enabling them to take charge of their own growth and <span class="text-[#2D8B4E] font-semibold">self-sustainability</span> as the ultimate objective.
+          </p>
+          <p class="text-lg text-gray-600 leading-relaxed mb-6">
+            Collaborating with organizations both domestically and abroad not only expands our network of dedicated volunteers but also sparks innovation and fresh perspectives.
+          </p>
+          <p class="text-lg text-gray-600 leading-relaxed mb-8">
+            We don't just provide aid—we build partnerships. Every project is developed <span class="text-[#F7931E] font-semibold">with</span> communities, not <span class="text-gray-400">for</span> them.
+          </p>
+          <a href="/about/approach" class="inline-flex items-center gap-2 text-[#2D8B4E] font-semibold hover:text-[#F7931E] transition-colors group">
+            <span>Learn more about our approach</span>
+            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Values -->
+  <Section background="white">
+    <Container>
+      <div class="animate-on-scroll">
+        <SectionHeader
+          label="What Guides Us"
+          title="Our Values"
+        />
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {values.map((value, index) => (
+          <div class={`value-card animate-on-scroll delay-${index * 100}`}>
+            <div class="value-icon">
+              <div class="icon-3d">
+                <div class="icon-3d-inner animate-rotate-3d">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={value.icon} />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mt-4">{value.title}</h3>
+            <p class="text-gray-600 mt-2 text-sm">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Where We Work -->
+  <Section background="gray" withGrid>
+    <Container>
+      <div class="animate-on-scroll">
+        <SectionHeader
+          label="Our Reach"
+          title="Three Countries, One Mission"
+          subtitle="We partner with communities facing significant challenges, bringing sustainable solutions to those who need them most."
+          labelColor="orange"
+        />
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="country-card animate-on-scroll animate-slide-left">
+          <div class="country-flag">
+            <span class="text-4xl">🇳🇮</span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mt-4">Nicaragua</h3>
+          <p class="text-sm text-gray-500 mt-1">Since 1990</p>
+          <p class="text-gray-600 mt-3 text-sm">
+            Our longest-running partnership, featuring the SPTLN healthcare program, Dreamers initiative, scholarships, and the Richard Streb Library.
+          </p>
+          <div class="country-stat">
+            <span class="stat-number">24%+</span>
+            <span class="stat-label">living in extreme poverty</span>
+          </div>
+        </div>
+
+        <div class="country-card animate-on-scroll delay-100">
+          <div class="country-flag">
+            <span class="text-4xl">🇵🇪</span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mt-4">Peru</h3>
+          <p class="text-sm text-gray-500 mt-1">Since 2011</p>
+          <p class="text-gray-600 mt-3 text-sm">
+            Expanding our reach to South America, bringing education and healthcare initiatives to underserved Peruvian communities.
+          </p>
+          <div class="country-stat">
+            <span class="stat-number">20%+</span>
+            <span class="stat-label">living in poverty</span>
+          </div>
+        </div>
+
+        <div class="country-card animate-on-scroll animate-slide-right">
+          <div class="country-flag">
+            <span class="text-4xl">🇩🇴</span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mt-4">Dominican Republic</h3>
+          <p class="text-sm text-gray-500 mt-1">Since 2016</p>
+          <p class="text-gray-600 mt-3 text-sm">
+            Partnering with FUCPE school in Villa Caoba, La Romana to serve low-income families and undocumented children.
+          </p>
+          <div class="country-stat">
+            <span class="stat-number">21%</span>
+            <span class="stat-label">below poverty line</span>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA -->
+  <CTASection
+    title="Be Part of Our Story"
+    subtitle="Our story is still being written—and you can help write the next chapter. Join us in creating pathways out of poverty."
+    icon="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+  />
+</BaseLayout>
+
+<style>
+  /* Prose section */
+  .prose-section {
+    max-width: 65ch;
+    margin: 0 auto;
+  }
+
+  /* FNE Meaning */
+  .fne-meaning {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .fne-letter {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.4s ease;
+  }
+
+  .fne-letter:hover {
+    transform: translateX(8px);
+    border-color: rgba(45, 139, 78, 0.3);
+    box-shadow: 0 10px 40px rgba(45, 139, 78, 0.1);
+  }
+
+  .fne-letter-icon {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    border-radius: 16px;
+    color: #2D8B4E;
+    transition: all 0.4s ease;
+  }
+
+  .fne-letter:hover .fne-letter-icon {
+    background: linear-gradient(135deg, #2D8B4E, #F7931E);
+    color: white;
+  }
+
+  .fne-letter-content {
+    flex: 1;
+  }
+
+  /* Timeline Vertical */
+  .timeline-vertical {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .timeline-entry {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .timeline-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 44px;
+  }
+
+  .timeline-dot {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #2D8B4E, #8DC63F);
+    border-radius: 50%;
+    border: 4px solid white;
+    box-shadow: 0 0 20px rgba(45, 139, 78, 0.4);
+    z-index: 1;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .timeline-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .timeline-entry:hover .timeline-dot {
+    transform: scale(1.2);
+    box-shadow: 0 0 30px rgba(45, 139, 78, 0.6);
+  }
+
+  .timeline-line {
+    width: 3px;
+    flex: 1;
+    background: linear-gradient(to bottom, #2D8B4E, #3D9A8B);
+    margin-top: 4px;
+    border-radius: 2px;
+  }
+
+  .timeline-card {
+    flex: 1;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.4s ease;
+  }
+
+  .timeline-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+    border-color: rgba(45, 139, 78, 0.2);
+  }
+
+  .timeline-year-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    border-radius: 9999px;
+    font-weight: 800;
+    font-size: 1.25rem;
+    background-clip: padding-box;
+    color: #2D8B4E;
+  }
+
+  /* Value Cards */
+  .value-card {
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.03), rgba(247, 147, 30, 0.03));
+    border-radius: 20px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.4s ease;
+    text-align: center;
+  }
+
+  .value-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(45, 139, 78, 0.3);
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+  }
+
+  .value-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(61, 154, 139, 0.1));
+    border-radius: 16px;
+    color: #2D8B4E;
+    transition: all 0.4s ease;
+  }
+
+  .value-card:hover .value-icon {
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+    transform: scale(1.1);
+  }
+
+  /* Country Cards */
+  .country-card {
+    padding: 2rem;
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.4s ease;
+    text-align: center;
+  }
+
+  .country-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(45, 139, 78, 0.3);
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.15);
+  }
+
+  .country-flag {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.05), rgba(247, 147, 30, 0.05));
+    border-radius: 50%;
+    transition: all 0.4s ease;
+  }
+
+  .country-card:hover .country-flag {
+    transform: scale(1.1);
+  }
+
+  .country-stat {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(45, 139, 78, 0.1);
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2D8B4E, #F7931E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 0.25rem;
+  }
+
+  /* Approach */
+  .approach-content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* CTA Icon */
+  .cta-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  /* Floating orbs */
+  .floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .floating-orb-1 {
+    width: 200px;
+    height: 200px;
+    background: #F7931E;
+    top: -50px;
+    left: 10%;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .floating-orb-2 {
+    width: 150px;
+    height: 150px;
+    background: #2D8B4E;
+    bottom: -30px;
+    right: 15%;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  .floating-orb-3 {
+    width: 100px;
+    height: 100px;
+    background: white;
+    top: 50%;
+    right: 5%;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    25% { transform: translateY(-20px) translateX(10px); }
+    50% { transform: translateY(0) translateX(20px); }
+    75% { transform: translateY(20px) translateX(10px); }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .timeline-entry {
+      gap: 1rem;
+    }
+
+    .timeline-marker {
+      min-width: 36px;
+    }
+
+    .timeline-dot {
+      width: 36px;
+      height: 36px;
+    }
+
+    .timeline-icon svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .fne-letter {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .fne-letter-icon {
+      margin: 0 auto;
+    }
+  }
+</style>

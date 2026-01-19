@@ -1,0 +1,430 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import CTASection from '../components/CTASection.astro';
+
+const impactLevels = [
+  {
+    amount: '$25',
+    title: 'School Supplies',
+    description: 'Supplies for one student for a semester',
+    icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
+    color: 'green'
+  },
+  {
+    amount: '$50',
+    title: 'Medical Care',
+    description: 'Consultation and medications for one patient',
+    icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+    color: 'orange'
+  },
+  {
+    amount: '$100',
+    title: 'Clean Water',
+    description: 'Water access for a family for one year',
+    icon: 'M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z',
+    color: 'teal'
+  },
+  {
+    amount: '$500',
+    title: 'Eco-Latrine',
+    description: 'Sanitation facility for a family',
+    icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+    color: 'green'
+  },
+];
+---
+
+<BaseLayout title="Donate">
+  <!-- Hero Section -->
+  <HeroSection
+    badge="92% of donations go to programs"
+    title="Make a"
+    titleAccent="Difference"
+    subtitle="Your generosity creates pathways out of poverty for families across Latin America."
+    image="/donate_hero.jpg"
+    imageAlt="Children in FNE programs"
+  />
+
+  <!-- Photo Banner -->
+  <Section background="gray" spacing="small">
+    <div class="w-full overflow-hidden">
+      <div class="photo-grid photo-grid-3 max-w-7xl mx-auto px-4">
+        <div class="photo-item animate-on-scroll">
+          <img src="/education.jpg" alt="Education Program" class="photo-image" />
+          <div class="photo-overlay">
+            <span class="photo-label">Education</span>
+          </div>
+        </div>
+        <div class="photo-item animate-on-scroll delay-100">
+          <img src="/health.jpg" alt="Healthcare Initiative" class="photo-image" style="object-position: center 30%;" />
+          <div class="photo-overlay">
+            <span class="photo-label">Health</span>
+          </div>
+        </div>
+        <div class="photo-item animate-on-scroll delay-200">
+          <img src="/housing.jpg" alt="Housing Program" class="photo-image" />
+          <div class="photo-overlay">
+            <span class="photo-label">Housing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Main Donation Section -->
+  <Section background="white">
+    <Container>
+      <div class="animate-on-scroll">
+        <SectionHeader
+          label="Your Impact"
+          title="Choose Your Gift"
+          subtitle="Select an amount to see how your donation helps families."
+          labelColor="orange"
+        />
+      </div>
+
+      <div class="donation-layout">
+        <!-- Left Column: Impact Cards -->
+        <div class="impact-cards animate-on-scroll animate-slide-left">
+          {impactLevels.map((level, index) => (
+            <div class={`impact-card animate-on-scroll delay-${index * 100}`}>
+              <div class={`impact-icon impact-icon-${level.color}`}>
+                <div class="icon-3d">
+                  <div class="icon-3d-inner animate-rotate-3d">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={level.icon} />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="impact-amount">{level.amount}</div>
+              <div class="impact-content">
+                <p class="font-semibold text-gray-900">{level.title}</p>
+                <p class="text-sm text-gray-500">{level.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Right Column: Donation Form -->
+        <div class="donation-form-wrapper animate-on-scroll animate-slide-right">
+          <div class="donation-form-card">
+            <div class="donation-form-inner">
+              <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold text-gray-900">Complete Your Gift</h3>
+                <div class="flex items-center gap-2 text-sm text-gray-500">
+                  <svg class="w-5 h-5 text-[#2D8B4E]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  <span>Secure & Encrypted</span>
+                </div>
+              </div>
+
+              <div id="give-lively-widget" class="gl-simple-donation-widget"></div>
+
+              <p class="text-xs text-gray-400 text-center mt-6">
+                FNE International is a 501(c)(3) nonprofit organization. All donations are tax-deductible.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Hope Collective CTA -->
+  <CTASection
+    title="Join The Hope Collective"
+    subtitle="Become a monthly donor and help us create sustainable, lasting change. Join 500+ supporters making a difference."
+    icon="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+    primaryButtonText="Become a Member"
+    primaryButtonLink="/hope-collective"
+    secondaryButtonText="Learn More"
+    secondaryButtonLink="/about"
+  />
+
+  <!-- Questions Section -->
+  <Section background="gray">
+    <Container size="md">
+      <div class="text-center animate-on-scroll">
+        <div class="question-icon mx-auto mb-6">
+          <div class="icon-3d">
+            <div class="icon-3d-inner animate-rotate-3d">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Have Questions?</h3>
+        <p class="text-gray-500 mb-6">We're here to help with any questions about donating.</p>
+        <a href="/contact" class="inline-flex items-center gap-2 text-[#2D8B4E] font-semibold hover:gap-3 transition-all">
+          Contact Us
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  /* Donation layout */
+  .donation-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .donation-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  /* Impact cards */
+  .impact-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .impact-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: white;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    border-radius: 16px;
+    transition: all 0.4s ease;
+  }
+
+  .impact-card:hover {
+    transform: translateX(8px);
+    border-color: rgba(45, 139, 78, 0.3);
+    box-shadow: 0 10px 40px rgba(45, 139, 78, 0.1);
+  }
+
+  .impact-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+  }
+
+  .impact-icon-green {
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(45, 139, 78, 0.05));
+    color: #2D8B4E;
+  }
+
+  .impact-icon-orange {
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.1), rgba(247, 147, 30, 0.05));
+    color: #F7931E;
+  }
+
+  .impact-icon-teal {
+    background: linear-gradient(135deg, rgba(45, 139, 120, 0.1), rgba(45, 139, 120, 0.05));
+    color: #2D8B78;
+  }
+
+  .impact-card:hover .impact-icon-green {
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+  }
+
+  .impact-card:hover .impact-icon-orange {
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    color: white;
+  }
+
+  .impact-card:hover .impact-icon-teal {
+    background: linear-gradient(135deg, #2D8B78, #3D9A8B);
+    color: white;
+  }
+
+  .impact-amount {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #2D8B4E;
+    min-width: 60px;
+  }
+
+  .impact-content {
+    flex: 1;
+  }
+
+  /* Donation form */
+  .donation-form-wrapper {
+    position: sticky;
+    top: 2rem;
+  }
+
+  .donation-form-card {
+    position: relative;
+    border-radius: 24px;
+    padding: 3px;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.3), rgba(61, 154, 139, 0.3));
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+  }
+
+  .donation-form-inner {
+    background: white;
+    border-radius: 22px;
+    padding: 2rem;
+  }
+
+  /* Photo grid */
+  .photo-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .photo-grid-3 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .photo-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    aspect-ratio: 16/9;
+  }
+
+  .photo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .photo-item:hover .photo-image {
+    transform: scale(1.1);
+  }
+
+  .photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .photo-label {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Glass card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Text gradient */
+  .text-gradient-light {
+    background: linear-gradient(135deg, #8DC63F, #F7931E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* CTA Icon */
+  .cta-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  /* Question icon */
+  .question-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(45, 139, 78, 0.05));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2D8B4E;
+  }
+
+  /* Floating orbs */
+  .floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .floating-orb-1 {
+    width: 200px;
+    height: 200px;
+    background: #F7931E;
+    top: -50px;
+    left: 10%;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .floating-orb-2 {
+    width: 150px;
+    height: 150px;
+    background: #8DC63F;
+    bottom: -30px;
+    right: 15%;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  .floating-orb-3 {
+    width: 100px;
+    height: 100px;
+    background: white;
+    top: 50%;
+    right: 5%;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    25% { transform: translateY(-20px) translateX(10px); }
+    50% { transform: translateY(0) translateX(20px); }
+    75% { transform: translateY(20px) translateX(10px); }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Load GiveLively widget
+    var gl = document.createElement('script');
+    gl.src = 'https://secure.givelively.org/widgets/simple_donation/fne-international.js?show_suggested_amount_buttons=false&show_in_honor_of=false&address_required=false&has_required_custom_question=null';
+    gl.async = true;
+    document.head.appendChild(gl);
+  });
+</script>

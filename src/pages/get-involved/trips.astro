@@ -1,0 +1,618 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import Section from '../../components/Section.astro';
+import Container from '../../components/Container.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CTASection from '../../components/CTASection.astro';
+import FAQItem from '../../components/FAQItem.astro';
+import PhotoCard from '../../components/PhotoCard.astro';
+
+const upcomingTrips = [
+  {
+    title: 'Nicaragua Spring Service Trip',
+    location: 'León, Nicaragua',
+    dates: 'March 15-22, 2026',
+    focus: ['Construction', 'Education'],
+    spotsLeft: 8,
+    cost: '$1,800',
+    status: 'open',
+  },
+  {
+    title: 'Peru Medical Brigade',
+    location: 'Cusco Region, Peru',
+    dates: 'April 5-12, 2026',
+    focus: ['Medical', 'Health Education'],
+    spotsLeft: 4,
+    cost: '$2,200',
+    status: 'open',
+  },
+  {
+    title: 'Dominican Republic Education Trip',
+    location: 'La Romana, DR',
+    dates: 'May 20-27, 2026',
+    focus: ['Education', 'Youth Programs'],
+    spotsLeft: 12,
+    cost: '$1,600',
+    status: 'open',
+  },
+  {
+    title: 'Nicaragua Summer Build',
+    location: 'León, Nicaragua',
+    dates: 'July 10-19, 2026',
+    focus: ['Housing Construction', 'Community'],
+    spotsLeft: 0,
+    cost: '$1,800',
+    status: 'full',
+  },
+];
+
+const tripIncludes = [
+  { item: 'In-country transportation', icon: 'M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4' },
+  { item: 'Accommodations', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+  { item: 'Most meals', icon: 'M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z' },
+  { item: 'Project materials', icon: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z' },
+  { item: 'Travel insurance', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' },
+  { item: 'FNE staff support', icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z' },
+];
+
+const tripTypes = [
+  {
+    title: 'Construction Trips',
+    description: 'Build homes, schools, and latrines alongside community members. No experience necessary—just a willingness to work hard.',
+    icon: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z',
+    color: 'green',
+  },
+  {
+    title: 'Medical Brigades',
+    description: 'Healthcare professionals provide consultations, medications, and health education in underserved communities.',
+    icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+    color: 'orange',
+  },
+  {
+    title: 'Education Programs',
+    description: 'Teach English, lead workshops, support teachers, and engage with students in schools and community centers.',
+    icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
+    color: 'teal',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What are the age requirements for volunteer trips?',
+    answer: 'For group trips, participants must be at least 14 years old (minors must be accompanied by a parent/guardian or travel with an approved group). For individual volunteers traveling independently, the minimum age is 18.',
+  },
+  {
+    question: 'Do I need any special skills or experience?',
+    answer: 'No special skills are required for most trips! We provide training and guidance on-site. For medical brigades, healthcare professionals are preferred, but non-medical volunteers can assist with logistics and community health education.',
+  },
+  {
+    question: 'What does the trip cost cover?',
+    answer: 'Trip costs typically cover in-country transportation, accommodations, most meals, project materials, travel insurance, and FNE staff support. International airfare is not included but we can help with booking recommendations.',
+  },
+  {
+    question: 'Can I organize a trip for my group?',
+    answer: 'Absolutely! We work with schools, churches, corporate groups, and community organizations to plan custom service trips. Contact us to discuss your group\'s interests and availability.',
+  },
+  {
+    question: 'How physically demanding are the trips?',
+    answer: 'This varies by trip type. Construction trips involve manual labor in warm climates, while education-focused trips are less physically demanding. We can accommodate various fitness levels—just let us know your needs.',
+  },
+  {
+    question: 'What should I bring?',
+    answer: 'After registration, you\'ll receive a detailed packing list. Generally, bring comfortable work clothes, sturdy shoes, sun protection, any personal medications, and an open heart ready to connect with the community.',
+  },
+];
+
+const testimonials = [
+  {
+    quote: "This trip changed my life. Working alongside the families who would live in the house we built created a connection I'll never forget.",
+    name: 'James T.',
+    trip: 'Nicaragua Construction, 2024',
+  },
+  {
+    quote: "Seeing the children's faces light up during our mobile library visit reminded me why education matters so much.",
+    name: 'Elena R.',
+    trip: 'Dominican Republic Education, 2023',
+  },
+];
+---
+
+<BaseLayout title="Volunteer Trips">
+  <!-- Hero Section -->
+  <HeroSection
+    badge="Service Trips"
+    title="Volunteer"
+    titleAccent="Trips"
+    subtitle="Join a life-changing service trip and work alongside communities in Nicaragua, Peru, or the Dominican Republic."
+    image="/team.jpg"
+    imageAlt="Volunteers on a service trip"
+  />
+
+  <!-- Photo Banner -->
+  <Section background="gray" padding="sm">
+    <div class="w-full overflow-hidden">
+      <div class="photo-grid photo-grid-4 max-w-7xl mx-auto px-4">
+        <PhotoCard placeholder="Volunteers building a house in Nicaragua" caption="Construction" />
+        <PhotoCard placeholder="Medical brigade in Peru" caption="Medical" animationDelay={100} />
+        <PhotoCard placeholder="Teaching in Dominican Republic" caption="Education" animationDelay={200} />
+        <PhotoCard placeholder="Community gathering with volunteers" caption="Community" animationDelay={300} />
+      </div>
+    </div>
+  </Section>
+
+  <!-- Upcoming Trips -->
+  <Section background="white">
+    <Container>
+      <SectionHeader
+        label="Join a Trip"
+        title="Upcoming Volunteer Trips"
+        subtitle="Browse our scheduled trips and find one that fits your schedule."
+        labelColor="green"
+      />
+
+      <div class="trips-grid">
+        {upcomingTrips.map((trip, index) => (
+          <div class={`trip-card ${trip.status === 'full' ? 'trip-card-full' : ''} animate-on-scroll delay-${(index + 1) * 100}`}>
+            {trip.status === 'full' && (
+              <div class="trip-full-badge">Trip Full</div>
+            )}
+            <div class="trip-header">
+              <div class="trip-location">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>{trip.location}</span>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mt-3">{trip.title}</h3>
+            <div class="trip-dates">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span>{trip.dates}</span>
+            </div>
+            <div class="trip-focus">
+              {trip.focus.map((f) => (
+                <span class="focus-tag">{f}</span>
+              ))}
+            </div>
+            <div class="trip-footer">
+              <div class="trip-cost">{trip.cost}</div>
+              {trip.status === 'open' ? (
+                <div class="trip-spots">{trip.spotsLeft} spots left</div>
+              ) : (
+                <div class="trip-spots trip-spots-full">Waitlist available</div>
+              )}
+            </div>
+            <a href="/contact" class={`trip-btn ${trip.status === 'full' ? 'trip-btn-secondary' : 'trip-btn-primary'}`}>
+              {trip.status === 'full' ? 'Join Waitlist' : 'Apply Now'}
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-8">
+        <p class="text-gray-500">
+          Want to organize a custom trip for your group? <a href="/contact" class="text-[#2D8B4E] font-semibold hover:underline">Contact us</a>
+        </p>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Trip Types -->
+  <Section background="gray" withGrid>
+    <Container>
+      <SectionHeader
+        label="Trip Focus Areas"
+        title="Types of Service Trips"
+        subtitle="Choose a trip that matches your interests and skills."
+        labelColor="orange"
+      />
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {tripTypes.map((type, index) => (
+          <div class={`type-card type-card-${type.color} animate-on-scroll delay-${(index + 1) * 100}`}>
+            <div class={`type-icon type-icon-${type.color}`}>
+              <div class="icon-3d">
+                <div class="icon-3d-inner animate-rotate-3d">
+                  <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={type.icon} />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mt-6">{type.title}</h3>
+            <p class="text-gray-600 mt-3">{type.description}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- What's Included -->
+  <Section background="white">
+    <Container>
+      <SectionHeader
+        label="Trip Details"
+        title="What's Included"
+        subtitle="Your trip cost covers everything you need for a meaningful experience."
+        labelColor="teal"
+      />
+
+      <div class="includes-grid">
+        {tripIncludes.map((item, index) => (
+          <div class={`include-item animate-on-scroll delay-${(index + 1) * 100}`}>
+            <div class="include-icon">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon} />
+              </svg>
+            </div>
+            <span class="text-gray-700 font-medium">{item.item}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="not-included animate-on-scroll">
+        <h4 class="font-bold text-gray-900 mb-3">Not Included:</h4>
+        <p class="text-gray-600">International airfare, passport/visa fees, personal expenses, and optional activities.</p>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Testimonial -->
+  <Section background="gradient">
+    <Container size="md">
+      <div class="testimonial-card animate-on-scroll">
+        <div class="icon-3d mb-6">
+          <div class="icon-3d-inner animate-rotate-3d">
+            <div class="testimonial-quote-icon">
+              <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <blockquote class="text-xl md:text-2xl text-gray-700 italic leading-relaxed mb-6">
+          {testimonials[0].quote}
+        </blockquote>
+        <div class="testimonial-attribution">
+          <div class="text-gray-900 font-semibold">{testimonials[0].name}</div>
+          <div class="text-sm text-gray-500">{testimonials[0].trip}</div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- FAQ -->
+  <Section background="white">
+    <Container size="md">
+      <SectionHeader
+        label="Questions?"
+        title="Frequently Asked Questions"
+      />
+
+      <div class="space-y-4">
+        {faqs.map((faq, index) => (
+          <FAQItem
+            question={faq.question}
+            answer={faq.answer}
+            index={index}
+            animationDelay={(index + 1) * 100}
+          />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA -->
+  <CTASection
+    title="Ready to Join a Trip?"
+    subtitle="Take the first step toward a life-changing experience. Apply now or contact us with questions."
+    icon="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+    primaryButtonText="Apply Now"
+    primaryButtonLink="/contact"
+    secondaryButtonText="Contact Us"
+    secondaryButtonLink="/contact"
+  />
+</BaseLayout>
+
+<style>
+  /* Trips grid */
+  .trips-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .trips-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Trip card */
+  .trip-card {
+    position: relative;
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 2px solid rgba(45, 139, 78, 0.15);
+    transition: all 0.4s ease;
+  }
+
+  .trip-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(45, 139, 78, 0.4);
+    box-shadow: 0 25px 60px rgba(45, 139, 78, 0.15);
+  }
+
+  .trip-card-full {
+    border-color: rgba(156, 163, 175, 0.3);
+    opacity: 0.8;
+  }
+
+  .trip-full-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #9CA3AF;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+  }
+
+  .trip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .trip-location {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #F7931E;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .trip-dates {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.875rem;
+    margin-top: 0.75rem;
+  }
+
+  .trip-focus {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .focus-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(45, 139, 78, 0.1);
+    color: #2D8B4E;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+  }
+
+  .trip-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(45, 139, 78, 0.1);
+  }
+
+  .trip-cost {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #2D8B4E;
+  }
+
+  .trip-spots {
+    font-size: 0.875rem;
+    color: #F7931E;
+    font-weight: 600;
+  }
+
+  .trip-spots-full {
+    color: #9CA3AF;
+  }
+
+  .trip-btn {
+    display: block;
+    width: 100%;
+    padding: 0.875rem;
+    text-align: center;
+    border-radius: 9999px;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .trip-btn-primary {
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+  }
+
+  .trip-btn-primary:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.3);
+  }
+
+  .trip-btn-secondary {
+    background: transparent;
+    color: #666;
+    border: 2px solid #E5E7EB;
+  }
+
+  .trip-btn-secondary:hover {
+    border-color: #2D8B4E;
+    color: #2D8B4E;
+  }
+
+  /* Type cards */
+  .type-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 24px;
+    border: 2px solid transparent;
+    text-align: center;
+    transition: all 0.4s ease;
+  }
+
+  .type-card-green {
+    border-color: rgba(45, 139, 78, 0.15);
+  }
+
+  .type-card-orange {
+    border-color: rgba(247, 147, 30, 0.15);
+  }
+
+  .type-card-teal {
+    border-color: rgba(61, 154, 139, 0.15);
+  }
+
+  .type-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(45, 139, 78, 0.15);
+  }
+
+  .type-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+  }
+
+  .type-icon-green {
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(61, 154, 139, 0.1));
+    color: #2D8B4E;
+  }
+
+  .type-icon-orange {
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.1), rgba(45, 139, 78, 0.1));
+    color: #F7931E;
+  }
+
+  .type-icon-teal {
+    background: linear-gradient(135deg, rgba(61, 154, 139, 0.1), rgba(45, 139, 78, 0.1));
+    color: #3D9A8B;
+  }
+
+  .type-card:hover .type-icon-green {
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+  }
+
+  .type-card:hover .type-icon-orange {
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    color: white;
+  }
+
+  .type-card:hover .type-icon-teal {
+    background: linear-gradient(135deg, #3D9A8B, #2D8B4E);
+    color: white;
+  }
+
+  /* Includes grid */
+  .includes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .includes-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .include-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.03), rgba(247, 147, 30, 0.03));
+    border-radius: 12px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+  }
+
+  .include-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .not-included {
+    max-width: 600px;
+    margin: 2rem auto 0;
+    padding: 1.5rem;
+    background: rgba(247, 147, 30, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(247, 147, 30, 0.15);
+    text-align: center;
+  }
+
+  /* Testimonial */
+  .testimonial-card {
+    text-align: center;
+    background: white;
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
+  }
+
+  .testimonial-quote-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    border-radius: 20px;
+    color: #2D8B4E;
+  }
+
+  .testimonial-attribution {
+    margin-top: 1.5rem;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+      const index = button.getAttribute('data-faq');
+      const answer = document.querySelector(`[data-faq-answer="${index}"]`);
+      const chevron = button.querySelector('.faq-chevron');
+
+      answer?.classList.toggle('open');
+      chevron?.classList.toggle('open');
+    });
+  });
+</script>
