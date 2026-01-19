@@ -1,4 +1,7 @@
 ---
+// Server-render so new posts appear without redeploying
+export const prerender = false;
+
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import HeroSection from '../../../components/HeroSection.astro';
 import Section from '../../../components/Section.astro';
@@ -15,21 +18,13 @@ import {
   type BlogPost,
 } from '../../../lib/storyblok';
 
-export async function getStaticPaths() {
-  // Generate paths for all predefined categories
-  const categories = Object.keys(categoryLabels);
+// Get category from URL params
+const { slug: category } = Astro.params;
 
-  return categories.map(category => ({
-    params: { slug: category },
-    props: { category },
-  }));
+// Validate category exists
+if (!category || !categoryLabels[category as keyof typeof categoryLabels]) {
+  return Astro.redirect('/blog');
 }
-
-interface Props {
-  category: string;
-}
-
-const { category } = Astro.props;
 const categoryLabel = getCategoryLabel(category);
 
 // Fetch posts for this category

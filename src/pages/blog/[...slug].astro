@@ -1,4 +1,7 @@
 ---
+// Server-render so new posts appear without redeploying
+export const prerender = false;
+
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/Section.astro';
 import Container from '../../components/Container.astro';
@@ -14,34 +17,28 @@ import {
   type BlogPost,
 } from '../../lib/storyblok';
 
-export async function getStaticPaths() {
-  const storyblokApi = useStoryblokApi();
+// Get slug from URL params
+const { slug } = Astro.params;
 
-  try {
-    const { data } = await storyblokApi.get('cdn/stories', {
-      version: import.meta.env.DEV ? 'draft' : 'published',
-      starts_with: 'blog/',
-      is_startpage: false,
-    });
+// Fetch the story from Storyblok
+const storyblokApi = useStoryblokApi();
+let story: BlogPost | null = null;
 
-    return data.stories.map((story: BlogPost) => ({
-      params: { slug: story.slug.replace('blog/', '') },
-      props: { story },
-    }));
-  } catch {
-    // Return empty array if no stories exist or API is unavailable
-    return [];
-  }
+try {
+  const { data } = await storyblokApi.get(`cdn/stories/blog/${slug}`, {
+    version: import.meta.env.DEV ? 'draft' : 'published',
+  });
+  story = data.story as BlogPost;
+} catch {
+  // Story not found
 }
 
-interface Props {
-  story: BlogPost;
+// Return 404 if story doesn't exist
+if (!story) {
+  return Astro.redirect('/blog');
 }
-
-const { story } = Astro.props;
 
 // Fetch related posts (same category)
-const storyblokApi = useStoryblokApi();
 let relatedPosts: BlogPost[] = [];
 
 try {
