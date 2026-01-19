@@ -1,24 +1,45 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CTASection from '../components/CTASection.astro';
+import { useStoryblokApi } from '@storyblok/astro';
+import { getOptimizedImageUrl, getCategoryLabel, getCategoryColors, type BlogPost } from '../lib/storyblok';
+
+// Fetch latest blog posts for the bento grid
+const storyblokApi = useStoryblokApi();
+let blogPosts: BlogPost[] = [];
+
+try {
+  const { data } = await storyblokApi.get('cdn/stories', {
+    version: import.meta.env.DEV ? 'draft' : 'published',
+    starts_with: 'blog/',
+    is_startpage: false,
+    sort_by: 'content.publish_date:desc',
+    per_page: 5,
+    filter_query: {
+      featured: { is: true },
+    },
+  });
+  blogPosts = data.stories as BlogPost[];
+} catch {
+  blogPosts = [];
+}
 ---
 
 <BaseLayout title="Home">
   <!-- Hero Section - Ultra Futuristic Light Mode -->
-  <section class="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
+  <section class="relative min-h-[75vh] flex items-center overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-orange-50/50">
     <!-- Animated gradient mesh -->
     <div class="absolute inset-0">
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(45,139,78,0.15),transparent)]"></div>
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_80%_80%,rgba(247,147,30,0.1),transparent)]"></div>
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_20%_60%,rgba(61,154,139,0.1),transparent)]"></div>
+      <div class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(45,139,78,0.15),transparent)]"></div>
+      <div class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_60%_at_80%_80%,rgba(247,147,30,0.1),transparent)]"></div>
+      <div class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_50%_50%_at_20%_60%,rgba(61,154,139,0.1),transparent)]"></div>
     </div>
 
-    <!-- Animated orbs -->
+    <!-- Floating orbs -->
     <div class="absolute inset-0 overflow-hidden">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-      <div class="orb orb-4"></div>
+      <div class="floating-orb orb-1"></div>
+      <div class="floating-orb orb-2"></div>
+      <div class="floating-orb orb-3"></div>
     </div>
 
     <!-- Cyber grid -->
@@ -36,7 +57,7 @@ import CTASection from '../components/CTASection.astro';
       <div class="particle"></div>
     </div>
 
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 z-10">
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <div>
           <!-- Glowing badge -->
@@ -48,9 +69,9 @@ import CTASection from '../components/CTASection.astro';
             <span class="text-[#2D8B4E] text-sm font-semibold tracking-wider uppercase">Pathways Out of Poverty</span>
           </div>
 
-          <h1 class="text-6xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tight">
+          <h1 class="text-6xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tight hero-headline">
             <span class="block text-gray-900 text-reveal">Facilitate.</span>
-            <span class="block neon-text text-reveal" style="animation-delay: 0.2s">Network.</span>
+            <span class="block neon-text neon-glow" style="animation-delay: 0.2s">Network.</span>
             <span class="block text-gray-900 text-reveal" style="animation-delay: 0.4s">Empower.</span>
           </h1>
 
@@ -77,28 +98,28 @@ import CTASection from '../components/CTASection.astro';
           </div>
         </div>
 
-        <!-- Hero image placeholder -->
+        <!-- Hero image -->
         <div class="relative hidden lg:block">
-          <div class="image-frame">
-            <div class="image-placeholder aspect-square">
-              <div class="placeholder-content">
-                <svg class="w-16 h-16 text-[#2D8B4E]/30 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span class="text-gray-400 text-sm">Hero Image</span>
-                <span class="text-gray-500 text-xs mt-1">Your volunteers in action</span>
-              </div>
-            </div>
+          <div class="image-frame aspect-square">
+            <img
+              src="/hero.png"
+              alt="FNE International volunteers working with community members"
+              class="w-full h-full object-cover object-top rounded-[20px]"
+            />
             <!-- Floating accent images -->
-            <div class="absolute -bottom-8 -left-8 w-32 h-32 image-frame-small">
-              <div class="image-placeholder-small">
-                <span class="text-gray-400 text-xs">Photo 1</span>
-              </div>
+            <div class="absolute -bottom-8 -left-8 w-32 h-32 image-frame-small overflow-hidden">
+              <img
+                src="/hero-accent-1.jpg"
+                alt="FNE community moment"
+                class="w-full h-full object-cover rounded-[14px]"
+              />
             </div>
-            <div class="absolute -top-8 -right-8 w-24 h-24 image-frame-small">
-              <div class="image-placeholder-small">
-                <span class="text-gray-400 text-xs">Photo 2</span>
-              </div>
+            <div class="absolute -top-8 -right-8 w-24 h-24 image-frame-small overflow-hidden">
+              <img
+                src="/hero-accent-2.jpg"
+                alt="FNE community celebration"
+                class="w-full h-full object-cover rounded-[14px]"
+              />
             </div>
           </div>
         </div>
@@ -114,10 +135,9 @@ import CTASection from '../components/CTASection.astro';
   </section>
 
   <!-- Impact Stats - Holographic cards -->
-  <section class="py-32 bg-white relative overflow-hidden">
+  <section class="py-32 bg-gray-50 relative overflow-hidden">
     <!-- Background effects -->
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(45,139,78,0.05),transparent_50%)]"></div>
-    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2D8B4E]/30 to-transparent"></div>
+    <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_30%_50%,rgba(45,139,78,0.08),transparent_50%)]"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       <div class="text-center mb-20">
@@ -179,117 +199,183 @@ import CTASection from '../components/CTASection.astro';
     </div>
   </section>
 
-  <!-- Photo Gallery Showcase -->
-  <section class="py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(61,154,139,0.05),transparent_70%)]"></div>
+  <!-- Blog Stories Showcase -->
+  <section class="py-32 bg-white relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(61,154,139,0.05),transparent_70%)]"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       <div class="text-center mb-16">
-        <p class="text-[#3D9A8B] font-semibold tracking-[0.3em] uppercase mb-4 text-sm">See Our Work</p>
+        <p class="text-[#3D9A8B] font-semibold tracking-[0.3em] uppercase mb-4 text-sm">From Our Blog</p>
         <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-6">
-          Stories of <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#F7931E] to-[#8DC63F]">Impact</span>
+          Stories of <span class="neon-text">Impact</span>
         </h2>
       </div>
 
-      <!-- Bento grid for photos -->
-      <div class="bento-grid">
-        <div class="bento-item bento-large">
-          <div class="bento-image-placeholder">
-            <div class="placeholder-content">
-              <svg class="w-12 h-12 text-[#2D8B4E]/20 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="text-gray-400 text-sm">Community Project</span>
-              <span class="text-gray-500 text-xs">Featured photo from trips</span>
-            </div>
-          </div>
-          <div class="bento-overlay">
-            <span class="text-white font-bold text-xl">Nicaragua 2024</span>
-            <span class="text-gray-200 text-sm">Building homes together</span>
-          </div>
-        </div>
+      {blogPosts.length > 0 ? (
+        <>
+          <!-- Bento grid for blog posts -->
+          <div class="bento-grid">
+            {blogPosts[0] && (
+              <a href={`/blog/${blogPosts[0].slug.replace('blog/', '')}`} class="bento-item bento-large group">
+                {blogPosts[0].content.featured_image?.filename ? (
+                  <img
+                    src={getOptimizedImageUrl(blogPosts[0].content.featured_image.filename, { width: 800 })}
+                    alt={blogPosts[0].content.featured_image.alt || blogPosts[0].content.title}
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div class="bento-image-placeholder">
+                    <div class="placeholder-content">
+                      <svg class="w-12 h-12 text-[#2D8B4E]/20 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                  </div>
+                )}
+                <div class="bento-overlay bento-overlay-visible">
+                  <span class={`text-xs font-semibold px-2 py-1 rounded-full ${getCategoryColors(blogPosts[0].content.category).bg} ${getCategoryColors(blogPosts[0].content.category).text}`}>
+                    {getCategoryLabel(blogPosts[0].content.category)}
+                  </span>
+                  <span class="text-white font-bold text-xl mt-2">{blogPosts[0].content.title}</span>
+                </div>
+              </a>
+            )}
 
-        <div class="bento-item bento-tall">
-          <div class="bento-image-placeholder">
-            <div class="placeholder-content">
-              <svg class="w-10 h-10 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-              <span class="text-gray-400 text-xs">Volunteers</span>
-            </div>
-          </div>
-          <div class="bento-overlay">
-            <span class="text-white font-semibold">Our Team</span>
-          </div>
-        </div>
+            {blogPosts[1] && (
+              <a href={`/blog/${blogPosts[1].slug.replace('blog/', '')}`} class="bento-item bento-tall group">
+                {blogPosts[1].content.featured_image?.filename ? (
+                  <img
+                    src={getOptimizedImageUrl(blogPosts[1].content.featured_image.filename, { width: 400 })}
+                    alt={blogPosts[1].content.featured_image.alt || blogPosts[1].content.title}
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div class="bento-image-placeholder">
+                    <div class="placeholder-content">
+                      <svg class="w-10 h-10 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                      </svg>
+                    </div>
+                  </div>
+                )}
+                <div class="bento-overlay bento-overlay-visible">
+                  <span class="text-white font-semibold line-clamp-2">{blogPosts[1].content.title}</span>
+                </div>
+              </a>
+            )}
 
-        <div class="bento-item">
-          <div class="bento-image-placeholder">
-            <div class="placeholder-content">
-              <svg class="w-8 h-8 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-              <span class="text-gray-400 text-xs">Healthcare</span>
-            </div>
-          </div>
-          <div class="bento-overlay">
-            <span class="text-white font-semibold text-sm">Medical Brigade</span>
-          </div>
-        </div>
+            {blogPosts[2] && (
+              <a href={`/blog/${blogPosts[2].slug.replace('blog/', '')}`} class="bento-item group">
+                {blogPosts[2].content.featured_image?.filename ? (
+                  <img
+                    src={getOptimizedImageUrl(blogPosts[2].content.featured_image.filename, { width: 300 })}
+                    alt={blogPosts[2].content.featured_image.alt || blogPosts[2].content.title}
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div class="bento-image-placeholder">
+                    <div class="placeholder-content">
+                      <svg class="w-8 h-8 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                      </svg>
+                    </div>
+                  </div>
+                )}
+                <div class="bento-overlay bento-overlay-visible">
+                  <span class="text-white font-semibold text-sm line-clamp-2">{blogPosts[2].content.title}</span>
+                </div>
+              </a>
+            )}
 
-        <div class="bento-item">
-          <div class="bento-image-placeholder">
-            <div class="placeholder-content">
-              <svg class="w-8 h-8 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-              <span class="text-gray-400 text-xs">Education</span>
-            </div>
-          </div>
-          <div class="bento-overlay">
-            <span class="text-white font-semibold text-sm">Classrooms</span>
-          </div>
-        </div>
+            {blogPosts[3] && (
+              <a href={`/blog/${blogPosts[3].slug.replace('blog/', '')}`} class="bento-item group">
+                {blogPosts[3].content.featured_image?.filename ? (
+                  <img
+                    src={getOptimizedImageUrl(blogPosts[3].content.featured_image.filename, { width: 300 })}
+                    alt={blogPosts[3].content.featured_image.alt || blogPosts[3].content.title}
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div class="bento-image-placeholder">
+                    <div class="placeholder-content">
+                      <svg class="w-8 h-8 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                      </svg>
+                    </div>
+                  </div>
+                )}
+                <div class="bento-overlay bento-overlay-visible">
+                  <span class="text-white font-semibold text-sm line-clamp-2">{blogPosts[3].content.title}</span>
+                </div>
+              </a>
+            )}
 
-        <div class="bento-item bento-wide">
-          <div class="bento-image-placeholder">
-            <div class="placeholder-content">
-              <svg class="w-10 h-10 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            {blogPosts[4] && (
+              <a href={`/blog/${blogPosts[4].slug.replace('blog/', '')}`} class="bento-item bento-wide group">
+                {blogPosts[4].content.featured_image?.filename ? (
+                  <img
+                    src={getOptimizedImageUrl(blogPosts[4].content.featured_image.filename, { width: 600 })}
+                    alt={blogPosts[4].content.featured_image.alt || blogPosts[4].content.title}
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div class="bento-image-placeholder">
+                    <div class="placeholder-content">
+                      <svg class="w-10 h-10 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                      </svg>
+                    </div>
+                  </div>
+                )}
+                <div class="bento-overlay bento-overlay-visible">
+                  <span class="text-white font-semibold line-clamp-1">{blogPosts[4].content.title}</span>
+                </div>
+              </a>
+            )}
+          </div>
+
+          <!-- CTA to blog -->
+          <div class="text-center mt-12">
+            <a href="/blog" class="cyber-button secondary group">
+              <span class="relative z-10">Read Our Blog</span>
+              <svg class="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-              <span class="text-gray-400 text-xs">Housing Projects</span>
-            </div>
+            </a>
           </div>
-          <div class="bento-overlay">
-            <span class="text-white font-semibold">Building Homes</span>
-          </div>
+        </>
+      ) : (
+        <div class="text-center py-16">
+          <p class="text-gray-500 mb-6">No blog posts yet. Check back soon!</p>
+          <a href="/blog" class="cyber-button secondary">
+            <span class="relative z-10">Visit Blog</span>
+          </a>
         </div>
-      </div>
+      )}
     </div>
   </section>
 
   <!-- Programs Section - Cyberpunk cards -->
-  <section class="py-32 bg-white relative overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(247,147,30,0.05),transparent_60%)]"></div>
-    <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#F7931E]/30 to-transparent"></div>
+  <section class="py-32 bg-gray-50 relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_bottom,rgba(247,147,30,0.08),transparent_60%)]"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       <div class="text-center mb-20">
         <p class="text-[#F7931E] font-semibold tracking-[0.3em] uppercase mb-4 text-sm">Where We Work</p>
-        <h2 class="text-5xl md:text-6xl font-black text-gray-900">Our Programs</h2>
+        <h2 class="text-5xl md:text-6xl font-black text-gray-900">Our <span class="neon-text">Programs</span></h2>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
         <!-- Nicaragua -->
         <a href="/programs/nicaragua" class="program-card group">
           <div class="program-card-inner">
-            <!-- Image placeholder -->
+            <!-- Image -->
             <div class="program-image">
-              <div class="image-placeholder-light">
-                <svg class="w-12 h-12 text-[#2D8B4E]/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </div>
+              <img
+                src="/program-nicaragua.jpg"
+                alt="FNE International program in Nicaragua"
+                class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+              />
               <div class="program-flag">🇳🇮</div>
             </div>
             <div class="program-content">
@@ -310,11 +396,11 @@ import CTASection from '../components/CTASection.astro';
         <a href="/programs/peru" class="program-card group">
           <div class="program-card-inner">
             <div class="program-image">
-              <div class="image-placeholder-light">
-                <svg class="w-12 h-12 text-[#3D9A8B]/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </div>
+              <img
+                src="/program-peru.jpg"
+                alt="FNE International program in Peru"
+                class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+              />
               <div class="program-flag">🇵🇪</div>
             </div>
             <div class="program-content">
@@ -335,11 +421,11 @@ import CTASection from '../components/CTASection.astro';
         <a href="/programs/dominican-republic" class="program-card group">
           <div class="program-card-inner">
             <div class="program-image">
-              <div class="image-placeholder-light">
-                <svg class="w-12 h-12 text-[#F7931E]/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </div>
+              <img
+                src="/program-dr.avif"
+                alt="FNE International program in Dominican Republic"
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
               <div class="program-flag">🇩🇴</div>
             </div>
             <div class="program-content">
@@ -428,66 +514,67 @@ import CTASection from '../components/CTASection.astro';
 </BaseLayout>
 
 <style>
-  /* Orb animations - Light mode */
-  .orb {
+  /* Hero headline */
+  .hero-headline {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .hero-headline .text-gray-900 {
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .neon-glow {
+    filter: drop-shadow(0 0 20px rgba(45, 139, 78, 0.3)) drop-shadow(0 0 40px rgba(247, 147, 30, 0.2));
+  }
+
+  /* Floating orbs */
+  .floating-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
-    animation: float-orb 20s ease-in-out infinite;
+    filter: blur(60px);
+    opacity: 0.15;
   }
 
   .orb-1 {
     top: 10%;
     left: 10%;
-    width: 400px;
-    height: 400px;
-    background: linear-gradient(135deg, #2D8B4E, #8DC63F);
-    opacity: 0.08;
+    width: 300px;
+    height: 300px;
+    background: #2D8B4E;
+    animation: float-orb-1 25s ease-in-out infinite;
   }
 
   .orb-2 {
-    top: 60%;
+    top: 50%;
     right: 10%;
-    width: 300px;
-    height: 300px;
-    background: linear-gradient(135deg, #F7931E, #ff6b00);
-    opacity: 0.06;
-    animation-delay: -5s;
+    width: 250px;
+    height: 250px;
+    background: #F7931E;
+    animation: float-orb-2 20s ease-in-out infinite;
   }
 
   .orb-3 {
     bottom: 10%;
     left: 30%;
-    width: 350px;
-    height: 350px;
-    background: linear-gradient(135deg, #3D9A8B, #2D8B4E);
-    opacity: 0.07;
-    animation-delay: -10s;
+    width: 200px;
+    height: 200px;
+    background: #3D9A8B;
+    animation: float-orb-3 22s ease-in-out infinite;
   }
 
-  .orb-4 {
-    top: 30%;
-    right: 30%;
-    width: 250px;
-    height: 250px;
-    background: linear-gradient(135deg, #8DC63F, #3D9A8B);
-    opacity: 0.05;
-    animation-delay: -15s;
+  @keyframes float-orb-1 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(40px, 30px); }
   }
 
-  @keyframes float-orb {
-    0%, 100% {
-      transform: translate(0, 0) scale(1);
-    }
-    25% {
-      transform: translate(50px, -50px) scale(1.1);
-    }
-    50% {
-      transform: translate(-30px, 30px) scale(0.95);
-    }
-    75% {
-      transform: translate(-50px, -30px) scale(1.05);
-    }
+  @keyframes float-orb-2 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-30px, -40px); }
+  }
+
+  @keyframes float-orb-3 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -20px); }
   }
 
   /* Cyber grid - Light mode */
@@ -545,30 +632,6 @@ import CTASection from '../components/CTASection.astro';
   .glass-card {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
-  }
-
-  /* Neon text - Light mode */
-  .neon-text {
-    background: linear-gradient(135deg, #2D8B4E, #F7931E);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 20px rgba(45, 139, 78, 0.2));
-  }
-
-  .neon-text-large {
-    background: linear-gradient(135deg, #2D8B4E, #F7931E, #2D8B4E);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 40px rgba(45, 139, 78, 0.3));
-    animation: gradient-shift 5s ease infinite;
-  }
-
-  @keyframes gradient-shift {
-    0%, 100% { background-position: 0% center; }
-    50% { background-position: 100% center; }
   }
 
   /* Text reveal */
@@ -838,7 +901,7 @@ import CTASection from '../components/CTASection.astro';
     left: 0;
     right: 0;
     padding: 1.5rem;
-    background: linear-gradient(to top, rgba(45, 139, 78, 0.9), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
@@ -850,6 +913,25 @@ import CTASection from '../components/CTASection.astro';
   .bento-item:hover .bento-overlay {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .bento-overlay-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   /* Program cards - Light mode */

@@ -46,36 +46,53 @@ html {
     inset 0 -1px 0 rgba(0, 0, 0, 0.02);
 }
 
-/* Neon text gradient (green to orange) */
+/* Neon text gradient with subtle shimmer (green to orange) */
 .neon-text {
-  background: linear-gradient(135deg, #2D8B4E, #F7931E);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0 20px rgba(45, 139, 78, 0.2));
-}
-
-/* Neon text large (animated gradient) */
-.neon-text-large {
-  background: linear-gradient(135deg, #2D8B4E, #F7931E, #2D8B4E);
+  background: linear-gradient(
+    90deg,
+    #2D8B4E 0%,
+    #3D9A8B 50%,
+    #F7931E 100%
+  );
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 30px rgba(45, 139, 78, 0.2));
-  animation: gradient-shift 5s ease infinite;
+  animation: subtle-shimmer 12s ease-in-out infinite;
 }
 
-/* Neon text orange variant */
-.neon-text-orange {
-  background: linear-gradient(135deg, #F7931E, #ff6b00);
+/* Neon text large with slower shimmer (for big headlines) */
+.neon-text-large {
+  background: linear-gradient(
+    90deg,
+    #2D8B4E 0%,
+    #3D9A8B 50%,
+    #F7931E 100%
+  );
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 20px rgba(247, 147, 30, 0.2));
+  animation: subtle-shimmer 15s ease-in-out infinite;
 }
 
-@keyframes gradient-shift {
+/* Neon text orange variant with shimmer */
+.neon-text-orange {
+  background: linear-gradient(
+    90deg,
+    #F7931E 0%,
+    #ff6b00 50%,
+    #F7931E 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: subtle-shimmer 12s ease-in-out infinite;
+}
+
+/* Subtle shimmer animation - very slow and gentle */
+@keyframes subtle-shimmer {
   0%, 100% { background-position: 0% center; }
   50% { background-position: 100% center; }
 }
