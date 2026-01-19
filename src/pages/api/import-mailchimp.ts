@@ -137,6 +137,51 @@ function htmlToPlainText(html: string): string {
     .slice(0, 200);
 }
 
+// Get or create the blog folder in Storyblok
+async function getBlogFolderId(accessToken: string, spaceId: string): Promise<number | null> {
+  // First, try to find existing blog folder
+  const searchResponse = await fetch(`${STORYBLOK_MAPI}/spaces/${spaceId}/stories?with_slug=blog`, {
+    headers: {
+      'Authorization': accessToken,
+    },
+  });
+
+  if (searchResponse.ok) {
+    const data = await searchResponse.json();
+    const blogFolder = data.stories?.find((s: { slug: string; is_folder: boolean }) =>
+      s.slug === 'blog' && s.is_folder
+    );
+    if (blogFolder) {
+      return blogFolder.id;
+    }
+  }
+
+  // If no blog folder exists, create one
+  const createResponse = await fetch(`${STORYBLOK_MAPI}/spaces/${spaceId}/stories`, {
+    method: 'POST',
+    headers: {
+      'Authorization': accessToken,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      story: {
+        name: 'Blog',
+        slug: 'blog',
+        is_folder: true,
+        default_root: 'blog_post',
+      },
+    }),
+  });
+
+  if (createResponse.ok) {
+    const data = await createResponse.json();
+    return data.story?.id || null;
+  }
+
+  console.error('Failed to create blog folder');
+  return null;
+}
+
 // Create a blog post in Storyblok
 async function createStoryblokPost(
   title: string,
@@ -146,6 +191,9 @@ async function createStoryblokPost(
   accessToken: string,
   spaceId: string
 ): Promise<{ success: boolean; slug?: string; error?: string }> {
+  // Get the blog folder ID
+  const blogFolderId = await getBlogFolderId(accessToken, spaceId);
+
   // Generate slug from title
   const slug = title
     .toLowerCase()
@@ -157,7 +205,7 @@ async function createStoryblokPost(
     story: {
       name: title,
       slug: slug,
-      parent_id: 0, // Root level, or set to blog folder ID
+      parent_id: blogFolderId || 0, // Use blog folder if found, otherwise root
       content: {
         component: 'blog_post',
         title: title,
