@@ -11,6 +11,11 @@ import PhotoCard from '../../components/PhotoCard.astro';
 import ChallengeCard from '../../components/ChallengeCard.astro';
 import TimelineItem from '../../components/TimelineItem.astro';
 import QuoteCard from '../../components/QuoteCard.astro';
+import SectionNav from '../../components/SectionNav.astro';
+
+const navSections = [
+  { id: 'education', label: 'Education', icon: 'M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z' },
+];
 
 const stats = [
   { value: '300+', label: 'Students Enrolled', icon: 'M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z' },
@@ -88,10 +93,13 @@ const timeline = [
     badge="Dominican Republic"
     title="Programs in the"
     titleAccent="Dominican Republic"
-    subtitle="Supporting education for Haitian-Dominican children through the FUCPE school in Villa Hermosa, La Romana."
+    subtitle="Supporting education for Haitian-Dominican children through the FUCPE school in Villa Caoba, La Romana."
     image="/education.jpg"
     imageAlt="Education in Dominican Republic"
   />
+
+  <!-- Section Navigation -->
+  <SectionNav sections={navSections} />
 
   <!-- Quick Stats with Animated Icons -->
   <Section background="white" padding="sm">
@@ -114,20 +122,20 @@ const timeline = [
     <div class="w-full overflow-hidden">
       <div class="photo-grid photo-grid-4 max-w-7xl mx-auto px-4">
         <PhotoCard placeholder="Children in FUCPE classroom learning together" caption="Classroom Learning" />
-        <PhotoCard placeholder="View of Villa Hermosa batey community" caption="Villa Hermosa" animationDelay={100} />
+        <PhotoCard placeholder="View of Villa Caoba batey community" caption="Villa Caoba" animationDelay={100} />
         <PhotoCard placeholder="Students receiving school supplies" caption="School Supplies" animationDelay={200} />
         <PhotoCard placeholder="FNE volunteers with FUCPE teachers" caption="Volunteer Team" animationDelay={300} />
       </div>
     </div>
   </Section>
 
-  <!-- About the Context -->
+  <!-- About Dominican Republic -->
   <Section background="gray" withGrid>
     <Container>
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left: Content -->
         <div class="animate-slide-left">
-          <p class="text-[#3D9A8B] font-semibold tracking-[0.3em] uppercase mb-4 text-sm">The Context</p>
+          <p class="text-[#3D9A8B] font-semibold tracking-[0.3em] uppercase mb-4 text-sm">About Dominican Republic</p>
           <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-6">Education in the Bateys</h2>
 
           <div class="context-intro mb-8">
@@ -214,13 +222,13 @@ const timeline = [
     </Container>
   </Section>
 
-  <!-- FUCPE School -->
-  <Section background="white">
+  <!-- Education: FUCPE School -->
+  <Section background="white" id="education">
     <Container>
       <SectionHeader
-        label="Our Partner"
+        label="Education"
         title="FUCPE School"
-        subtitle="A beacon of hope in Villa Hermosa, La Romana."
+        subtitle="A beacon of hope in Villa Caoba, La Romana."
         labelColor="orange"
       />
 
@@ -240,7 +248,7 @@ const timeline = [
           <h3 class="text-2xl font-bold text-gray-900 mb-4 mt-6">Providing Education Where It's Needed Most</h3>
 
           <p class="text-gray-600 mb-6">
-            The FUCPE school serves over 300 children from the batey community of Villa Hermosa, near La Romana. For many of these children, FUCPE represents their only opportunity to receive a formal education.
+            The FUCPE school serves over 300 children from the batey community of Villa Caoba, near La Romana. For many of these children, FUCPE represents their only opportunity to receive a formal education.
           </p>
 
           <p class="text-gray-600 mb-6">
@@ -295,7 +303,7 @@ const timeline = [
               </div>
             </div>
             <div class="absolute -bottom-4 -left-4 bg-white p-4 rounded-xl shadow-lg z-10">
-              <div class="text-sm font-semibold text-[#2D8B4E]">Villa Hermosa</div>
+              <div class="text-sm font-semibold text-[#2D8B4E]">Villa Caoba</div>
               <div class="text-xs text-gray-500">La Romana, Dominican Republic</div>
             </div>
           </div>
@@ -381,7 +389,7 @@ const timeline = [
       <SectionHeader
         label="In Action"
         title="Life at FUCPE"
-        subtitle="See the impact of education on children in Villa Hermosa."
+        subtitle="See the impact of education on children in Villa Caoba."
         labelColor="teal"
       />
 

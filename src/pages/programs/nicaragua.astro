@@ -5,6 +5,16 @@ import Section from '../../components/Section.astro';
 import Container from '../../components/Container.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import CTASection from '../../components/CTASection.astro';
+import SectionNav from '../../components/SectionNav.astro';
+import StatCard from '../../components/StatCard.astro';
+import PhotoCard from '../../components/PhotoCard.astro';
+
+const navSections = [
+  { id: 'infrastructure', label: 'Infrastructure', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+  { id: 'education', label: 'Education', icon: 'M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z' },
+  { id: 'health', label: 'Health', icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' },
+  { id: 'agriculture', label: 'Agriculture', icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064' },
+];
 
 const stats = [
   { value: '300+', label: 'Houses Built', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
@@ -116,22 +126,20 @@ const housingGallery = [
     imageAlt="Housing construction in Nicaragua"
   />
 
+  <!-- Section Navigation -->
+  <SectionNav sections={navSections} />
+
   <!-- Quick Stats -->
   <Section background="white" padding="sm">
     <Container>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map((stat, index) => (
-          <div class={`stat-card animate-on-scroll delay-${(index + 1) * 100}`}>
-            <div class="stat-icon icon-glow">
-              <div class="animate-scale-pulse">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={stat.icon} />
-                </svg>
-              </div>
-            </div>
-            <div class="stat-value">{stat.value}</div>
-            <div class="stat-label">{stat.label}</div>
-          </div>
+          <StatCard
+            value={stat.value}
+            label={stat.label}
+            icon={stat.icon}
+            animationDelay={(index + 1) * 100}
+          />
         ))}
       </div>
     </Container>
@@ -141,38 +149,10 @@ const housingGallery = [
   <Section background="gray" spacing="small">
     <div class="w-full overflow-hidden">
       <div class="photo-grid photo-grid-4 max-w-7xl mx-auto px-4">
-        <div class="photo-card animate-on-scroll delay-100">
-          <div class="image-placeholder">
-            <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="image-placeholder-text">Scenic view of León countryside with volcanos</span>
-          </div>
-        </div>
-        <div class="photo-card animate-on-scroll delay-200">
-          <div class="image-placeholder">
-            <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="image-placeholder-text">Local community members gathering in village center</span>
-          </div>
-        </div>
-        <div class="photo-card animate-on-scroll delay-300">
-          <div class="image-placeholder">
-            <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="image-placeholder-text">Children smiling and playing in Chacraseca</span>
-          </div>
-        </div>
-        <div class="photo-card animate-on-scroll delay-400">
-          <div class="image-placeholder">
-            <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="image-placeholder-text">Volunteer team group photo with local partners</span>
-          </div>
-        </div>
+        <PhotoCard placeholder="Scenic view of León countryside with volcanos" animationDelay={100} />
+        <PhotoCard placeholder="Local community members gathering in village center" animationDelay={200} />
+        <PhotoCard placeholder="Children smiling and playing in Chacraseca" animationDelay={300} />
+        <PhotoCard placeholder="Volunteer team group photo with local partners" animationDelay={400} />
       </div>
     </div>
   </Section>
@@ -246,7 +226,7 @@ const housingGallery = [
   </Section>
 
   <!-- Infrastructure / Housing -->
-  <Section background="gray" withGrid>
+  <Section background="gray" withGrid id="infrastructure">
     <Container>
       <SectionHeader
         label="Infrastructure"
@@ -360,7 +340,7 @@ const housingGallery = [
   </Section>
 
   <!-- Education Programs -->
-  <Section background="white">
+  <Section background="white" id="education">
     <Container>
       <SectionHeader
         label="Education"
@@ -421,7 +401,7 @@ const housingGallery = [
   </Section>
 
   <!-- Health Programs -->
-  <Section background="gray" withGrid>
+  <Section background="gray" withGrid id="health">
     <Container>
       <SectionHeader
         label="Health"
@@ -500,7 +480,7 @@ const housingGallery = [
   </Section>
 
   <!-- Agriculture Programs -->
-  <Section background="white">
+  <Section background="white" id="agriculture">
     <Container>
       <SectionHeader
         label="Food & Agriculture"
@@ -598,49 +578,6 @@ const housingGallery = [
 </BaseLayout>
 
 <style>
-  /* Stat cards */
-  .stat-card {
-    text-align: center;
-    padding: 1.5rem;
-    background: white;
-    border-radius: 16px;
-    border: 1px solid rgba(45, 139, 78, 0.1);
-    transition: all 0.3s ease;
-  }
-
-  .stat-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.1);
-  }
-
-  .stat-icon {
-    width: 56px;
-    height: 56px;
-    margin: 0 auto 1rem;
-    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #2D8B4E;
-  }
-
-  .stat-value {
-    font-size: 2rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, #2D8B4E, #F7931E);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 0.875rem;
-    color: #666;
-    margin-top: 0.75rem;
-  }
-
   /* Info cards */
   .info-card {
     background: white;
