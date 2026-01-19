@@ -43,18 +43,40 @@ function extractCampaignId(input: string): string {
 // Fetch campaign details from Mailchimp
 async function getMailchimpCampaign(campaignId: string, apiKey: string): Promise<MailchimpCampaign | null> {
   const dc = apiKey.split('-')[1];
-  const response = await fetch(`https://${dc}.api.mailchimp.com/3.0/campaigns/${campaignId}`, {
+
+  // First, try direct lookup by campaign ID
+  let response = await fetch(`https://${dc}.api.mailchimp.com/3.0/campaigns/${campaignId}`, {
     headers: {
       'Authorization': `Bearer ${apiKey}`,
     },
   });
 
-  if (!response.ok) {
-    console.error('Failed to fetch Mailchimp campaign:', await response.text());
-    return null;
+  if (response.ok) {
+    return response.json();
   }
 
-  return response.json();
+  // If that fails and the ID looks numeric, it might be a web_id
+  // Search all campaigns to find the matching one
+  if (/^\d+$/.test(campaignId)) {
+    console.log('Numeric ID detected, searching by web_id...');
+    const searchResponse = await fetch(`https://${dc}.api.mailchimp.com/3.0/campaigns?count=1000`, {
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+      },
+    });
+
+    if (searchResponse.ok) {
+      const data = await searchResponse.json();
+      const campaign = data.campaigns?.find((c: { web_id: number }) => c.web_id.toString() === campaignId);
+      if (campaign) {
+        console.log('Found campaign by web_id:', campaign.id);
+        return campaign;
+      }
+    }
+  }
+
+  console.error('Failed to fetch Mailchimp campaign:', await response.text());
+  return null;
 }
 
 // Fetch campaign content from Mailchimp
