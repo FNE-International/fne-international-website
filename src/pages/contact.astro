@@ -1,0 +1,346 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+
+const contactMethods = [
+  {
+    title: 'Email Us',
+    description: 'Send us a message anytime',
+    value: 'info@fneinternational.org',
+    href: 'mailto:info@fneinternational.org',
+    icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+  },
+  {
+    title: 'Follow Us',
+    description: 'Stay connected on social media',
+    value: '@FNEInternational',
+    href: 'https://www.facebook.com/FNEInternational',
+    icon: 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z',
+  },
+  {
+    title: 'Location',
+    description: 'Based in the United States',
+    value: 'Serving Latin America',
+    icon: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z',
+  },
+];
+---
+
+<BaseLayout title="Contact Us" description="Get in touch with FNE International. We'd love to hear from you about volunteering, partnerships, or general inquiries.">
+  <!-- Hero Section -->
+  <HeroSection
+    badge="Get In Touch"
+    title="Contact"
+    titleAccent="Us"
+    subtitle="Have questions about our programs, want to volunteer, or interested in partnering with us? We'd love to hear from you."
+    image="/team.jpg"
+    imageAlt="FNE International team"
+  />
+
+  <!-- Contact Form Section -->
+  <Section background="white">
+    <Container>
+      <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-form-wrapper animate-on-scroll">
+          <div class="form-header">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Send Us a Message</h2>
+            <p class="text-gray-600">Fill out the form below and we'll get back to you as soon as possible.</p>
+          </div>
+
+          <form
+            action="https://formspree.io/f/YOUR_FORM_ID"
+            method="POST"
+            class="contact-form"
+          >
+            <!-- Name Field -->
+            <div class="form-group">
+              <label for="name" class="form-label">Your Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                placeholder="John Doe"
+                class="form-input"
+              />
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+              <label for="email" class="form-label">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="john@example.com"
+                class="form-input"
+              />
+            </div>
+
+            <!-- Message Field -->
+            <div class="form-group">
+              <label for="message" class="form-label">Your Message</label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows="5"
+                placeholder="Tell us how we can help..."
+                class="form-input form-textarea"
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-button">
+              <span>Send Message</span>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info animate-on-scroll delay-100">
+          <h3 class="text-xl font-bold text-gray-900 mb-6">Other Ways to Reach Us</h3>
+
+          <div class="contact-methods">
+            {contactMethods.map((method) => (
+              <div class="contact-method">
+                <div class="method-icon">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={method.icon} />
+                  </svg>
+                </div>
+                <div class="method-content">
+                  <h4 class="font-semibold text-gray-900">{method.title}</h4>
+                  <p class="text-sm text-gray-500 mb-1">{method.description}</p>
+                  {method.href ? (
+                    <a href={method.href} class="text-[#2D8B4E] font-medium hover:text-[#F7931E] transition-colors">
+                      {method.value}
+                    </a>
+                  ) : (
+                    <span class="text-gray-700">{method.value}</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- CTA Box -->
+          <div class="cta-box">
+            <div class="cta-icon">
+              <svg class="w-8 h-8 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h4 class="font-semibold text-gray-900 mb-2">Ready to Get Involved?</h4>
+            <p class="text-sm text-gray-600 mb-4">
+              Check out our volunteer opportunities and upcoming mission trips.
+            </p>
+            <a href="/get-involved" class="cta-link">
+              View Opportunities
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  /* Contact Grid */
+  .contact-grid {
+    display: grid;
+    gap: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 4rem;
+    }
+  }
+
+  /* Form Wrapper */
+  .contact-form-wrapper {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 24px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  }
+
+  .form-header {
+    margin-bottom: 2rem;
+  }
+
+  /* Form Styles */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  .form-input {
+    padding: 0.875rem 1rem;
+    border: 2px solid rgba(45, 139, 78, 0.15);
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #1f2937;
+    background: #fafafa;
+    transition: all 0.3s ease;
+  }
+
+  .form-input::placeholder {
+    color: #9ca3af;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: #2D8B4E;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(45, 139, 78, 0.1);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  /* Submit Button */
+  .submit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #2D8B4E, #3d9a8b);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+  }
+
+  .submit-button:hover {
+    background: linear-gradient(135deg, #246b3e, #2D8B4E);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(45, 139, 78, 0.3);
+  }
+
+  .submit-button:active {
+    transform: translateY(0);
+  }
+
+  /* Contact Info */
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contact-method {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.03), rgba(247, 147, 30, 0.03));
+    border-radius: 16px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .contact-method:hover {
+    border-color: rgba(45, 139, 78, 0.25);
+    box-shadow: 0 4px 15px rgba(45, 139, 78, 0.08);
+  }
+
+  .method-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 12px;
+    color: #2D8B4E;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(45, 139, 78, 0.1);
+  }
+
+  .method-content {
+    flex: 1;
+  }
+
+  /* CTA Box */
+  .cta-box {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.08), rgba(247, 147, 30, 0.08));
+    border-radius: 20px;
+    border: 2px solid rgba(45, 139, 78, 0.15);
+  }
+
+  .cta-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 16px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 15px rgba(45, 139, 78, 0.1);
+  }
+
+  .cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #2D8B4E;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+  }
+
+  .cta-link:hover {
+    color: #F7931E;
+    gap: 0.75rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .contact-form-wrapper {
+      padding: 1.5rem;
+    }
+  }
+</style>

@@ -17,7 +17,7 @@ const fnePhilosophy = [
     description: 'We facilitate collaboration between communities, volunteers, and organizations. Rather than imposing solutions, we create pathways for meaningful partnerships that address real needs identified by communities themselves.',
     examples: [
       'Connecting volunteer groups with community projects',
-      'Coordinating between local organizations and international resources',
+      'Bridging local and international partners',
       'Creating spaces for dialogue and shared decision-making',
     ],
     icon: 'M13 10V3L4 14h7v7l9-11h-7z',
@@ -379,6 +379,9 @@ const differentiators = [
     border-radius: 24px;
     border: 2px solid transparent;
     transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   .philosophy-card-green {
@@ -440,6 +443,7 @@ const differentiators = [
   .philosophy-examples {
     padding-top: 1.5rem;
     border-top: 1px solid rgba(45, 139, 78, 0.1);
+    margin-top: auto;
   }
 
   /* Hand in Hand */
