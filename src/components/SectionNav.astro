@@ -23,13 +23,13 @@ const { sections } = Astro.props;
   ))}
 </nav>
 
-<script>
+<script is:inline>
   function initSectionNav() {
-    const nav = document.querySelector('[data-section-nav]') as HTMLElement | null;
+    const nav = document.querySelector('[data-section-nav]');
     if (!nav) return;
 
     const links = nav.querySelectorAll('[data-section-link]');
-    const sections: { id: string; element: HTMLElement }[] = [];
+    const sections = [];
 
     // Collect all sections that have matching IDs
     links.forEach((link) => {
