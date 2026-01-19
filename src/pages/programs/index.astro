@@ -138,9 +138,9 @@ const impactPhotos = [
   />
 
   <!-- Impact Photo Banner -->
-  <Section background="white" spacing="small">
-    <div class="w-full overflow-hidden">
-      <div class="photo-grid photo-grid-4 max-w-7xl mx-auto px-4">
+  <Section background="white" padding="sm">
+    <Container>
+      <div class="photo-grid photo-grid-4">
         {impactPhotos.map((photo, index) => (
           <div class={`photo-card animate-on-scroll delay-${(index + 1) * 100}`}>
             <div class="image-placeholder">
@@ -152,7 +152,7 @@ const impactPhotos = [
           </div>
         ))}
       </div>
-    </div>
+    </Container>
   </Section>
 
   <!-- Our Approach: FNE -->
@@ -304,56 +304,28 @@ const impactPhotos = [
   <!-- Impact Stats with Animated Icons -->
   <Section background="gradient">
     <Container size="md">
-      <div class="text-center mb-12 animate-on-scroll">
-        <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">Our Collective Impact</h2>
-        <p class="text-lg text-gray-600">Over 30 years of dedicated service to communities across Latin America.</p>
-      </div>
+      <SectionHeader
+        title="Our Collective Impact"
+        subtitle="Over 30 years of dedicated service to communities across Latin America."
+      />
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div class="impact-stat animate-on-scroll delay-100">
-          <div class="impact-icon icon-glow">
-            <div class="animate-scale-pulse">
-              <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {[
+          { value: '30+', label: 'Years of Service', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
+          { value: '3', label: 'Countries', icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064' },
+          { value: '300+', label: 'Houses Built', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+          { value: '1000+', label: 'Lives Changed', icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' },
+        ].map((stat, index) => (
+          <div class={`impact-stat animate-on-scroll delay-${(index + 1) * 100}`}>
+            <div class="impact-icon">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={stat.icon} />
               </svg>
             </div>
+            <div class="impact-number">{stat.value}</div>
+            <div class="impact-label">{stat.label}</div>
           </div>
-          <div class="impact-number">30+</div>
-          <div class="impact-label">Years of Service</div>
-        </div>
-        <div class="impact-stat animate-on-scroll delay-200">
-          <div class="impact-icon icon-glow">
-            <div class="animate-wobble">
-              <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
-              </svg>
-            </div>
-          </div>
-          <div class="impact-number">3</div>
-          <div class="impact-label">Countries</div>
-        </div>
-        <div class="impact-stat animate-on-scroll delay-300">
-          <div class="impact-icon icon-glow">
-            <div class="icon-float">
-              <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-              </svg>
-            </div>
-          </div>
-          <div class="impact-number">300+</div>
-          <div class="impact-label">Houses Built</div>
-        </div>
-        <div class="impact-stat animate-on-scroll delay-400">
-          <div class="impact-icon icon-glow">
-            <div class="animate-rotate-3d">
-              <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-            </div>
-          </div>
-          <div class="impact-number">1000+</div>
-          <div class="impact-label">Lives Changed</div>
-        </div>
+        ))}
       </div>
     </Container>
   </Section>
@@ -705,30 +677,43 @@ const impactPhotos = [
   .impact-stat {
     text-align: center;
     padding: 1.5rem;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .impact-stat:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.1);
   }
 
   .impact-icon {
-    width: 72px;
-    height: 72px;
+    width: 64px;
+    height: 64px;
     margin: 0 auto 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
-    border-radius: 20px;
+    border-radius: 16px;
     color: #2D8B4E;
-    border: 2px solid rgba(45, 139, 78, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .impact-stat:hover .impact-icon {
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
   }
 
   .impact-number {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 900;
     background: linear-gradient(135deg, #2D8B4E, #F7931E);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     line-height: 1;
-    margin-bottom: 0.5rem;
   }
 
   .impact-label {
@@ -743,6 +728,7 @@ const impactPhotos = [
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    margin-bottom: 8rem;
   }
 
   @media (min-width: 768px) {
