@@ -101,8 +101,13 @@ const { sections } = Astro.props;
     });
   }
 
-  // Initialize on page load
-  document.addEventListener('DOMContentLoaded', initSectionNav);
+  // Initialize immediately if DOM is ready, otherwise wait
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSectionNav);
+  } else {
+    // DOM is already ready, run now
+    initSectionNav();
+  }
 
   // Re-initialize on Astro page transitions
   document.addEventListener('astro:page-load', initSectionNav);
