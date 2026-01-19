@@ -84,8 +84,11 @@ const allCategories = Object.keys(categoryLabels);
         {allCategories.map((category) => {
           return (
             <a
-              href={`/blog/category/${category}`}
-              class="filter-chip"
+              href={`/blog?category=${category}`}
+              class:list={[
+                'filter-chip',
+                selectedCategory === category && 'filter-chip-active',
+              ]}
             >
               {getCategoryLabel(category)}
             </a>
