@@ -38,6 +38,12 @@ const { sections } = Astro.props;
         const element = document.getElementById(id);
         if (element) {
           sections.push({ id, element });
+
+          // Add click handler for smooth scroll
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
         }
       }
     });
