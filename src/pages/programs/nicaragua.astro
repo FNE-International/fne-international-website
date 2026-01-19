@@ -702,6 +702,12 @@ const housingGallery = [
     gap: 1rem;
   }
 
+  @media (max-width: 640px) {
+    .housing-stat-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .housing-stat {
     text-align: center;
     padding: 1.25rem;
@@ -754,6 +760,12 @@ const housingGallery = [
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .housing-thumbnails {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   .gallery-item .image-placeholder {
