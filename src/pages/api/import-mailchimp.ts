@@ -236,8 +236,8 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // Fetch campaign content
-    const content = await getMailchimpCampaignContent(campaignId, mailchimpApiKey);
+    // Fetch campaign content (use campaignData.id, not the input which might be a web_id)
+    const content = await getMailchimpCampaignContent(campaignData.id, mailchimpApiKey);
     if (!content) {
       return new Response(JSON.stringify({ error: 'Could not fetch campaign content' }), {
         status: 500,
