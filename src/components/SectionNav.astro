@@ -28,25 +28,40 @@ const { sections } = Astro.props;
     const nav = document.querySelector('[data-section-nav]');
     if (!nav) return;
 
-    const links = nav.querySelectorAll('[data-section-link]');
-    const sections = [];
-
-    // Collect all sections that have matching IDs
-    links.forEach((link) => {
-      const id = link.getAttribute('data-section-link');
-      if (id) {
-        const element = document.getElementById(id);
-        if (element) {
-          sections.push({ id, element });
-
-          // Add click handler for smooth scroll
-          link.addEventListener('click', function(e) {
-            e.preventDefault();
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          });
+    // Use event delegation for click handling - works even if sections load later
+    nav.addEventListener('click', function(e) {
+      const link = e.target.closest('[data-section-link]');
+      if (link) {
+        e.preventDefault();
+        const id = link.getAttribute('data-section-link');
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
     });
+
+    const links = nav.querySelectorAll('[data-section-link]');
+    const sections = [];
+
+    // Collect sections for active state tracking
+    function collectSections() {
+      sections.length = 0;
+      links.forEach((link) => {
+        const id = link.getAttribute('data-section-link');
+        if (id) {
+          const element = document.getElementById(id);
+          if (element) {
+            sections.push({ id, element });
+          }
+        }
+      });
+    }
+
+    // Initial collection
+    collectSections();
+    // Re-collect after a short delay in case sections load late
+    setTimeout(collectSections, 100);
 
     // Show/hide nav based on scroll position
     function updateNavVisibility() {
