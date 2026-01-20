@@ -27,12 +27,12 @@ const bgClasses: Record<string, string> = {
 // Support both 'padding' and 'spacing' props for backwards compatibility
 const spacingValue = spacing || padding || 'md';
 const paddingClasses: Record<string, string> = {
-  small: 'py-12',
-  sm: 'py-16',
-  medium: 'py-24',
-  md: 'py-24',
-  large: 'py-32',
-  lg: 'py-32',
+  small: 'py-8 sm:py-12',
+  sm: 'py-10 sm:py-16',
+  medium: 'py-12 sm:py-20 lg:py-24',
+  md: 'py-12 sm:py-20 lg:py-24',
+  large: 'py-16 sm:py-24 lg:py-32',
+  lg: 'py-16 sm:py-24 lg:py-32',
 };
 ---
 

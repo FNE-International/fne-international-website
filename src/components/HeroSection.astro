@@ -20,7 +20,7 @@ const {
 } = Astro.props;
 ---
 
-<section class="relative min-h-[50vh] flex items-center overflow-hidden bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
+<section class="relative min-h-[40vh] sm:min-h-[50vh] flex items-center overflow-hidden bg-gradient-to-br from-white via-gray-50 to-emerald-50/30">
   <!-- Animated gradient mesh -->
   <div class="absolute inset-0">
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(45,139,78,0.15),transparent)]"></div>
@@ -34,28 +34,28 @@ const {
   <div class="absolute top-20 right-20 w-64 h-64 bg-[#2D8B4E] rounded-full filter blur-[100px] opacity-10 animate-pulse-slow"></div>
   <div class="absolute bottom-20 left-20 w-48 h-48 bg-[#F7931E] rounded-full filter blur-[80px] opacity-8 animate-float"></div>
 
-  <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-    <div class="grid lg:grid-cols-2 gap-12 items-center">
+  <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
       <!-- Left: Text Content -->
       <div class="text-center lg:text-left">
         <!-- Badge -->
         {badge && (
-          <div class="inline-flex items-center gap-3 glass-card px-5 py-3 rounded-full mb-8 border border-[#2D8B4E]/20 shadow-lg">
-            <span class="relative flex h-3 w-3">
+          <div class="inline-flex items-center gap-2 sm:gap-3 glass-card px-4 sm:px-5 py-2.5 sm:py-3 rounded-full mb-6 sm:mb-8 border border-[#2D8B4E]/20 shadow-lg">
+            <span class="relative flex h-2.5 w-2.5 sm:h-3 sm:w-3">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2D8B4E] opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-3 w-3 bg-[#2D8B4E]"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 bg-[#2D8B4E]"></span>
             </span>
-            <span class="text-[#2D8B4E] text-sm font-semibold tracking-wider">{badge}</span>
+            <span class="text-[#2D8B4E] text-xs sm:text-sm font-semibold tracking-wider">{badge}</span>
           </div>
         )}
 
         <!-- Main headline -->
-        <h1 class="text-5xl sm:text-6xl md:text-7xl font-black mb-6 leading-[0.9] tracking-tight">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-4 sm:mb-6 leading-[0.9] tracking-tight">
           <span class="block text-gray-900">{title}</span>
           {titleAccent && <span class="neon-text">{titleAccent}</span>}
         </h1>
 
-        <p class="text-xl md:text-2xl mb-8 text-gray-600 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
+        <p class="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 text-gray-600 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
           <slot name="subtitle">{subtitle}</slot>
         </p>
 

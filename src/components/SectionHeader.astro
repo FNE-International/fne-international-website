@@ -27,17 +27,17 @@ const alignClasses = align === 'center' ? 'text-center' : 'text-left';
 const subtitleAlign = align === 'center' ? 'max-w-2xl mx-auto' : 'max-w-2xl';
 ---
 
-<div class:list={[alignClasses, 'mb-16']}>
+<div class:list={[alignClasses, 'mb-10 sm:mb-12 lg:mb-16']}>
   {label && (
-    <p class:list={[labelColors[labelColor], 'font-semibold tracking-[0.3em] uppercase mb-4 text-sm']}>
+    <p class:list={[labelColors[labelColor], 'font-semibold tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-3 sm:mb-4 text-xs sm:text-sm']}>
       {label}
     </p>
   )}
-  <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-4">
+  <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-gray-900 mb-3 sm:mb-4">
     {title}{titleAccent && <span class="neon-text"> {titleAccent}</span>}
   </h2>
   {subtitle && (
-    <p class:list={['text-xl text-gray-500', subtitleAlign]}>
+    <p class:list={['text-base sm:text-lg lg:text-xl text-gray-500', subtitleAlign]}>
       {subtitle}
     </p>
   )}

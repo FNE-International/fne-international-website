@@ -28,12 +28,12 @@ const {
 <Section background="gradient-dark">
   <Container size="md">
     <div class="text-center relative animate-on-scroll">
-      <!-- Floating orbs -->
-      <div class="floating-orb floating-orb-1"></div>
-      <div class="floating-orb floating-orb-2"></div>
-      <div class="floating-orb floating-orb-3"></div>
+      <!-- Floating orbs (decorative) -->
+      <div class="floating-orb floating-orb-1" aria-hidden="true"></div>
+      <div class="floating-orb floating-orb-2" aria-hidden="true"></div>
+      <div class="floating-orb floating-orb-3" aria-hidden="true"></div>
 
-      <div class="cta-icon mx-auto mb-6">
+      <div class="cta-icon mx-auto mb-6" aria-hidden="true">
         <div class="icon-3d">
           <div class="icon-3d-inner animate-rotate-3d">
             <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,11 +56,11 @@ const {
         >
           <span class="mega-button-content">
             <span class="text-lg font-bold">{primaryButtonText}</span>
-            <svg class="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </span>
-          <div class="mega-button-shine"></div>
+          <div class="mega-button-shine" aria-hidden="true"></div>
         </a>
         {secondaryButtonText && (
           <a href={secondaryButtonLink} class="inline-flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-bold rounded-full hover:bg-white hover:text-[#2D8B4E] transition-all duration-300">

@@ -27,15 +27,20 @@ const { title, description = 'FNE International partners with communities in dev
     <title>{title} | FNE International</title>
   </head>
   <body class="min-h-screen flex flex-col">
+    <!-- Skip to main content link for keyboard users -->
+    <a href="#main-content" class="skip-link">
+      Skip to main content
+    </a>
+
     <!-- Under Construction Banner -->
-    <div id="construction-banner" class="bg-[#F7931E] text-white py-3 px-4 text-center text-sm font-medium relative">
+    <div id="construction-banner" class="bg-[#F7931E] text-white py-3 px-4 text-center text-sm font-medium relative" role="alert">
       <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
-        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
         </svg>
         <span>This website is currently under construction. Some features may be incomplete.</span>
         <button id="close-banner" class="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-white/20 rounded transition-colors" aria-label="Dismiss banner">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
@@ -43,7 +48,7 @@ const { title, description = 'FNE International partners with communities in dev
     </div>
 
     <Header breadcrumbs={breadcrumbs} />
-    <main class="flex-grow">
+    <main id="main-content" class="flex-grow" tabindex="-1">
       <slot />
     </main>
     <Footer />

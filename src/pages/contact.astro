@@ -98,7 +98,7 @@ const contactMethods = [
             <!-- Submit Button -->
             <button type="submit" class="submit-button">
               <span>Send Message</span>
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </button>
@@ -109,10 +109,10 @@ const contactMethods = [
         <div class="contact-info animate-on-scroll delay-100">
           <h3 class="text-xl font-bold text-gray-900 mb-6">Other Ways to Reach Us</h3>
 
-          <div class="contact-methods">
+          <div class="contact-methods" role="list">
             {contactMethods.map((method) => (
-              <div class="contact-method">
-                <div class="method-icon">
+              <div class="contact-method" role="listitem">
+                <div class="method-icon" aria-hidden="true">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={method.icon} />
                   </svg>
@@ -134,7 +134,7 @@ const contactMethods = [
 
           <!-- CTA Box -->
           <div class="cta-box">
-            <div class="cta-icon">
+            <div class="cta-icon" aria-hidden="true">
               <svg class="w-8 h-8 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -145,7 +145,7 @@ const contactMethods = [
             </p>
             <a href="/get-involved" class="cta-link">
               View Opportunities
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
             </a>
