@@ -1,0 +1,211 @@
+---
+export const prerender = false;
+
+// Check if already logged in via cookie
+const sessionCookie = Astro.cookies.get('admin_session');
+if (sessionCookie?.value === 'authenticated') {
+  return Astro.redirect('/admin/dashboard');
+}
+
+// Handle login form submission
+let error = '';
+if (Astro.request.method === 'POST') {
+  try {
+    const formData = await Astro.request.formData();
+    const password = formData.get('password')?.toString();
+
+    // Check password against environment variable
+    // In Vercel serverless, process.env is the primary source
+    const adminPassword = (globalThis as any).process?.env?.ADMIN_PASSWORD || import.meta.env.ADMIN_PASSWORD;
+
+    if (!adminPassword) {
+      error = 'Admin password not configured. Please redeploy after setting ADMIN_PASSWORD in Vercel.';
+    } else if (password === adminPassword) {
+      // Set session cookie (expires in 24 hours)
+      Astro.cookies.set('admin_session', 'authenticated', {
+        path: '/',
+        maxAge: 60 * 60 * 24, // 24 hours
+        httpOnly: true,
+        secure: import.meta.env.PROD,
+        sameSite: 'strict',
+      });
+      return Astro.redirect('/admin/dashboard');
+    } else {
+      error = 'Invalid password. Please try again.';
+    }
+  } catch (e) {
+    error = 'An error occurred. Please try again.';
+  }
+}
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Admin Login | FNE International</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #fef3e2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
+
+      .login-container {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        border: 1px solid rgba(45, 139, 78, 0.1);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2rem;
+      }
+
+      .logo img {
+        height: 48px;
+        width: auto;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #111827;
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .subtitle {
+        color: #6b7280;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 0.875rem;
+      }
+
+      .error {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #dc2626;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+        font-size: 0.875rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 0.5rem;
+      }
+
+      input[type="password"] {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        border: 2px solid rgba(45, 139, 78, 0.15);
+        border-radius: 0.75rem;
+        font-size: 1rem;
+        color: #1f2937;
+        background: #fafafa;
+        transition: all 0.2s ease;
+      }
+
+      input[type="password"]:focus {
+        outline: none;
+        border-color: #2D8B4E;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(45, 139, 78, 0.1);
+      }
+
+      button {
+        width: 100%;
+        padding: 0.875rem 1.5rem;
+        background: linear-gradient(135deg, #2D8B4E, #3d9a8b);
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        border: none;
+        border-radius: 0.75rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      button:hover {
+        background: linear-gradient(135deg, #246b3e, #2D8B4E);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(45, 139, 78, 0.3);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 1.5rem;
+        color: #6b7280;
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: color 0.2s ease;
+      }
+
+      .back-link:hover {
+        color: #2D8B4E;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="logo">
+        <img src="/logo.avif" alt="FNE International" />
+      </div>
+
+      <h1>Admin Login</h1>
+      <p class="subtitle">Enter your password to access the blog admin</p>
+
+      {error && <div class="error">{error}</div>}
+
+      <form method="POST">
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            placeholder="Enter admin password"
+            autofocus
+          />
+        </div>
+
+        <button type="submit">Sign In</button>
+      </form>
+
+      <a href="/" class="back-link">← Back to website</a>
+    </div>
+  </body>
+</html>

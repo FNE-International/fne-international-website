@@ -1,28 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CTASection from '../components/CTASection.astro';
-import { useStoryblokApi } from '@storyblok/astro';
-import { getOptimizedImageUrl, getCategoryLabel, getCategoryColors, type BlogPost } from '../lib/storyblok';
+import { getBlogPosts, getCategoryLabel, getCategoryColors } from '../lib/blog';
 
-// Fetch latest blog posts for the bento grid
-const storyblokApi = useStoryblokApi();
-let blogPosts: BlogPost[] = [];
-
-try {
-  const { data } = await storyblokApi.get('cdn/stories', {
-    version: import.meta.env.DEV ? 'draft' : 'published',
-    starts_with: 'blog/',
-    is_startpage: false,
-    sort_by: 'content.publish_date:desc',
-    per_page: 5,
-    filter_query: {
-      featured: { is: true },
-    },
-  });
-  blogPosts = data.stories as BlogPost[];
-} catch {
-  blogPosts = [];
-}
+// Fetch latest featured blog posts for the bento grid
+const blogPosts = await getBlogPosts({ featured: true, limit: 5 });
 ---
 
 <BaseLayout title="Home">
@@ -227,119 +209,119 @@ try {
           <!-- Bento grid for blog posts -->
           <div class="bento-grid">
             {blogPosts[0] && (
-              <a href={`/blog/${blogPosts[0].slug.replace('blog/', '')}`} class="bento-item bento-large group">
-                {blogPosts[0].content.featured_image?.filename ? (
+              <a href={`/blog/${blogPosts[0].slug}`} class="bento-item bento-large group">
+                {blogPosts[0].data.featuredImage ? (
                   <img
-                    src={getOptimizedImageUrl(blogPosts[0].content.featured_image.filename, { width: 800 })}
-                    alt={blogPosts[0].content.featured_image.alt || blogPosts[0].content.title}
+                    src={blogPosts[0].data.featuredImage}
+                    alt={blogPosts[0].data.featuredImageAlt || blogPosts[0].data.title}
                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
                   <div class="bento-image-placeholder">
                     <div class="placeholder-content">
-                      <svg class="w-12 h-12 text-[#2D8B4E]/20 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg class="w-12 h-12 text-[#2D8B4E]/20 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
                     </div>
                   </div>
                 )}
                 <div class="bento-overlay bento-overlay-visible">
-                  <span class={`text-xs font-semibold px-2 py-1 rounded-full ${getCategoryColors(blogPosts[0].content.category).bg} ${getCategoryColors(blogPosts[0].content.category).text}`}>
-                    {getCategoryLabel(blogPosts[0].content.category)}
+                  <span class={`text-xs font-semibold px-2 py-1 rounded-full ${getCategoryColors(blogPosts[0].data.category).bg} ${getCategoryColors(blogPosts[0].data.category).text}`}>
+                    {getCategoryLabel(blogPosts[0].data.category)}
                   </span>
-                  <span class="text-white font-bold text-xl mt-2">{blogPosts[0].content.title}</span>
+                  <span class="text-white font-bold text-xl mt-2">{blogPosts[0].data.title}</span>
                 </div>
               </a>
             )}
 
             {blogPosts[1] && (
-              <a href={`/blog/${blogPosts[1].slug.replace('blog/', '')}`} class="bento-item bento-tall group">
-                {blogPosts[1].content.featured_image?.filename ? (
+              <a href={`/blog/${blogPosts[1].slug}`} class="bento-item bento-tall group">
+                {blogPosts[1].data.featuredImage ? (
                   <img
-                    src={getOptimizedImageUrl(blogPosts[1].content.featured_image.filename, { width: 400 })}
-                    alt={blogPosts[1].content.featured_image.alt || blogPosts[1].content.title}
+                    src={blogPosts[1].data.featuredImage}
+                    alt={blogPosts[1].data.featuredImageAlt || blogPosts[1].data.title}
                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
                   <div class="bento-image-placeholder">
                     <div class="placeholder-content">
-                      <svg class="w-10 h-10 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg class="w-10 h-10 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                       </svg>
                     </div>
                   </div>
                 )}
                 <div class="bento-overlay bento-overlay-visible">
-                  <span class="text-white font-semibold line-clamp-2">{blogPosts[1].content.title}</span>
+                  <span class="text-white font-semibold line-clamp-2">{blogPosts[1].data.title}</span>
                 </div>
               </a>
             )}
 
             {blogPosts[2] && (
-              <a href={`/blog/${blogPosts[2].slug.replace('blog/', '')}`} class="bento-item group">
-                {blogPosts[2].content.featured_image?.filename ? (
+              <a href={`/blog/${blogPosts[2].slug}`} class="bento-item group">
+                {blogPosts[2].data.featuredImage ? (
                   <img
-                    src={getOptimizedImageUrl(blogPosts[2].content.featured_image.filename, { width: 300 })}
-                    alt={blogPosts[2].content.featured_image.alt || blogPosts[2].content.title}
+                    src={blogPosts[2].data.featuredImage}
+                    alt={blogPosts[2].data.featuredImageAlt || blogPosts[2].data.title}
                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
                   <div class="bento-image-placeholder">
                     <div class="placeholder-content">
-                      <svg class="w-8 h-8 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg class="w-8 h-8 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                       </svg>
                     </div>
                   </div>
                 )}
                 <div class="bento-overlay bento-overlay-visible">
-                  <span class="text-white font-semibold text-sm line-clamp-2">{blogPosts[2].content.title}</span>
+                  <span class="text-white font-semibold text-sm line-clamp-2">{blogPosts[2].data.title}</span>
                 </div>
               </a>
             )}
 
             {blogPosts[3] && (
-              <a href={`/blog/${blogPosts[3].slug.replace('blog/', '')}`} class="bento-item group">
-                {blogPosts[3].content.featured_image?.filename ? (
+              <a href={`/blog/${blogPosts[3].slug}`} class="bento-item group">
+                {blogPosts[3].data.featuredImage ? (
                   <img
-                    src={getOptimizedImageUrl(blogPosts[3].content.featured_image.filename, { width: 300 })}
-                    alt={blogPosts[3].content.featured_image.alt || blogPosts[3].content.title}
+                    src={blogPosts[3].data.featuredImage}
+                    alt={blogPosts[3].data.featuredImageAlt || blogPosts[3].data.title}
                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
                   <div class="bento-image-placeholder">
                     <div class="placeholder-content">
-                      <svg class="w-8 h-8 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg class="w-8 h-8 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                       </svg>
                     </div>
                   </div>
                 )}
                 <div class="bento-overlay bento-overlay-visible">
-                  <span class="text-white font-semibold text-sm line-clamp-2">{blogPosts[3].content.title}</span>
+                  <span class="text-white font-semibold text-sm line-clamp-2">{blogPosts[3].data.title}</span>
                 </div>
               </a>
             )}
 
             {blogPosts[4] && (
-              <a href={`/blog/${blogPosts[4].slug.replace('blog/', '')}`} class="bento-item bento-wide group">
-                {blogPosts[4].content.featured_image?.filename ? (
+              <a href={`/blog/${blogPosts[4].slug}`} class="bento-item bento-wide group">
+                {blogPosts[4].data.featuredImage ? (
                   <img
-                    src={getOptimizedImageUrl(blogPosts[4].content.featured_image.filename, { width: 600 })}
-                    alt={blogPosts[4].content.featured_image.alt || blogPosts[4].content.title}
+                    src={blogPosts[4].data.featuredImage}
+                    alt={blogPosts[4].data.featuredImageAlt || blogPosts[4].data.title}
                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
                   <div class="bento-image-placeholder">
                     <div class="placeholder-content">
-                      <svg class="w-10 h-10 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg class="w-10 h-10 text-[#2D8B4E]/20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                       </svg>
                     </div>
                   </div>
                 )}
                 <div class="bento-overlay bento-overlay-visible">
-                  <span class="text-white font-semibold line-clamp-1">{blogPosts[4].content.title}</span>
+                  <span class="text-white font-semibold line-clamp-1">{blogPosts[4].data.title}</span>
                 </div>
               </a>
             )}

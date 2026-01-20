@@ -245,8 +245,8 @@ export const POST: APIRoute = async ({ request }) => {
     const body = await request.json();
     const { campaign, password } = body;
 
-    // Verify admin password
-    const adminPassword = import.meta.env.ADMIN_PASSWORD;
+    // Verify admin password (process.env for Vercel serverless)
+    const adminPassword = (globalThis as any).process?.env?.ADMIN_PASSWORD || import.meta.env.ADMIN_PASSWORD;
     if (!adminPassword || password !== adminPassword) {
       return new Response(JSON.stringify({ error: 'Invalid password' }), {
         status: 401,
@@ -254,10 +254,11 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // Get environment variables
-    const mailchimpApiKey = import.meta.env.MAILCHIMP_API_KEY;
-    const storyblokToken = import.meta.env.STORYBLOK_MANAGEMENT_TOKEN;
-    const storyblokSpaceId = import.meta.env.STORYBLOK_SPACE_ID;
+    // Get environment variables (process.env for Vercel serverless)
+    const getEnv = (key: string) => (globalThis as any).process?.env?.[key] || (import.meta.env as any)[key];
+    const mailchimpApiKey = getEnv('MAILCHIMP_API_KEY');
+    const storyblokToken = getEnv('STORYBLOK_MANAGEMENT_TOKEN');
+    const storyblokSpaceId = getEnv('STORYBLOK_SPACE_ID');
 
     if (!mailchimpApiKey || !storyblokToken || !storyblokSpaceId) {
       return new Response(JSON.stringify({ error: 'Server not configured. Missing API keys.' }), {

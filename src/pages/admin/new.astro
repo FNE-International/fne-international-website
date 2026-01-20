@@ -1,0 +1,418 @@
+---
+export const prerender = false;
+
+import { categoryLabels, generateSlug, formatFrontmatter } from '../../lib/blog';
+
+// Check authentication
+const sessionCookie = Astro.cookies.get('admin_session');
+if (sessionCookie?.value !== 'authenticated') {
+  return Astro.redirect('/admin');
+}
+
+let error = '';
+let success = '';
+
+// Handle form submission
+if (Astro.request.method === 'POST') {
+  try {
+    const formData = await Astro.request.formData();
+    const title = formData.get('title')?.toString() || '';
+    const excerpt = formData.get('excerpt')?.toString() || '';
+    const author = formData.get('author')?.toString() || '';
+    const publishDate = formData.get('publishDate')?.toString() || '';
+    const category = formData.get('category')?.toString() || 'stories';
+    const featured = formData.get('featured') === 'on';
+    const draft = formData.get('draft') === 'on';
+    const featuredImage = formData.get('featuredImage')?.toString() || '';
+    const featuredImageAlt = formData.get('featuredImageAlt')?.toString() || '';
+    const content = formData.get('content')?.toString() || '';
+
+    // Validate required fields
+    if (!title || !excerpt || !author || !publishDate || !content) {
+      error = 'Please fill in all required fields.';
+    } else {
+      // Generate slug from title
+      const slug = generateSlug(title);
+
+      // Create frontmatter
+      const frontmatter = formatFrontmatter({
+        title,
+        excerpt,
+        author,
+        publishDate,
+        category,
+        featured,
+        featuredImage: featuredImage || undefined,
+        featuredImageAlt: featuredImageAlt || undefined,
+        draft,
+      });
+
+      // Full file content
+      const fileContent = `${frontmatter}\n\n${content}`;
+
+      // Check if GitHub token is configured
+      const githubToken = import.meta.env.GITHUB_TOKEN;
+      const githubOwner = import.meta.env.GITHUB_OWNER || 'FNE-International';
+      const githubRepo = import.meta.env.GITHUB_REPO || 'fne-international-website';
+
+      if (!githubToken) {
+        error = 'GitHub token not configured. Please set GITHUB_TOKEN environment variable.';
+      } else {
+        // Create file via GitHub API
+        const filePath = `src/content/blog/${slug}.md`;
+        const apiUrl = `https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${filePath}`;
+
+        const response = await fetch(apiUrl, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${githubToken}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.v3+json',
+          },
+          body: JSON.stringify({
+            message: `Add blog post: ${title}`,
+            content: Buffer.from(fileContent).toString('base64'),
+            branch: 'main',
+          }),
+        });
+
+        if (response.ok) {
+          return Astro.redirect('/admin/dashboard?created=true');
+        } else {
+          const errorData = await response.json();
+          error = `Failed to create post: ${errorData.message || 'Unknown error'}`;
+        }
+      }
+    }
+  } catch (e) {
+    error = `An error occurred: ${e instanceof Error ? e.message : 'Unknown error'}`;
+  }
+}
+
+// Get today's date for default publish date
+const today = new Date().toISOString().split('T')[0];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>New Post | FNE International Admin</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #f9fafb;
+        min-height: 100vh;
+        color: #111827;
+      }
+
+      .header {
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 1rem 1.5rem;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .header-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .back-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #6b7280;
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: color 0.2s;
+      }
+
+      .back-btn:hover {
+        color: #111827;
+      }
+
+      .header-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.625rem 1.25rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: none;
+      }
+
+      .btn-primary {
+        background: #2D8B4E;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #246b3e;
+      }
+
+      .btn-secondary {
+        background: white;
+        color: #374151;
+        border: 1px solid #d1d5db;
+      }
+
+      .btn-secondary:hover {
+        background: #f9fafb;
+      }
+
+      .main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+      }
+
+      .error {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #dc2626;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .success {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        color: #15803d;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-card {
+        background: white;
+        border-radius: 0.75rem;
+        border: 1px solid #e5e7eb;
+        padding: 1.5rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      @media (max-width: 640px) {
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 0.5rem;
+      }
+
+      .required::after {
+        content: ' *';
+        color: #dc2626;
+      }
+
+      input[type="text"],
+      input[type="date"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        font-size: 0.9375rem;
+        color: #1f2937;
+        background: white;
+        transition: all 0.2s ease;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #2D8B4E;
+        box-shadow: 0 0 0 3px rgba(45, 139, 78, 0.1);
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 200px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        line-height: 1.7;
+      }
+
+      .checkbox-group {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        font-size: 0.875rem;
+        color: #374151;
+      }
+
+      .checkbox-label input {
+        width: 1rem;
+        height: 1rem;
+        accent-color: #2D8B4E;
+      }
+
+      .help-text {
+        font-size: 0.75rem;
+        color: #6b7280;
+        margin-top: 0.5rem;
+      }
+
+      .form-actions {
+        display: flex;
+        gap: 0.75rem;
+        justify-content: flex-end;
+        padding-top: 1rem;
+        border-top: 1px solid #e5e7eb;
+        margin-top: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <div class="header-left">
+          <a href="/admin/dashboard" class="back-btn">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back
+          </a>
+          <span class="header-title">New Post</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      {error && <div class="error">{error}</div>}
+      {success && <div class="success">{success}</div>}
+
+      <form method="POST" class="form-card">
+        <div class="form-group">
+          <label for="title" class="required">Title</label>
+          <input type="text" id="title" name="title" required placeholder="Enter post title" />
+        </div>
+
+        <div class="form-group">
+          <label for="excerpt" class="required">Excerpt</label>
+          <input type="text" id="excerpt" name="excerpt" required placeholder="Brief description of the post" />
+          <p class="help-text">This appears in post previews and search results.</p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="author" class="required">Author</label>
+            <input type="text" id="author" name="author" required placeholder="Author name" />
+          </div>
+
+          <div class="form-group">
+            <label for="publishDate" class="required">Publish Date</label>
+            <input type="date" id="publishDate" name="publishDate" required value={today} />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="category" class="required">Category</label>
+            <select id="category" name="category" required>
+              {Object.entries(categoryLabels).map(([value, label]) => (
+                <option value={value}>{label}</option>
+              ))}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Options</label>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" name="featured" />
+                Featured
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="draft" />
+                Save as Draft
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="featuredImage">Featured Image URL</label>
+            <input type="text" id="featuredImage" name="featuredImage" placeholder="/images/my-image.jpg" />
+            <p class="help-text">Path to image in public folder or full URL.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="featuredImageAlt">Image Alt Text</label>
+            <input type="text" id="featuredImageAlt" name="featuredImageAlt" placeholder="Description of the image" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="content" class="required">Content (Markdown)</label>
+          <textarea id="content" name="content" required placeholder="Write your post content in Markdown..."></textarea>
+          <p class="help-text">Use Markdown formatting. Supports headings, bold, italic, links, images, and more.</p>
+        </div>
+
+        <div class="form-actions">
+          <a href="/admin/dashboard" class="btn btn-secondary">Cancel</a>
+          <button type="submit" class="btn btn-primary">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Create Post
+          </button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
