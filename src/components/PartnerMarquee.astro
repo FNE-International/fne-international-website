@@ -1,0 +1,152 @@
+---
+interface Partner {
+  name: string;
+  icon: string;
+}
+
+interface Props {
+  partners: Partner[];
+  speed?: 'slow' | 'normal' | 'fast';
+}
+
+const { partners, speed = 'normal' } = Astro.props;
+
+const speedClass = {
+  slow: 'marquee-slow',
+  normal: 'marquee-normal',
+  fast: 'marquee-fast'
+}[speed];
+---
+
+<div class="marquee-wrapper">
+  <div class:list={['marquee-track', speedClass]}>
+    {[1, 2, 3, 4].map((_, setIndex) => (
+      <div class="marquee-content" aria-hidden={setIndex > 0}>
+        {partners.map((partner) => (
+          <div class="partner-item">
+            <div class="partner-icon">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={partner.icon} />
+              </svg>
+            </div>
+            <span class="partner-name">{partner.name}</span>
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee-wrapper {
+    overflow: hidden;
+    width: 100%;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+  }
+
+  .marquee-track {
+    display: flex;
+    width: fit-content;
+  }
+
+  .marquee-slow {
+    animation: marquee 40s linear infinite;
+  }
+
+  .marquee-normal {
+    animation: marquee 25s linear infinite;
+  }
+
+  .marquee-fast {
+    animation: marquee 15s linear infinite;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  .marquee-content {
+    display: flex;
+    gap: 3rem;
+    padding-right: 3rem;
+  }
+
+  .partner-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background: white;
+    border-radius: 9999px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+
+  .partner-item:hover {
+    border-color: rgba(45, 139, 78, 0.3);
+    box-shadow: 0 8px 24px rgba(45, 139, 78, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .partner-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    border-radius: 50%;
+    color: #2D8B4E;
+    flex-shrink: 0;
+  }
+
+  .partner-name {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.9375rem;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* With 4 sets, we move 25% to show one full set */
+  .marquee-track {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+
+    .marquee-content:last-child {
+      display: none;
+    }
+
+    .marquee-content {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+</style>

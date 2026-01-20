@@ -6,7 +6,7 @@ import Container from '../components/Container.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import ContentBlock from '../components/ContentBlock.astro';
 import CTASection from '../components/CTASection.astro';
-import PartnerBadge from '../components/PartnerBadge.astro';
+import PartnerMarquee from '../components/PartnerMarquee.astro';
 import PhotoCard from '../components/PhotoCard.astro';
 
 const partners = [
@@ -18,19 +18,20 @@ const partners = [
 
 ---
 
-<BaseLayout title="About Us">
+<BaseLayout title="About Us" breadcrumbs={[{ label: 'About Us' }]}>
   <!-- Hero Section -->
   <HeroSection
     badge="Since 1990"
     title="Who We"
     titleAccent="Are"
     subtitle="A dedicated team making a big difference in the lives of people and communities in Nicaragua, Peru and the Dominican Republic."
-    image="/team.jpg"
+    image="/about-hero.jpg"
     imageAlt="FNE International Team"
+    imagePosition="center"
   />
 
   <!-- Photo Banner -->
-  <Section background="white" padding="sm">
+  <Section background="gray" padding="sm">
     <div class="w-full overflow-hidden">
       <div class="photo-grid photo-grid-4 max-w-7xl mx-auto px-4">
         <PhotoCard image="/about-team-event.jpg" alt="FNE team members at community event" />
@@ -103,44 +104,8 @@ const partners = [
         subtitle="Get to know some of the organizations across Latin America we are partnering with to make lasting change."
         labelColor="teal"
       />
-
-      <div class="flex flex-wrap justify-center gap-6">
-        {partners.map((partner, index) => (
-          <PartnerBadge
-            name={partner.name}
-            icon={partner.icon}
-            animationDelay={(index + 1) * 100}
-          />
-        ))}
-      </div>
     </Container>
-  </Section>
-
-  <!-- Meet the Team CTA -->
-  <Section background="white">
-    <Container size="md">
-      <div class="cta-card animate-on-scroll">
-        <div class="icon-3d mb-6">
-          <div class="icon-3d-inner animate-rotate-3d">
-            <div class="w-20 h-20 bg-gradient-to-br from-[#2D8B4E]/10 to-[#F7931E]/10 rounded-2xl flex items-center justify-center border border-[#2D8B4E]/20">
-              <svg class="w-10 h-10 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            </div>
-          </div>
-        </div>
-        <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">Meet Our Team</h2>
-        <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-          Get to know the dedicated professionals and volunteers who make our work possible.
-        </p>
-        <a href="/about/team" class="inline-flex items-center gap-3 px-8 py-4 bg-white border-2 border-[#2D8B4E] text-[#2D8B4E] font-bold rounded-full hover:bg-[#2D8B4E] hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl">
-          <span>View Our Team</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-          </svg>
-        </a>
-      </div>
-    </Container>
+    <PartnerMarquee partners={partners} speed="slow" />
   </Section>
 
   <!-- CTA -->
@@ -171,21 +136,4 @@ const partners = [
     transform: translateY(-2px);
   }
 
-  /* CTA Card */
-  .cta-card {
-    text-align: center;
-    padding: 3rem;
-    background: linear-gradient(135deg, rgba(45, 139, 78, 0.03), rgba(247, 147, 30, 0.03));
-    border-radius: 24px;
-    border: 1px solid rgba(45, 139, 78, 0.1);
-  }
-
-  /* CTA Section */
-  .cta-section {
-    text-align: center;
-    padding: 3rem;
-    background: white;
-    border-radius: 24px;
-    box-shadow: 0 10px 40px rgba(45, 139, 78, 0.05);
-  }
 </style>

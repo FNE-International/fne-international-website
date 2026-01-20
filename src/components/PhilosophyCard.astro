@@ -1,0 +1,137 @@
+---
+interface Props {
+  letter: string;
+  word: string;
+  tagline: string;
+  description: string;
+  examples: string[];
+  color?: 'green' | 'teal' | 'orange';
+  animationDelay?: number;
+}
+
+const {
+  letter,
+  word,
+  tagline,
+  description,
+  examples,
+  color = 'green',
+  animationDelay = 0
+} = Astro.props;
+
+const delayClass = animationDelay ? `delay-${animationDelay}` : '';
+---
+
+<div class:list={['philosophy-card', `philosophy-card-${color}`, 'animate-on-scroll', delayClass]}>
+  <div class="philosophy-header">
+    <div class="philosophy-letter-wrapper">
+      <div class="philosophy-letter">{letter}</div>
+    </div>
+    <div>
+      <h3 class="text-2xl font-bold text-gray-900">{word}</h3>
+      <p class="text-sm text-gray-500 font-medium">{tagline}</p>
+    </div>
+  </div>
+
+  <p class="text-gray-600 leading-relaxed mb-6">{description}</p>
+
+  <div class="philosophy-examples">
+    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">In Practice</p>
+    <ul class="space-y-2">
+      {examples.map((example) => (
+        <li class="flex items-start gap-2 text-sm text-gray-600">
+          <svg class="w-4 h-4 text-[#2D8B4E] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span>{example}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .philosophy-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 24px;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .philosophy-card-green {
+    border-color: rgba(45, 139, 78, 0.15);
+  }
+
+  .philosophy-card-teal {
+    border-color: rgba(61, 154, 139, 0.15);
+  }
+
+  .philosophy-card-orange {
+    border-color: rgba(247, 147, 30, 0.15);
+  }
+
+  .philosophy-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(45, 139, 78, 0.15);
+  }
+
+  .philosophy-card-green:hover {
+    border-color: rgba(45, 139, 78, 0.4);
+  }
+
+  .philosophy-card-teal:hover {
+    border-color: rgba(61, 154, 139, 0.4);
+  }
+
+  .philosophy-card-orange:hover {
+    border-color: rgba(247, 147, 30, 0.4);
+  }
+
+  .philosophy-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .philosophy-letter-wrapper {
+    flex-shrink: 0;
+  }
+
+  .philosophy-letter {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #2D8B4E, #F7931E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    border: 2px solid rgba(45, 139, 78, 0.2);
+    border-radius: 16px;
+  }
+
+  .philosophy-examples {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(45, 139, 78, 0.1);
+    margin-top: auto;
+  }
+
+  @media (max-width: 768px) {
+    .philosophy-card {
+      padding: 1.5rem;
+    }
+
+    .philosophy-header {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

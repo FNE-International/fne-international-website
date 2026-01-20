@@ -5,6 +5,7 @@ import Section from '../../components/Section.astro';
 import Container from '../../components/Container.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import CTASection from '../../components/CTASection.astro';
+import BlogPostsSection from '../../components/BlogPostsSection.astro';
 import StatCard from '../../components/StatCard.astro';
 import PhotoCard from '../../components/PhotoCard.astro';
 
@@ -107,7 +108,7 @@ const housingGallery = [
 ];
 ---
 
-<BaseLayout title="Nicaragua Programs">
+<BaseLayout title="Nicaragua Programs" breadcrumbs={[{ label: 'Programs', href: '/programs' }, { label: 'Nicaragua' }]}>
   <!-- Hero Section -->
   <HeroSection
     badge="Nicaragua"
@@ -554,6 +555,14 @@ const housingGallery = [
       </div>
     </Container>
   </Section>
+
+  <!-- Blog Posts Section -->
+  <BlogPostsSection
+    title="Stories from Nicaragua"
+    subtitle="Read about the impact our programs are making in Nicaraguan communities."
+    label="From Our Blog"
+    limit={3}
+  />
 
   <!-- Get Involved CTA -->
   <CTASection

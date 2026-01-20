@@ -1,0 +1,195 @@
+---
+interface Props {
+  flag: string;
+  name: string;
+  since: string;
+  description: string;
+  statValue: string;
+  statLabel: string;
+  href?: string;
+  animationClass?: string;
+  animationDelay?: number;
+}
+
+const {
+  flag,
+  name,
+  since,
+  description,
+  statValue,
+  statLabel,
+  href,
+  animationClass = '',
+  animationDelay = 0
+} = Astro.props;
+
+const delayClass = animationDelay ? `delay-${animationDelay}` : '';
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag
+  class:list={['country-card', 'animate-on-scroll', animationClass, delayClass, href && 'country-card-link']}
+  href={href}
+>
+  <div class="country-flag">
+    <span class="text-4xl">{flag}</span>
+  </div>
+  <h3 class="country-name">{name}</h3>
+  <p class="country-since">Since {since}</p>
+  <p class="country-desc">{description}</p>
+  <div class="country-stat">
+    <span class="stat-number">{statValue}</span>
+    <span class="stat-label">{statLabel}</span>
+  </div>
+  {href && (
+    <div class="country-link-indicator">
+      <span>Explore Programs</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+      </svg>
+    </div>
+  )}
+</Tag>
+
+<style>
+  .country-card {
+    padding: 2rem;
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.4s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .country-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(45, 139, 78, 0.3);
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.15);
+  }
+
+  .country-flag {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.05), rgba(247, 147, 30, 0.05));
+    border-radius: 50%;
+    transition: all 0.4s ease;
+  }
+
+  .country-card:hover .country-flag {
+    transform: scale(1.1);
+  }
+
+  .country-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 1rem;
+  }
+
+  .country-since {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+  }
+
+  .country-desc {
+    font-size: 0.875rem;
+    color: #4b5563;
+    margin-top: 0.75rem;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+
+  .country-stat {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(45, 139, 78, 0.1);
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2D8B4E, #F7931E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 0.25rem;
+  }
+
+  .country-card-link {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .country-link-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(45, 139, 78, 0.1);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #2D8B4E;
+    transition: all 0.3s ease;
+  }
+
+  .country-link-indicator svg {
+    transition: transform 0.3s ease;
+  }
+
+  .country-card:hover .country-link-indicator {
+    color: #3D9A8B;
+  }
+
+  .country-card:hover .country-link-indicator svg {
+    transform: translateX(4px);
+  }
+</style>
+
+<script>
+  function equalizeCountryCards() {
+    const cards = document.querySelectorAll('.country-card');
+    if (cards.length === 0) return;
+
+    cards.forEach(card => {
+      (card as HTMLElement).style.minHeight = 'auto';
+    });
+
+    let maxHeight = 0;
+    cards.forEach(card => {
+      const height = (card as HTMLElement).offsetHeight;
+      if (height > maxHeight) maxHeight = height;
+    });
+
+    cards.forEach(card => {
+      (card as HTMLElement).style.minHeight = `${maxHeight}px`;
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', equalizeCountryCards);
+  } else {
+    equalizeCountryCards();
+  }
+
+  let resizeTimeout: number;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(equalizeCountryCards, 100) as unknown as number;
+  });
+</script>

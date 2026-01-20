@@ -1,0 +1,103 @@
+---
+interface Props {
+  name: string;
+  role: string;
+  title?: string;
+  photo?: string | null;
+  animationDelay?: number;
+}
+
+const { name, role, title, photo, animationDelay = 0 } = Astro.props;
+const delayClass = animationDelay ? `delay-${animationDelay}` : '';
+---
+
+<div class:list={['team-card', 'group', 'animate-on-scroll', delayClass]}>
+  {photo ? (
+    <div class="team-photo-wrapper">
+      <img src={photo} alt={name} class="team-photo" loading="lazy" />
+    </div>
+  ) : (
+    <div class="team-photo-placeholder">
+      <svg class="w-12 h-12 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+      </svg>
+    </div>
+  )}
+  <h3 class="font-bold text-gray-900 mt-4 text-center text-sm">{name}</h3>
+  <p class="text-xs text-[#2D8B4E] text-center font-medium">{role}</p>
+  {title && <p class="text-xs text-gray-500 text-center">{title}</p>}
+</div>
+
+<style>
+  .team-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    border-radius: 20px;
+    transition: all 0.4s ease;
+  }
+
+  .team-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .team-photo-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.2), rgba(247, 147, 30, 0.2));
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .team-photo-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2D8B4E, #F7931E);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.4s ease;
+    filter: blur(8px);
+  }
+
+  .team-card:hover .team-photo-wrapper::before {
+    opacity: 0.6;
+  }
+
+  .team-card:hover .team-photo-wrapper {
+    background: linear-gradient(135deg, #2D8B4E, #F7931E);
+    transform: scale(1.1);
+  }
+
+  .team-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .team-photo-placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+    border: 3px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .team-card:hover .team-photo-placeholder {
+    border-color: #2D8B4E;
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(45, 139, 78, 0.3);
+  }
+</style>

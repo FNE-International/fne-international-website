@@ -5,6 +5,9 @@ import Section from '../../components/Section.astro';
 import Container from '../../components/Container.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import CTASection from '../../components/CTASection.astro';
+import TeamMemberCard from '../../components/TeamMemberCard.astro';
+import TeamMemberSimple from '../../components/TeamMemberSimple.astro';
+import ValueCard from '../../components/ValueCard.astro';
 
 const boardMembers = [
   { name: 'Michael Cipoletti', role: 'Founder & Executive Director', title: 'MBA, MPH', photo: '/FNEI- Mike .jpg' },
@@ -39,7 +42,7 @@ const extendedTeam = [
 ];
 ---
 
-<BaseLayout title="Our Team">
+<BaseLayout title="Our Team" breadcrumbs={[{ label: 'About', href: '/about' }, { label: 'Our Team' }]}>
   <!-- Hero Section -->
   <HeroSection
     badge="Meet the Team"
@@ -50,48 +53,32 @@ const extendedTeam = [
     imageAlt="FNE International Team"
   />
 
-  <!-- Photo Banner -->
-  <Section background="gray" spacing="small">
-    <div class="w-full overflow-hidden">
-      <div class="photo-grid photo-grid-4 max-w-7xl mx-auto px-4">
-        <div class="photo-item photo-item-tall animate-on-scroll">
-          <div class="image-placeholder">
-            <svg class="image-placeholder-icon w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="image-placeholder-text text-xs">Team building activity</span>
-          </div>
-        </div>
-        <div class="photo-item animate-on-scroll delay-100">
-          <div class="image-placeholder">
-            <svg class="image-placeholder-icon w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="image-placeholder-text text-xs">Board meeting</span>
-          </div>
-        </div>
-        <div class="photo-item animate-on-scroll delay-200">
-          <div class="image-placeholder">
-            <svg class="image-placeholder-icon w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="image-placeholder-text text-xs">Field visit with staff</span>
-          </div>
-        </div>
-        <div class="photo-item photo-item-tall animate-on-scroll delay-300">
-          <div class="image-placeholder">
-            <svg class="image-placeholder-icon w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="image-placeholder-text text-xs">Community celebration</span>
-          </div>
-        </div>
+  <!-- Team -->
+  <Section background="white" withGrid>
+    <Container>
+      <div class="animate-on-scroll">
+        <SectionHeader
+          label="On the Ground"
+          title="Team"
+          subtitle="Our dedicated team members working directly with communities in Nicaragua, Peru, and the Dominican Republic."
+          labelColor="orange"
+        />
       </div>
-    </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        {extendedTeam.map((member, index) => (
+          <TeamMemberSimple
+            name={member.name}
+            role={member.role}
+            animationDelay={(index % 6) * 50}
+          />
+        ))}
+      </div>
+    </Container>
   </Section>
 
   <!-- Board Members -->
-  <Section background="white">
+  <Section background="gray">
     <Container>
       <SectionHeader
         label="Leadership"
@@ -101,50 +88,13 @@ const extendedTeam = [
 
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {boardMembers.map((member, index) => (
-          <div class={`team-card group animate-on-scroll delay-${(index % 4) * 100}`}>
-            {member.photo ? (
-              <div class="team-photo-wrapper">
-                <img src={member.photo} alt={member.name} class="team-photo" loading="lazy" />
-              </div>
-            ) : (
-              <div class="team-photo-placeholder">
-                <svg class="w-12 h-12 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                </svg>
-              </div>
-            )}
-            <h3 class="font-bold text-gray-900 mt-4 text-center text-sm">{member.name}</h3>
-            <p class="text-xs text-[#2D8B4E] text-center font-medium">{member.role}</p>
-            {member.title && <p class="text-xs text-gray-500 text-center">{member.title}</p>}
-          </div>
-        ))}
-      </div>
-    </Container>
-  </Section>
-
-  <!-- Extended Team -->
-  <Section background="gray" withGrid>
-    <Container>
-      <div class="animate-on-scroll">
-        <SectionHeader
-          label="On the Ground"
-          title="Extended Team"
-          subtitle="Our dedicated team members working directly with communities in Nicaragua, Peru, and the Dominican Republic."
-          labelColor="orange"
-        />
-      </div>
-
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-        {extendedTeam.map((member, index) => (
-          <div class={`extended-team-card group animate-on-scroll delay-${(index % 6) * 50}`}>
-            <div class="extended-team-photo">
-              <svg class="w-8 h-8 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-              </svg>
-            </div>
-            <h4 class="font-semibold text-gray-900 mt-3 text-center text-sm">{member.name}</h4>
-            <p class="text-xs text-gray-500 text-center">{member.role}</p>
-          </div>
+          <TeamMemberCard
+            name={member.name}
+            role={member.role}
+            title={member.title}
+            photo={member.photo}
+            animationDelay={(index % 4) * 100}
+          />
         ))}
       </div>
     </Container>
@@ -162,47 +112,26 @@ const extendedTeam = [
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="value-card animate-on-scroll animate-slide-left">
-          <div class="value-icon">
-            <div class="icon-3d">
-              <div class="icon-3d-inner animate-rotate-3d">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Integrity</h3>
-          <p class="text-gray-600">We hold ourselves to the highest ethical standards in all our work and relationships.</p>
-        </div>
-
-        <div class="value-card animate-on-scroll delay-100">
-          <div class="value-icon value-icon-orange">
-            <div class="icon-3d">
-              <div class="icon-3d-inner animate-rotate-3d">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Respect</h3>
-          <p class="text-gray-600">Our relationships with partners are balanced and illustrate mutual respect for their knowledge and leadership.</p>
-        </div>
-
-        <div class="value-card animate-on-scroll animate-slide-right">
-          <div class="value-icon value-icon-teal">
-            <div class="icon-3d">
-              <div class="icon-3d-inner animate-rotate-3d">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Solidarity</h3>
-          <p class="text-gray-600">We stand together with our partner communities, working hand-in-hand to create lasting change.</p>
-        </div>
+        <ValueCard
+          icon="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+          title="Integrity"
+          description="We hold ourselves to the highest ethical standards in all our work and relationships."
+          animationClass="animate-slide-left"
+        />
+        <ValueCard
+          icon="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+          title="Respect"
+          description="Our relationships with partners are balanced and illustrate mutual respect for their knowledge and leadership."
+          color="orange"
+          animationDelay={100}
+        />
+        <ValueCard
+          icon="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+          title="Solidarity"
+          description="We stand together with our partner communities, working hand-in-hand to create lasting change."
+          color="teal"
+          animationClass="animate-slide-right"
+        />
       </div>
     </Container>
   </Section>
@@ -219,222 +148,7 @@ const extendedTeam = [
 </BaseLayout>
 
 <style>
-  /* Team cards */
-  .team-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1.5rem;
-    border-radius: 20px;
-    transition: all 0.4s ease;
-    position: relative;
-  }
-
-  .team-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 20px;
-    padding: 2px;
-    background: linear-gradient(135deg, transparent, transparent);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    transition: all 0.4s ease;
-  }
-
-  .team-card:hover::before {
-    background: linear-gradient(135deg, #2D8B4E, #F7931E);
-  }
-
-  .team-card:hover {
-    background: rgba(45, 139, 78, 0.03);
-    transform: translateY(-8px);
-  }
-
-  .team-photo-wrapper {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    padding: 3px;
-    background: linear-gradient(135deg, rgba(45, 139, 78, 0.2), rgba(247, 147, 30, 0.2));
-    transition: all 0.4s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .team-photo-wrapper::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #2D8B4E, #F7931E);
-    opacity: 0;
-    z-index: -1;
-    transition: opacity 0.4s ease;
-    filter: blur(8px);
-  }
-
-  .team-card:hover .team-photo-wrapper::before {
-    opacity: 0.6;
-  }
-
-  .team-card:hover .team-photo-wrapper {
-    background: linear-gradient(135deg, #2D8B4E, #F7931E);
-    transform: scale(1.1);
-  }
-
-  .team-photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-
-  .team-photo-placeholder {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.4s ease;
-    border: 3px solid transparent;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .team-card:hover .team-photo-placeholder {
-    border-color: #2D8B4E;
-    transform: scale(1.1);
-    box-shadow: 0 0 30px rgba(45, 139, 78, 0.3);
-  }
-
-  /* Extended team */
-  .extended-team-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .extended-team-photo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-  }
-
-  .extended-team-card:hover .extended-team-photo {
-    border-color: #F7931E;
-    transform: scale(1.05);
-  }
-
-  /* Value cards */
-  .value-card {
-    text-align: center;
-    padding: 2rem;
-    background: white;
-    border-radius: 20px;
-    border: 1px solid rgba(45, 139, 78, 0.1);
-    transition: all 0.4s ease;
-  }
-
-  .value-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(45, 139, 78, 0.1);
-  }
-
-  .value-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(45, 139, 78, 0.05));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    color: #2D8B4E;
-    transition: all 0.4s ease;
-  }
-
-  .value-icon-orange {
-    background: linear-gradient(135deg, rgba(247, 147, 30, 0.1), rgba(247, 147, 30, 0.05));
-    color: #F7931E;
-  }
-
-  .value-icon-teal {
-    background: linear-gradient(135deg, rgba(45, 139, 120, 0.1), rgba(45, 139, 120, 0.05));
-    color: #2D8B78;
-  }
-
-  .value-card:hover .value-icon {
-    transform: scale(1.1);
-  }
-
-  /* CTA Icon */
-  .cta-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-  }
-
-  /* Floating orbs */
-  .floating-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(40px);
-    opacity: 0.3;
-    pointer-events: none;
-  }
-
-  .floating-orb-1 {
-    width: 200px;
-    height: 200px;
-    background: #F7931E;
-    top: -50px;
-    left: 10%;
-    animation: float 8s ease-in-out infinite;
-  }
-
-  .floating-orb-2 {
-    width: 150px;
-    height: 150px;
-    background: #2D8B4E;
-    bottom: -30px;
-    right: 15%;
-    animation: float 10s ease-in-out infinite reverse;
-  }
-
-  .floating-orb-3 {
-    width: 100px;
-    height: 100px;
-    background: white;
-    top: 50%;
-    right: 5%;
-    animation: float 6s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0) translateX(0); }
-    25% { transform: translateY(-20px) translateX(10px); }
-    50% { transform: translateY(0) translateX(20px); }
-    75% { transform: translateY(20px) translateX(10px); }
-  }
-
-  /* Animation delays for extended team */
+  /* Animation delays for team members */
   .delay-50 { animation-delay: 50ms; }
   .delay-150 { animation-delay: 150ms; }
   .delay-250 { animation-delay: 250ms; }

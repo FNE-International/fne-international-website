@@ -1,0 +1,166 @@
+---
+import type { GivingLevel } from '../data/giving';
+
+interface Props {
+  level: GivingLevel;
+  index?: number;
+}
+
+const { level, index = 0 } = Astro.props;
+---
+
+<div class:list={[
+  'giving-card',
+  level.popular && 'giving-card-popular',
+  `animate-on-scroll delay-${(index + 1) * 100}`,
+]}>
+  {level.popular && (
+    <div class="popular-badge">Most Popular</div>
+  )}
+  <div class:list={['giving-icon', `giving-icon-${level.color}`]}>
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={level.icon} />
+    </svg>
+  </div>
+  <h3 class="text-lg font-bold text-gray-900 mt-4">{level.name}</h3>
+  <div class="giving-amount">
+    <span class="text-3xl font-black">{level.amount}</span>
+    <span class="text-gray-500">{level.frequency}</span>
+  </div>
+  <p class="text-gray-600 text-sm mt-3 mb-6">{level.impact}</p>
+  <button
+    type="button"
+    class:list={['giving-btn', level.popular ? 'giving-btn-primary' : 'giving-btn-secondary']}
+    data-donate-amount={level.amount.replace('$', '')}
+    data-donate-monthly="true"
+  >
+    Join Now
+  </button>
+</div>
+
+<style>
+  .giving-card {
+    position: relative;
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 2px solid rgba(45, 139, 78, 0.1);
+    text-align: center;
+    transition: all 0.4s ease;
+  }
+
+  .giving-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(45, 139, 78, 0.3);
+    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.15);
+  }
+
+  .giving-card-popular {
+    border-color: #F7931E;
+    box-shadow: 0 10px 40px rgba(247, 147, 30, 0.2);
+  }
+
+  .giving-card-popular:hover {
+    border-color: #F7931E;
+    box-shadow: 0 25px 60px rgba(247, 147, 30, 0.3);
+  }
+
+  .popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 1rem;
+    border-radius: 9999px;
+    white-space: nowrap;
+  }
+
+  .giving-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+  }
+
+  .giving-icon-green {
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(61, 154, 139, 0.1));
+    color: #2D8B4E;
+  }
+
+  .giving-icon-orange {
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.1), rgba(45, 139, 78, 0.1));
+    color: #F7931E;
+  }
+
+  .giving-icon-teal {
+    background: linear-gradient(135deg, rgba(61, 154, 139, 0.1), rgba(45, 139, 78, 0.1));
+    color: #3D9A8B;
+  }
+
+  .giving-card:hover .giving-icon-green {
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+  }
+
+  .giving-card:hover .giving-icon-orange {
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    color: white;
+  }
+
+  .giving-card:hover .giving-icon-teal {
+    background: linear-gradient(135deg, #3D9A8B, #2D8B4E);
+    color: white;
+  }
+
+  .giving-amount {
+    margin-top: 1rem;
+  }
+
+  .giving-amount span:first-child {
+    background: linear-gradient(135deg, #2D8B4E, #F7931E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .giving-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .giving-btn-primary {
+    background: linear-gradient(135deg, #F7931E, #ff6b00);
+    color: white;
+  }
+
+  .giving-btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(247, 147, 30, 0.3);
+  }
+
+  .giving-btn-secondary {
+    background: transparent;
+    color: #2D8B4E;
+    border: 2px solid #2D8B4E;
+  }
+
+  .giving-btn-secondary:hover {
+    background: #2D8B4E;
+    color: white;
+  }
+</style>

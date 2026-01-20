@@ -1,0 +1,294 @@
+---
+interface TimelineItem {
+  year: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface Props {
+  items: TimelineItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="timeline-wrapper">
+  <div class="timeline-container" id="timeline-container">
+    <div class="timeline-track"></div>
+    {items.map((item, index) => (
+      <div class={`timeline-item ${index % 2 === 0 ? 'timeline-item-top' : 'timeline-item-bottom'}`}>
+        <div class="timeline-card">
+          <div class="timeline-year">{item.year}</div>
+          <h3 class="timeline-title">{item.title}</h3>
+          <p class="timeline-desc">{item.description}</p>
+        </div>
+        <div class="timeline-dot">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon} />
+          </svg>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  function equalizeTimelineCards() {
+    const container = document.getElementById('timeline-container');
+    const cards = document.querySelectorAll('.timeline-card');
+    if (!container || cards.length === 0) return;
+
+    // Reset heights to auto to measure natural height
+    cards.forEach(card => {
+      (card as HTMLElement).style.minHeight = 'auto';
+    });
+
+    // Find the maximum height
+    let maxHeight = 0;
+    cards.forEach(card => {
+      const height = (card as HTMLElement).offsetHeight;
+      if (height > maxHeight) {
+        maxHeight = height;
+      }
+    });
+
+    // Set CSS custom property for the card height
+    container.style.setProperty('--card-height', `${maxHeight}px`);
+
+    // Apply the height to all cards
+    cards.forEach(card => {
+      (card as HTMLElement).style.minHeight = `${maxHeight}px`;
+    });
+  }
+
+  // Run on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', equalizeTimelineCards);
+  } else {
+    equalizeTimelineCards();
+  }
+
+  // Run on resize with debounce
+  let resizeTimeout: number;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(equalizeTimelineCards, 100) as unknown as number;
+  });
+</script>
+
+<style>
+  .timeline-wrapper {
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    width: 100%;
+  }
+
+  .timeline-container {
+    --card-height: auto;
+    display: flex;
+    gap: 1.5rem;
+    position: relative;
+    padding: 2rem;
+    min-width: max-content;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (min-width: 1400px) {
+    .timeline-container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .timeline-track {
+    position: absolute;
+    top: 50%;
+    left: 2rem;
+    right: 2rem;
+    height: 3px;
+    background: linear-gradient(90deg, #2D8B4E, #3D9A8B, #8DC63F, #F7931E);
+    transform: translateY(-50%);
+    border-radius: 2px;
+  }
+
+  @media (min-width: 1400px) {
+    .timeline-track {
+      left: 0;
+      right: 0;
+    }
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-rows: var(--card-height) auto var(--card-height);
+    align-items: center;
+    justify-items: center;
+    min-width: 200px;
+    max-width: 220px;
+  }
+
+  /* Top items: card in top row, dot in middle, empty bottom */
+  .timeline-item-top .timeline-card {
+    grid-row: 1;
+    align-self: end;
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline-item-top .timeline-dot {
+    grid-row: 2;
+  }
+
+  .timeline-item-top .timeline-dot:hover {
+    transform: scale(1.15);
+  }
+
+  /* Bottom items: empty top, dot in middle, card in bottom row */
+  .timeline-item-bottom .timeline-dot {
+    grid-row: 2;
+  }
+
+  .timeline-item-bottom .timeline-card {
+    grid-row: 3;
+    align-self: start;
+    margin-top: 0.75rem;
+  }
+
+  .timeline-item-bottom .timeline-dot:hover {
+    transform: scale(1.15);
+  }
+
+  .timeline-dot {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #2D8B4E, #8DC63F);
+    border-radius: 50%;
+    border: 4px solid #f9fafb;
+    box-shadow: 0 0 20px rgba(45, 139, 78, 0.4);
+    z-index: 2;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .timeline-card {
+    background: white;
+    padding: 1.25rem;
+    border-radius: 16px;
+    border: 1px solid rgba(45, 139, 78, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .timeline-card:hover {
+    transform: translateY(-6px);
+    background: linear-gradient(135deg, #2D8B4E 0%, #3D9A8B 100%);
+    border-color: transparent;
+    box-shadow: 0 16px 32px rgba(45, 139, 78, 0.25);
+  }
+
+  .timeline-card:hover .timeline-year {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+
+  .timeline-card:hover .timeline-title {
+    color: white;
+  }
+
+  .timeline-card:hover .timeline-desc {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .timeline-year {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
+    border-radius: 9999px;
+    font-weight: 800;
+    font-size: 1.125rem;
+    color: #2D8B4E;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 0.75rem;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+  }
+
+  .timeline-desc {
+    font-size: 0.8125rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+    line-height: 1.6;
+    transition: color 0.3s ease;
+  }
+
+  /* Scrollbar styling */
+  .timeline-wrapper::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .timeline-wrapper::-webkit-scrollbar-track {
+    background: rgba(45, 139, 78, 0.1);
+    border-radius: 3px;
+  }
+
+  .timeline-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(45, 139, 78, 0.3);
+    border-radius: 3px;
+  }
+
+  .timeline-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(45, 139, 78, 0.5);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .timeline-container {
+      gap: 1rem;
+    }
+
+    .timeline-item {
+      min-width: 160px;
+      max-width: 180px;
+    }
+
+    .timeline-dot {
+      width: 36px;
+      height: 36px;
+    }
+
+    .timeline-dot svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .timeline-card {
+      padding: 1rem;
+    }
+
+    .timeline-year {
+      font-size: 1rem;
+    }
+
+    .timeline-title {
+      font-size: 0.875rem;
+    }
+
+    .timeline-desc {
+      font-size: 0.75rem;
+    }
+  }
+</style>

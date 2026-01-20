@@ -6,6 +6,7 @@ import Container from '../../components/Container.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import FeatureCard from '../../components/FeatureCard.astro';
 import CTASection from '../../components/CTASection.astro';
+import BlogPostsSection from '../../components/BlogPostsSection.astro';
 import StatCard from '../../components/StatCard.astro';
 import PhotoCard from '../../components/PhotoCard.astro';
 import ChallengeCard from '../../components/ChallengeCard.astro';
@@ -82,7 +83,7 @@ const timeline = [
 ];
 ---
 
-<BaseLayout title="Dominican Republic Programs">
+<BaseLayout title="Dominican Republic Programs" breadcrumbs={[{ label: 'Programs', href: '/programs' }, { label: 'Dominican Republic' }]}>
   <!-- Hero Section -->
   <HeroSection
     badge="Dominican Republic"
@@ -512,6 +513,14 @@ const timeline = [
       </div>
     </Container>
   </Section>
+
+  <!-- Blog Posts Section -->
+  <BlogPostsSection
+    title="Stories from the DR"
+    subtitle="Read about the impact our education programs are making in Dominican communities."
+    label="From Our Blog"
+    limit={3}
+  />
 
   <!-- CTA -->
   <CTASection

@@ -3,15 +3,18 @@ interface Props {
   title: string;
   description: string;
   icon: string;
+  color?: 'green' | 'orange' | 'teal';
+  animationClass?: string;
   animationDelay?: number;
 }
 
-const { title, description, icon, animationDelay = 0 } = Astro.props;
+const { title, description, icon, color = 'green', animationClass = '', animationDelay = 0 } = Astro.props;
 const delayClass = animationDelay > 0 ? `delay-${animationDelay}` : '';
+const colorClass = color !== 'green' ? `value-icon-${color}` : '';
 ---
 
-<div class={`value-card animate-on-scroll ${delayClass}`}>
-  <div class="value-icon">
+<div class:list={['value-card', 'animate-on-scroll', animationClass, delayClass]}>
+  <div class:list={['value-icon', colorClass]}>
     <div class="icon-3d">
       <div class="icon-3d-inner animate-wobble">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,5 +60,23 @@ const delayClass = animationDelay > 0 ? `delay-${animationDelay}` : '';
     background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
     color: white;
     transform: scale(1.1);
+  }
+
+  .value-icon-orange {
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.1), rgba(247, 147, 30, 0.05));
+    color: #F7931E;
+  }
+
+  .value-card:hover .value-icon-orange {
+    background: linear-gradient(135deg, #F7931E, #E88A1A);
+  }
+
+  .value-icon-teal {
+    background: linear-gradient(135deg, rgba(61, 154, 139, 0.1), rgba(61, 154, 139, 0.05));
+    color: #3D9A8B;
+  }
+
+  .value-card:hover .value-icon-teal {
+    background: linear-gradient(135deg, #3D9A8B, #2D8B78);
   }
 </style>

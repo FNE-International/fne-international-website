@@ -1,0 +1,56 @@
+---
+interface Props {
+  text: string;
+  variant?: 'green' | 'orange' | 'teal' | 'white';
+  pulse?: boolean;
+  size?: 'sm' | 'md';
+}
+
+const { text, variant = 'green', pulse = true, size = 'md' } = Astro.props;
+
+const variantClasses = {
+  green: 'text-[#2D8B4E] border-[#2D8B4E]/20',
+  orange: 'text-[#F7931E] border-[#F7931E]/20',
+  teal: 'text-[#3D9A8B] border-[#3D9A8B]/20',
+  white: 'text-white border-white/20',
+};
+
+const pulseColors = {
+  green: 'bg-[#2D8B4E]',
+  orange: 'bg-[#F7931E]',
+  teal: 'bg-[#3D9A8B]',
+  white: 'bg-white',
+};
+
+const sizeClasses = {
+  sm: 'px-3 py-1.5 text-xs',
+  md: 'px-5 py-3 text-sm',
+};
+---
+
+<div class:list={[
+  'inline-flex items-center gap-3 glass-card rounded-full border shadow-lg',
+  variantClasses[variant],
+  sizeClasses[size],
+]}>
+  {pulse && (
+    <span class="relative flex h-2 w-2">
+      <span class:list={[
+        'animate-ping absolute inline-flex h-full w-full rounded-full opacity-75',
+        pulseColors[variant],
+      ]}></span>
+      <span class:list={[
+        'relative inline-flex rounded-full h-2 w-2',
+        pulseColors[variant],
+      ]}></span>
+    </span>
+  )}
+  <span class="font-semibold tracking-wider uppercase">{text}</span>
+</div>
+
+<style>
+  .glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+  }
+</style>

@@ -5,37 +5,7 @@ import Section from '../../components/Section.astro';
 import Container from '../../components/Container.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import CTASection from '../../components/CTASection.astro';
-
-const programCategories = [
-  {
-    name: 'Infrastructure',
-    icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
-    description: 'Building homes and essential facilities that provide families with safety, dignity, and a foundation for success.',
-    color: 'green',
-    imagePlaceholder: 'Volunteers constructing a house frame together with local family',
-  },
-  {
-    name: 'Education',
-    icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
-    description: 'Creating pathways to opportunity through scholarships, tutoring, libraries, and special education support.',
-    color: 'teal',
-    imagePlaceholder: 'Students in classroom with teacher providing tutoring session',
-  },
-  {
-    name: 'Health',
-    icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
-    description: 'Providing medical care, health education, and ongoing support for children with chronic conditions.',
-    color: 'orange',
-    imagePlaceholder: 'Medical volunteer examining child with stethoscope during health brigade',
-  },
-  {
-    name: 'Food & Agriculture',
-    icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064',
-    description: 'Teaching sustainable farming practices and ensuring families have access to nutritious food.',
-    color: 'green',
-    imagePlaceholder: 'Local farmers tending crops at Finca Girasol demonstration farm',
-  },
-];
+import ProgramCountryCard from '../../components/ProgramCountryCard.astro';
 
 const countries = [
   {
@@ -43,38 +13,28 @@ const countries = [
     flag: '🇳🇮',
     region: 'León Department',
     description: 'Our longest-running and most comprehensive program, serving communities in the León region since 1990.',
-    programs: ['Housing', 'Education', 'Health', 'Agriculture'],
+    programs: ['Infrastructure', 'Education', 'Health', 'Agriculture'],
     stats: [
       { value: '300+', label: 'Houses Built' },
-      { value: '150+', label: 'Scholarship Students' },
-      { value: '120', label: 'Pediatric Patients' },
+      { value: '150+', label: 'Scholarships' },
+      { value: '120', label: 'Patients' },
     ],
     href: '/programs/nicaragua',
     image: '/housing.jpg',
-    gallery: [
-      'Family receiving keys to new home in Chacraseca community',
-      'Scholarship ceremony with students and sponsors',
-      'Medical team at SPTLN pediatric clinic',
-    ],
   },
   {
     name: 'Peru',
     flag: '🇵🇪',
     region: 'Lima, Lambayeque & Cusco',
     description: 'Partnering with local organizations to bring health services and infrastructure to underserved communities.',
-    programs: ['Infrastructure', 'Health Partnerships'],
+    programs: ['Infrastructure', 'Health'],
     stats: [
-      { value: '3', label: 'Regional Partners' },
-      { value: '500+', label: 'Patients Served' },
-      { value: '100+', label: 'Eco-Toilets Built' },
+      { value: '3', label: 'Partners' },
+      { value: '500+', label: 'Patients' },
+      { value: '100+', label: 'Eco-Toilets' },
     ],
     href: '/programs/peru',
     image: '/health.jpg',
-    gallery: [
-      'Health brigade providing care in remote Cusco village',
-      'Completed eco-toilet installation in Lambayeque',
-      'Partnership meeting with local organization leaders',
-    ],
   },
   {
     name: 'Dominican Republic',
@@ -85,49 +45,15 @@ const countries = [
     stats: [
       { value: '300+', label: 'Students' },
       { value: '4', label: 'Classrooms' },
-      { value: '1', label: 'Community School' },
+      { value: '1', label: 'School' },
     ],
     href: '/programs/dominican-republic',
     image: '/education.jpg',
-    gallery: [
-      'FUCPE students in uniforms during morning assembly',
-      'Classroom with students engaged in learning activities',
-      'School building exterior in Villa Hermosa batey',
-    ],
   },
-];
-
-const approach = [
-  {
-    letter: 'F',
-    word: 'Facilitate',
-    description: 'We act as a bridge between resources and communities, connecting volunteers, donors, and expertise with those who need them most.',
-    icon: 'M13 10V3L4 14h7v7l9-11h-7z',
-  },
-  {
-    letter: 'N',
-    word: 'Network',
-    description: 'We build lasting partnerships with local organizations, governments, and communities to create sustainable change.',
-    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
-  },
-  {
-    letter: 'E',
-    word: 'Empower',
-    description: 'We invest in people and communities, providing tools and education so they can build their own futures.',
-    icon: 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z',
-  },
-];
-
-const impactPhotos = [
-  'Aerial view of completed housing community in León',
-  'Group photo of volunteer team with local families',
-  'Children playing at completed school facility',
-  'Before and after transformation of family home',
 ];
 ---
 
-<BaseLayout title="Our Programs">
-  <!-- Hero Section -->
+<BaseLayout title="Our Programs" breadcrumbs={[{ label: 'Programs' }]}>
   <HeroSection
     badge="Creating Pathways"
     title="Our"
@@ -137,256 +63,32 @@ const impactPhotos = [
     imageAlt="FNE International Education Programs"
   />
 
-  <!-- Impact Photo Banner -->
-  <Section background="white" padding="sm">
-    <Container>
-      <div class="photo-grid photo-grid-4">
-        {impactPhotos.map((photo, index) => (
-          <div class={`photo-card animate-on-scroll delay-${(index + 1) * 100}`}>
-            <div class="image-placeholder">
-              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text">{photo}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </Container>
-  </Section>
-
-  <!-- Our Approach: FNE -->
-  <Section background="gray" withGrid>
-    <Container>
-      <SectionHeader
-        label="Our Methodology"
-        title="The FNE Approach"
-        subtitle="Our name reflects our philosophy: Facilitate, Network, Empower."
-      />
-
-      <div class="grid md:grid-cols-3 gap-8">
-        {approach.map((item, index) => (
-          <div class={`approach-card group animate-on-scroll delay-${(index + 1) * 100}`}>
-            <!-- 3D Animated Icon -->
-            <div class="approach-icon-wrapper">
-              <div class="icon-3d">
-                <div class="icon-3d-inner animate-rotate-3d">
-                  <div class="approach-icon-circle">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={item.icon} />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="approach-letter-badge">{item.letter}</div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">{item.word}</h3>
-            <p class="text-gray-600 leading-relaxed">{item.description}</p>
-            <div class="approach-connector" style={index < 2 ? '' : 'display: none;'}></div>
-          </div>
-        ))}
-      </div>
-    </Container>
-  </Section>
-
-  <!-- Program Categories with Images -->
-  <Section background="white">
-    <Container>
-      <SectionHeader
-        label="What We Do"
-        title="Program Areas"
-        subtitle="Our integrated approach addresses multiple dimensions of poverty."
-        labelColor="teal"
-      />
-
-      <div class="grid md:grid-cols-2 gap-8">
-        {programCategories.map((category, index) => (
-          <div class={`category-card-large group animate-on-scroll delay-${(index + 1) * 100}`}>
-            <div class="category-image-wrapper">
-              <div class="image-placeholder">
-                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span class="image-placeholder-text">{category.imagePlaceholder}</span>
-              </div>
-            </div>
-            <div class="category-content">
-              <!-- Floating animated icon -->
-              <div class={`category-icon-large category-icon-${category.color} icon-float`}>
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={category.icon} />
-                </svg>
-              </div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-3">{category.name}</h3>
-              <p class="text-gray-600 leading-relaxed">{category.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </Container>
-  </Section>
-
-  <!-- Where We Work -->
-  <Section background="gray" withGrid>
+  <Section background="white" withGrid>
     <Container>
       <SectionHeader
         label="Where We Work"
-        title="Our Impact Across Latin America"
-        subtitle="Each country has unique needs, and our programs are tailored to address them."
-        labelColor="orange"
+        title="Programs Across"
+        titleAccent="Latin America"
+        subtitle="Each country has unique needs, and our programs are tailored to address them through local partnerships."
       />
 
-      <div class="space-y-16">
-        {countries.map((country, index) => (
-          <div class={`country-section animate-on-scroll ${index % 2 === 1 ? 'country-section-reverse' : ''}`}>
-            <!-- Main country card -->
-            <div class="country-card-main">
-              <div class="country-header">
-                <div class="country-flag-large">{country.flag}</div>
-                <div>
-                  <h3 class="text-3xl font-bold text-gray-900">{country.name}</h3>
-                  <span class="text-sm text-gray-500">{country.region}</span>
-                </div>
-              </div>
-
-              <p class="text-gray-600 mb-6 leading-relaxed">{country.description}</p>
-
-              <div class="flex flex-wrap gap-2 mb-6">
-                {country.programs.map((program) => (
-                  <span class="program-tag">{program}</span>
-                ))}
-              </div>
-
-              <div class="grid grid-cols-3 gap-4 mb-8 py-6 border-y border-gray-100">
-                {country.stats.map((stat) => (
-                  <div class="text-center">
-                    <div class="stat-number">{stat.value}</div>
-                    <div class="stat-label">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-
-              <a href={country.href} class="country-link group">
-                <span>Explore {country.name} Programs</span>
-                <svg class="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </a>
-            </div>
-
-            <!-- Photo gallery for country -->
-            <div class="country-gallery">
-              <div class="country-main-image">
-                <img src={country.image} alt={country.name} class="content-image" />
-                <div class="image-overlay">
-                  <span class="image-overlay-text">{country.name} Programs</span>
-                </div>
-              </div>
-              <div class="country-gallery-grid">
-                {country.gallery.map((photo, photoIndex) => (
-                  <div class={`gallery-thumb animate-on-scroll delay-${(photoIndex + 1) * 100}`}>
-                    <div class="image-placeholder image-placeholder-square">
-                      <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      <span class="image-placeholder-text text-xs">{photo}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        {countries.map((country) => (
+          <ProgramCountryCard
+            name={country.name}
+            flag={country.flag}
+            region={country.region}
+            description={country.description}
+            programs={country.programs}
+            stats={country.stats}
+            href={country.href}
+            image={country.image}
+          />
         ))}
       </div>
     </Container>
   </Section>
 
-  <!-- Impact Stats with Animated Icons -->
-  <Section background="gradient">
-    <Container size="md">
-      <SectionHeader
-        title="Our Collective Impact"
-        subtitle="Over 30 years of dedicated service to communities across Latin America."
-      />
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {[
-          { value: '30+', label: 'Years of Service', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
-          { value: '3', label: 'Countries', icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064' },
-          { value: '300+', label: 'Houses Built', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
-          { value: '1000+', label: 'Lives Changed', icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' },
-        ].map((stat, index) => (
-          <div class={`impact-stat animate-on-scroll delay-${(index + 1) * 100}`}>
-            <div class="impact-icon">
-              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={stat.icon} />
-              </svg>
-            </div>
-            <div class="impact-number">{stat.value}</div>
-            <div class="impact-label">{stat.label}</div>
-          </div>
-        ))}
-      </div>
-    </Container>
-  </Section>
-
-  <!-- Program Photos Showcase -->
-  <Section background="white">
-    <Container>
-      <SectionHeader
-        label="See Our Work"
-        title="Programs in Action"
-        subtitle="Real moments capturing the impact of your support."
-      />
-
-      <div class="photo-showcase">
-        <div class="photo-showcase-large animate-slide-left">
-          <div class="image-placeholder image-placeholder-wide">
-            <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="image-placeholder-text">Wide shot of volunteer team working alongside community members during house construction</span>
-          </div>
-        </div>
-        <div class="photo-showcase-grid">
-          <div class="animate-slide-right delay-100">
-            <div class="image-placeholder">
-              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text">Scholarship student receiving educational materials</span>
-            </div>
-          </div>
-          <div class="animate-slide-right delay-200">
-            <div class="image-placeholder">
-              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text">Medical supplies being organized for health brigade</span>
-            </div>
-          </div>
-          <div class="animate-slide-right delay-300">
-            <div class="image-placeholder">
-              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text">Crops growing at demonstration farm in León</span>
-            </div>
-          </div>
-          <div class="animate-slide-right delay-400">
-            <div class="image-placeholder">
-              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text">Family portrait in front of their new home</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Container>
-  </Section>
-
-  <!-- Get Involved CTA -->
   <CTASection
     title="Ready to Make a Difference?"
     subtitle="Join us on a volunteer trip, support a scholarship student, or donate to our programs."
@@ -396,358 +98,3 @@ const impactPhotos = [
     secondaryButtonLink="/donate"
   />
 </BaseLayout>
-
-<style>
-  /* Approach cards */
-  .approach-card {
-    position: relative;
-    background: white;
-    padding: 2.5rem 2rem;
-    border-radius: 20px;
-    border: 1px solid rgba(45, 139, 78, 0.1);
-    text-align: center;
-    transition: all 0.4s ease;
-  }
-
-  .approach-card:hover {
-    border-color: rgba(45, 139, 78, 0.3);
-    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
-    transform: translateY(-4px);
-  }
-
-  .approach-icon-wrapper {
-    margin-bottom: 1.5rem;
-  }
-
-  .approach-icon-circle {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
-    border-radius: 50%;
-    color: #2D8B4E;
-    border: 2px solid rgba(45, 139, 78, 0.2);
-    transition: all 0.4s ease;
-  }
-
-  .approach-card:hover .approach-icon-circle {
-    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
-    color: white;
-    border-color: transparent;
-    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.3);
-  }
-
-  .approach-letter-badge {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    line-height: 36px;
-    font-size: 1.25rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, #2D8B4E, #F7931E);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    border: 2px solid rgba(45, 139, 78, 0.2);
-    border-radius: 8px;
-    margin-bottom: 1rem;
-  }
-
-  .approach-connector {
-    display: none;
-  }
-
-  @media (min-width: 768px) {
-    .approach-connector {
-      display: block;
-      position: absolute;
-      right: -1rem;
-      top: 50%;
-      width: 2rem;
-      height: 2px;
-      background: linear-gradient(90deg, #2D8B4E, #F7931E);
-    }
-  }
-
-  /* Category cards - large version with images */
-  .category-card-large {
-    display: flex;
-    flex-direction: column;
-    background: white;
-    border-radius: 20px;
-    border: 1px solid rgba(45, 139, 78, 0.1);
-    overflow: hidden;
-    transition: all 0.4s ease;
-  }
-
-  .category-card-large:hover {
-    border-color: rgba(45, 139, 78, 0.3);
-    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
-    transform: translateY(-4px);
-  }
-
-  .category-image-wrapper {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .category-image-wrapper .image-placeholder {
-    border-radius: 0;
-    border: none;
-    border-bottom: 2px dashed rgba(45, 139, 78, 0.3);
-  }
-
-  .category-content {
-    padding: 2rem;
-    position: relative;
-  }
-
-  .category-icon-large {
-    position: absolute;
-    top: -28px;
-    right: 1.5rem;
-    width: 56px;
-    height: 56px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-  }
-
-  .category-icon-green {
-    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
-    color: white;
-  }
-
-  .category-icon-teal {
-    background: linear-gradient(135deg, #3D9A8B, #2D8B4E);
-    color: white;
-  }
-
-  .category-icon-orange {
-    background: linear-gradient(135deg, #F7931E, #ff6b00);
-    color: white;
-  }
-
-  /* Country sections */
-  .country-section {
-    display: grid;
-    gap: 2rem;
-  }
-
-  @media (min-width: 1024px) {
-    .country-section {
-      grid-template-columns: 1fr 1.2fr;
-      gap: 3rem;
-    }
-
-    .country-section-reverse {
-      grid-template-columns: 1.2fr 1fr;
-    }
-
-    .country-section-reverse .country-card-main {
-      order: 2;
-    }
-
-    .country-section-reverse .country-gallery {
-      order: 1;
-    }
-  }
-
-  .country-card-main {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 24px;
-    border: 1px solid rgba(45, 139, 78, 0.1);
-    transition: all 0.4s ease;
-  }
-
-  .country-card-main:hover {
-    border-color: rgba(45, 139, 78, 0.2);
-    box-shadow: 0 20px 60px rgba(45, 139, 78, 0.1);
-  }
-
-  .country-header {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .country-flag-large {
-    font-size: 3rem;
-    line-height: 1;
-  }
-
-  .stat-number {
-    font-size: 1.75rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, #2D8B4E, #F7931E);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 0.75rem;
-    color: #666;
-    font-weight: 500;
-    margin-top: 0.5rem;
-  }
-
-  .program-tag {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background: rgba(45, 139, 78, 0.08);
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #2D8B4E;
-  }
-
-  .country-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    color: #2D8B4E;
-    transition: all 0.3s ease;
-  }
-
-  .country-link:hover {
-    color: #F7931E;
-  }
-
-  /* Country gallery */
-  .country-gallery {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .country-main-image {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-  }
-
-  .country-main-image .content-image {
-    aspect-ratio: 16/10;
-    border-radius: 20px;
-  }
-
-  .image-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-    display: flex;
-    align-items: flex-end;
-    padding: 1.5rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .country-main-image:hover .image-overlay {
-    opacity: 1;
-  }
-
-  .image-overlay-text {
-    color: white;
-    font-weight: 600;
-    font-size: 1.125rem;
-  }
-
-  .country-gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-  }
-
-  .gallery-thumb .image-placeholder {
-    padding: 1rem;
-  }
-
-  /* Impact stats with icons */
-  .impact-stat {
-    text-align: center;
-    padding: 1.5rem;
-    background: white;
-    border-radius: 16px;
-    border: 1px solid rgba(45, 139, 78, 0.1);
-    transition: all 0.3s ease;
-  }
-
-  .impact-stat:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.1);
-  }
-
-  .impact-icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
-    border-radius: 16px;
-    color: #2D8B4E;
-    transition: all 0.3s ease;
-  }
-
-  .impact-stat:hover .impact-icon {
-    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
-    color: white;
-  }
-
-  .impact-number {
-    font-size: 2rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, #2D8B4E, #F7931E);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1;
-  }
-
-  .impact-label {
-    font-size: 0.875rem;
-    color: #666;
-    font-weight: 500;
-    margin-top: 0.5rem;
-  }
-
-  /* Photo showcase */
-  .photo-showcase {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin-bottom: 8rem;
-  }
-
-  @media (min-width: 768px) {
-    .photo-showcase {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 1.5rem;
-    }
-  }
-
-  .photo-showcase-large .image-placeholder {
-    height: 100%;
-    min-height: 300px;
-  }
-
-  .photo-showcase-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-</style>

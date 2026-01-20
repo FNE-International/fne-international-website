@@ -66,6 +66,7 @@ const categoryColors = getCategoryColors(story.content.category);
 <BaseLayout
   title={story.content.title}
   description={story.content.excerpt}
+  breadcrumbs={[{ label: 'Blog', href: '/blog' }, { label: story.content.title }]}
 >
   <!-- Back to blog link -->
   <Section background="white" padding="sm">

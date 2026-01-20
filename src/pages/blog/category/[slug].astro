@@ -53,6 +53,7 @@ const allCategories = Object.keys(categoryLabels);
 <BaseLayout
   title={`${categoryLabel} - Blog`}
   description={`Browse all ${categoryLabel.toLowerCase()} from FNE International.`}
+  breadcrumbs={[{ label: 'Blog', href: '/blog' }, { label: categoryLabel }]}
 >
   <!-- Hero Section -->
   <HeroSection
