@@ -8,13 +8,14 @@ interface TimelineItem {
 
 interface Props {
   items: TimelineItem[];
+  fullWidth?: boolean;
 }
 
-const { items } = Astro.props;
+const { items, fullWidth = false } = Astro.props;
 ---
 
-<div class="timeline-wrapper">
-  <div class="timeline-container" id="timeline-container">
+<div class={`timeline-wrapper ${fullWidth ? 'timeline-full-width' : ''}`}>
+  <div class={`timeline-container ${fullWidth ? 'timeline-container-full' : ''}`} id="timeline-container" style={fullWidth ? `--item-count: ${items.length}` : ''}>
     <div class="timeline-track"></div>
     {items.map((item, index) => (
       <div class={`timeline-item ${index % 2 === 0 ? 'timeline-item-top' : 'timeline-item-bottom'}`}>
@@ -289,6 +290,45 @@ const { items } = Astro.props;
 
     .timeline-desc {
       font-size: 0.75rem;
+    }
+  }
+
+  /* Full width mode - no scrolling */
+  .timeline-full-width {
+    overflow-x: visible;
+  }
+
+  .timeline-container-full {
+    min-width: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(var(--item-count, 5), 1fr);
+    padding: 2rem 0;
+  }
+
+  .timeline-container-full .timeline-item {
+    min-width: 0;
+    max-width: none;
+    width: 100%;
+  }
+
+  .timeline-container-full .timeline-track {
+    left: 0;
+    right: 0;
+  }
+
+  @media (max-width: 768px) {
+    .timeline-container-full {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .timeline-container-full .timeline-item {
+      min-width: 140px;
+      max-width: 160px;
+      flex: 0 0 auto;
     }
   }
 </style>

@@ -1,5 +1,14 @@
 # FNE International Website - Development Instructions
 
+## Critical Rules
+
+### Never Commit or Push Without Confirmation
+- **NEVER run `git commit` or `git push` without explicit user confirmation**
+- Always ask "Ready to commit?" or "Ready to push?" before executing
+- Wait for user approval before any git operations that modify history or remote
+
+---
+
 ## Core Principles
 
 ### 1. Everything Must Be Componentized

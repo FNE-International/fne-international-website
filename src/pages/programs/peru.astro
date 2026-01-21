@@ -10,90 +10,38 @@ import StatCard from '../../components/StatCard.astro';
 import PhotoCard from '../../components/PhotoCard.astro';
 
 const stats = [
-  { value: '3', label: 'Regional Partners', icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z' },
-  { value: '500+', label: 'Patients Served', icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' },
-  { value: '100+', label: 'Eco-Toilets Built', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
-  { value: '3', label: 'Regions Served', icon: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z' },
-];
-
-const regions = [
-  {
-    name: 'Lima',
-    type: 'Capital Region',
-    description: 'Working in informal settlements around Peru\'s capital city, where rapid urbanization has outpaced infrastructure development.',
-    programs: ['Eco-toilet construction', 'Health education'],
-    partner: 'NGO Arrebol',
-    imagePlaceholder: 'Aerial view of Lima informal settlements where FNE works',
-  },
-  {
-    name: 'Lambayeque',
-    type: 'Northwest Coast',
-    description: 'Partnering with Asociación Latidos to provide healthcare services in this agricultural region known for its rich archaeological heritage.',
-    programs: ['Medical brigades', 'Health post support', 'Water infrastructure'],
-    partner: 'Asociación Latidos',
-    imagePlaceholder: 'Lambayeque countryside with traditional agricultural areas',
-  },
-  {
-    name: 'Cusco',
-    type: 'Andean Highlands',
-    description: 'Collaborating with Asociación Wiñaypaq in the Sacred Valley to serve indigenous Quechua-speaking communities.',
-    programs: ['Health services', 'Community development'],
-    partner: 'Asociación Wiñaypaq',
-    imagePlaceholder: 'Mountain village in Sacred Valley near Cusco',
-  },
+  { value: '2', label: 'Local Partners', icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z' },
+  { value: '400+', label: 'Patients Served', icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' },
+  { value: '50+', label: 'Cataract Surgeries', icon: 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z' },
+  { value: '1', label: 'Health Center', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
 ];
 
 const partners = [
   {
-    name: 'Asociación Latidos',
-    location: 'Lambayeque',
-    focus: 'Healthcare & Community Health',
-    description: 'A Peruvian nonprofit focused on improving healthcare access in the Lambayeque region. Together we organize medical brigades and support local health posts.',
-    services: ['Medical brigades', 'Health education', 'Community outreach', 'Primary care support'],
-    imagePlaceholder: 'Latidos team members providing care at community health post',
-  },
-  {
     name: 'Asociación Wiñaypaq',
     location: 'Cusco',
-    focus: 'Indigenous Health & Development',
-    description: 'Working with Quechua-speaking communities in the Sacred Valley to provide culturally appropriate healthcare and development programs.',
-    services: ['Traditional medicine integration', 'Health services', 'Cultural preservation', 'Community empowerment'],
-    imagePlaceholder: 'Wiñaypaq staff with indigenous community members in traditional dress',
+    focus: 'Community Health & Development',
+    description: 'Led by Dr. Francisco Morales, Wiñaypaq coordinates FNE\'s medical brigades in the Sacred Valley. They serve indigenous Quechua-speaking communities throughout the Cusco region.',
+    services: ['Medical brigade coordination', 'Community outreach', 'Health education', 'Local partnership building'],
   },
   {
-    name: 'NGO Arrebol',
-    location: 'Lima',
-    focus: 'Infrastructure & Sanitation',
-    description: 'Partnering to build eco-toilets in informal settlements around Lima, improving sanitation and environmental health.',
-    services: ['Eco-toilet construction', 'Sanitation education', 'Community organizing', 'Environmental health'],
-    imagePlaceholder: 'Arrebol team members during eco-toilet installation',
+    name: 'Sights on Health',
+    location: 'Sacred Valley',
+    focus: 'Vision Care & Cataract Surgery',
+    description: 'Our partner for specialized eye care, providing cataract surgeries and vision services to patients who would otherwise have no access to ophthalmological care.',
+    services: ['Cataract surgery', 'Eye examinations', 'Vision screening', 'Post-operative care'],
   },
 ];
 
-const infrastructurePrograms = [
-  {
-    name: 'Eco-Toilet Project',
-    location: 'Lima',
-    description: 'Building sustainable, waterless composting toilets in communities without access to sewage systems. These eco-toilets improve sanitation while producing compost for gardens.',
-    impact: '100+ eco-toilets built',
-    features: ['No water required', 'Produces compost', 'Low maintenance', 'Environmentally friendly'],
-    imagePlaceholder: 'Completed eco-toilet installation in Lima community',
-  },
-  {
-    name: 'Water Tank Financing',
-    location: 'Zaña, Lambayeque',
-    description: 'Providing financing for water storage tanks in communities with unreliable water access, ensuring families have clean water year-round.',
-    features: ['Low-interest financing', 'Clean water storage', 'Community training', 'Maintenance support'],
-    imagePlaceholder: 'Family with newly installed water storage tank',
-  },
+const healthServices = [
+  { name: 'Primary Care', description: 'General health assessments and treatment' },
+  { name: 'Pediatrics', description: 'Healthcare for children and infants' },
+  { name: 'Cataract Surgery', description: 'Sight-restoring procedures for adults' },
+  { name: 'Physical Therapy', description: 'Rehabilitation and mobility support' },
+  { name: 'Eye Care', description: 'Vision screening and eye health' },
+  { name: 'Patient Education', description: 'Health literacy and prevention' },
 ];
 
-const peruPhotos = [
-  'Panoramic view of Peruvian Andes mountains',
-  'Medical brigade team arriving at rural village',
-  'Community gathering for health education session',
-  'Volunteer team group photo with local partners',
-];
 ---
 
 <BaseLayout title="Peru Programs" breadcrumbs={[{ label: 'Programs', href: '/programs' }, { label: 'Peru' }]}>
@@ -102,9 +50,9 @@ const peruPhotos = [
     badge="Peru"
     title="Programs in"
     titleAccent="Peru"
-    subtitle="Partnering with local organizations across Peru to bring healthcare services, infrastructure improvements, and sustainable development to underserved communities."
+    subtitle="Partnering with Asociación Wiñaypaq to bring medical brigades and healthcare services to indigenous communities in Cusco's Sacred Valley."
     image="/health.jpg"
-    imageAlt="Health services in Peru"
+    imageAlt="Medical brigade in Peru's Sacred Valley"
   />
 
   <!-- Quick Stats -->
@@ -127,9 +75,10 @@ const peruPhotos = [
   <Section background="gray" spacing="small">
     <div class="w-full overflow-hidden">
       <div class="photo-grid photo-grid-4 max-w-7xl mx-auto px-4">
-        {peruPhotos.map((photo, index) => (
-          <PhotoCard placeholder={photo} animationDelay={(index + 1) * 100} />
-        ))}
+        <PhotoCard image="/peru/andes-landscape.jpg" alt="Laguna Melococha in the Peruvian Andes" />
+        <PhotoCard image="/peru/team-arriving.jpg" alt="Medical brigade team arriving at rural village" animationDelay={100} />
+        <PhotoCard image="/peru/community-gathering.jpg" alt="Community gathering for health education session" animationDelay={200} />
+        <PhotoCard image="/peru/volunteer-team.jpg" alt="Volunteer team with students at local school" animationDelay={300} />
       </div>
     </div>
   </Section>
@@ -138,10 +87,10 @@ const peruPhotos = [
   <Section background="white">
     <Container size="md">
       <SectionHeader
-        label="About Peru"
-        title="Our Partnership"
-        titleAccent="Model"
-        subtitle="In Peru, we work through strong local partnerships, amplifying the impact of established organizations."
+        label="About Our Work"
+        title="The Sacred"
+        titleAccent="Valley"
+        subtitle="Our Peru programs focus on the Cusco region, serving indigenous Quechua-speaking communities in the high Andes."
         labelColor="teal"
       />
 
@@ -151,25 +100,26 @@ const peruPhotos = [
             <div class="icon-3d">
               <div class="icon-3d-inner animate-rotate-3d">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
             </div>
           </div>
-          <h3 class="text-lg font-bold text-gray-900 mb-4">Country Overview</h3>
-          <p class="text-gray-600 mb-5">Peru is a diverse nation spanning coastal deserts, Andean highlands, and Amazon rainforest. Despite economic growth, significant inequality persists, particularly in rural and indigenous communities.</p>
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Cusco Region</h3>
+          <p class="text-gray-600 mb-5">High in the Peruvian Andes, the Sacred Valley is home to indigenous communities where access to healthcare is limited. Many villages are hours from the nearest medical facility.</p>
           <ul class="space-y-3 text-sm text-gray-600">
             <li class="flex items-start gap-2">
-              <span class="text-[#2D8B4E] font-bold">Population:</span>
-              <span>~33 million</span>
+              <span class="text-[#2D8B4E] font-bold">Location:</span>
+              <span>Sacred Valley, Cusco</span>
             </li>
             <li class="flex items-start gap-2">
-              <span class="text-[#2D8B4E] font-bold">Capital:</span>
-              <span>Lima</span>
+              <span class="text-[#2D8B4E] font-bold">Communities:</span>
+              <span>Quechua-speaking villages</span>
             </li>
             <li class="flex items-start gap-2">
-              <span class="text-[#2D8B4E] font-bold">Languages:</span>
-              <span>Spanish, Quechua, Aymara</span>
+              <span class="text-[#2D8B4E] font-bold">Health Center:</span>
+              <span>Centro de Salud Pisac</span>
             </li>
           </ul>
         </div>
@@ -177,15 +127,15 @@ const peruPhotos = [
           <div class="info-card-icon info-card-icon-orange">
             <div class="icon-float">
               <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </div>
           </div>
-          <h3 class="text-lg font-bold text-gray-900 mb-4">Our Approach</h3>
-          <p class="text-gray-600 mb-5">Rather than running independent programs, we partner with established Peruvian organizations who understand local needs and culture. This model ensures sustainability and community ownership.</p>
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Medical Brigades</h3>
+          <p class="text-gray-600 mb-5">Each June and July, FNE sends week-long mobile medical clinics to the Andes. Working with local partner Asociación Wiñaypaq, we bring healthcare directly to remote villages.</p>
           <div class="partnership-highlight">
-            <span class="text-sm font-semibold text-[#2D8B4E]">Partnership Focus</span>
-            <p class="text-sm text-gray-600 mt-1">We provide funding, volunteers, and expertise while our partners lead implementation.</p>
+            <span class="text-sm font-semibold text-[#2D8B4E]">Our Partner</span>
+            <p class="text-sm text-gray-600 mt-1">Asociación Wiñaypaq, led by Dr. Francisco Morales, coordinates all brigade logistics and community relationships.</p>
           </div>
         </div>
       </div>
@@ -197,194 +147,37 @@ const peruPhotos = [
     </Container>
   </Section>
 
-  <!-- Regions We Serve -->
-  <Section background="gray" withGrid>
-    <Container>
-      <SectionHeader
-        label="Where We Work"
-        title="Three Regions, One"
-        titleAccent="Mission"
-        subtitle="From the capital to the highlands, we're making an impact across Peru."
-        labelColor="orange"
-      />
-
-      <div class="grid md:grid-cols-3 gap-8">
-        {regions.map((region, index) => (
-          <div class={`region-card animate-on-scroll delay-${(index + 1) * 100}`}>
-            <!-- Region Image -->
-            <div class="region-image-wrapper">
-              <div class="image-placeholder">
-                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span class="image-placeholder-text">{region.imagePlaceholder}</span>
-              </div>
-            </div>
-            <div class="region-content">
-              <!-- Floating location icon -->
-              <div class="region-icon icon-float">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <div class="region-header">
-                <h3 class="text-xl font-bold text-gray-900">{region.name}</h3>
-                <span class="region-type">{region.type}</span>
-              </div>
-              <p class="text-gray-600 mb-5 mt-3">{region.description}</p>
-              <div class="region-partner">
-                <span class="text-xs text-gray-500 uppercase tracking-wider">Local Partner</span>
-                <span class="text-sm font-semibold text-[#2D8B4E]">{region.partner}</span>
-              </div>
-              <div class="flex flex-wrap gap-2 mt-4">
-                {region.programs.map((program) => (
-                  <span class="program-tag">{program}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </Container>
-  </Section>
-
-  <!-- Infrastructure Programs -->
-  <Section background="gray" withGrid id="infrastructure">
-    <Container>
-      <SectionHeader
-        label="Infrastructure"
-        title="Building Essential"
-        titleAccent="Services"
-        subtitle="Improving sanitation and water access in communities that need it most."
-      />
-
-      <div class="grid md:grid-cols-2 gap-8">
-        {infrastructurePrograms.map((program, index) => (
-          <div class={`infrastructure-card animate-on-scroll delay-${(index + 1) * 100}`}>
-            <!-- Program Image -->
-            <div class="infrastructure-image-wrapper">
-              <div class="image-placeholder">
-                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span class="image-placeholder-text">{program.imagePlaceholder}</span>
-              </div>
-            </div>
-            <div class="infrastructure-content">
-              <!-- Animated building icon -->
-              <div class="infrastructure-icon icon-float">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-              </div>
-              <div class="infrastructure-header">
-                <h3 class="text-xl font-bold text-gray-900">{program.name}</h3>
-                <span class="infrastructure-location">{program.location}</span>
-              </div>
-              {program.impact && <div class="infrastructure-impact">{program.impact}</div>}
-              <p class="text-gray-600 mt-4 mb-5">{program.description}</p>
-              <ul class="space-y-2">
-                {program.features.map((feature) => (
-                  <li class="flex items-center gap-2 text-sm text-gray-700">
-                    <svg class="w-4 h-4 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <!-- Eco-Toilet Gallery -->
-      <div class="eco-gallery mt-12 animate-on-scroll">
-        <h3 class="text-lg font-bold text-gray-900 mb-6 text-center">Eco-Toilet Project Progress</h3>
-        <div class="photo-grid photo-grid-4">
-          <div class="photo-card">
-            <div class="image-placeholder">
-              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text text-xs">Site preparation for eco-toilet installation</span>
-            </div>
-          </div>
-          <div class="photo-card">
-            <div class="image-placeholder">
-              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text text-xs">Construction in progress with volunteer team</span>
-            </div>
-          </div>
-          <div class="photo-card">
-            <div class="image-placeholder">
-              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text text-xs">Community training on maintenance</span>
-            </div>
-          </div>
-          <div class="photo-card">
-            <div class="image-placeholder">
-              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text text-xs">Completed eco-toilet with proud family</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Container>
-  </Section>
-
-  <!-- Health Focus -->
+  <!-- Health Programs -->
   <Section background="white" id="health">
     <Container>
       <SectionHeader
         label="Health"
-        title="Healthcare Through"
-        titleAccent="Partnership"
-        subtitle="Supporting medical brigades, strengthening local health posts, and ensuring communities have access to quality healthcare."
+        title="Medical"
+        titleAccent="Brigades"
+        subtitle="Each summer, FNE sends week-long mobile medical clinics to Cusco's Sacred Valley, providing healthcare to communities with limited access."
         labelColor="orange"
       />
 
-      <!-- Health Stats Grid -->
-      <div class="grid md:grid-cols-3 gap-6 mb-12">
-        <div class="bg-gray-50 rounded-2xl p-6 text-center animate-on-scroll">
-          <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-[#F7931E]/10 flex items-center justify-center">
-            <svg class="w-7 h-7 text-[#F7931E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
+      <!-- Services We Provide -->
+      <div class="grid md:grid-cols-3 gap-4 mb-12">
+        {healthServices.map((service, index) => (
+          <div class={`bg-gray-50 rounded-xl p-5 animate-on-scroll delay-${(index + 1) * 50}`}>
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-8 h-8 rounded-lg bg-[#2D8B4E]/10 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h4 class="font-semibold text-gray-900">{service.name}</h4>
+            </div>
+            <p class="text-sm text-gray-600 pl-11">{service.description}</p>
           </div>
-          <div class="text-3xl font-bold text-gray-900 mb-1">500+</div>
-          <div class="text-sm text-gray-600">Patients served annually</div>
-        </div>
-        <div class="bg-gray-50 rounded-2xl p-6 text-center animate-on-scroll delay-100">
-          <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-[#2D8B4E]/10 flex items-center justify-center">
-            <svg class="w-7 h-7 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-            </svg>
-          </div>
-          <div class="text-3xl font-bold text-gray-900 mb-1">2</div>
-          <div class="text-sm text-gray-600">Health partners</div>
-        </div>
-        <div class="bg-gray-50 rounded-2xl p-6 text-center animate-on-scroll delay-200">
-          <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-[#3D9A8B]/10 flex items-center justify-center">
-            <svg class="w-7 h-7 text-[#3D9A8B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <div class="text-3xl font-bold text-gray-900 mb-1">3</div>
-          <div class="text-sm text-gray-600">Medical brigades/year</div>
-        </div>
+        ))}
       </div>
 
       <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm animate-on-scroll">
         <p class="text-gray-600 leading-relaxed">
-          By working through local partners, we ensure culturally appropriate care that respects traditional practices while introducing modern medicine. Our health initiatives support indigenous communities in the Andes, coastal communities in Lambayeque, and urban informal settlements in Lima.
+          Working from Centro de Salud Pisac, our volunteer medical professionals provide primary care, pediatric services, and specialized treatments including cataract surgeries in partnership with Sights on Health. Over 50 patients have received sight-restoring cataract surgery through this program.
         </p>
       </div>
     </Container>
@@ -451,11 +244,11 @@ const peruPhotos = [
         label="Partnerships"
         title="Our Local"
         titleAccent="Partners"
-        subtitle="These organizations are the backbone of our work in Peru. Together, we achieve more."
+        subtitle="Our Peru programs succeed through strong partnerships with local organizations who understand the communities we serve."
         labelColor="green"
       />
 
-      <div class="grid md:grid-cols-3 gap-8">
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
         {partners.map((partner, index) => (
           <div class={`bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden animate-on-scroll delay-${(index + 1) * 100}`}>
             <div class="h-48 bg-gradient-to-br from-[#2D8B4E]/10 to-[#3D9A8B]/10 flex items-center justify-center">
@@ -557,6 +350,12 @@ const peruPhotos = [
     border-radius: 0;
     border: none;
     border-bottom: 2px dashed rgba(45, 139, 78, 0.2);
+  }
+
+  .region-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
   }
 
   .region-content {
@@ -955,10 +754,10 @@ const peruPhotos = [
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the map centered on Peru
+    // Initialize the map centered on Cusco/Sacred Valley region
     const map = L.map('peru-map', {
       scrollWheelZoom: false
-    }).setView([-9.19, -75.0], 5);
+    }).setView([-13.35, -72.05], 9);
 
     // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -966,7 +765,7 @@ const peruPhotos = [
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    // Custom green marker icon for regions
+    // Custom green marker icon
     const greenIcon = L.divIcon({
       className: 'custom-marker',
       html: `<div style="
@@ -983,37 +782,50 @@ const peruPhotos = [
       popupAnchor: [0, -28]
     });
 
-    // Peru program regions
-    const regions = [
+    // Custom orange marker for health center
+    const orangeIcon = L.divIcon({
+      className: 'custom-marker',
+      html: `<div style="
+        background: linear-gradient(135deg, #F7931E, #ff6b00);
+        width: 28px;
+        height: 28px;
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        border: 3px solid white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      "></div>`,
+      iconSize: [28, 28],
+      iconAnchor: [14, 28],
+      popupAnchor: [0, -28]
+    });
+
+    // Program locations in Cusco region
+    const locations = [
       {
-        name: 'Lima',
-        coords: [-12.0464, -77.0428],
-        partner: 'NGO Arrebol',
-        desc: 'Eco-toilet construction and sanitation education in informal settlements'
-      },
-      {
-        name: 'Lambayeque',
-        coords: [-6.7714, -79.8409],
-        partner: 'Asociación Latidos',
-        desc: 'Medical brigades, health post support, and water infrastructure'
-      },
-      {
-        name: 'Cusco',
+        name: 'Cusco City',
         coords: [-13.5319, -71.9675],
         partner: 'Asociación Wiñaypaq',
-        desc: 'Health services for indigenous Quechua-speaking communities in the Sacred Valley'
+        desc: 'Regional coordination with Dr. Francisco Morales',
+        icon: greenIcon
+      },
+      {
+        name: 'Centro de Salud Pisac',
+        coords: [-13.4167, -71.8500],
+        partner: 'Health Center',
+        desc: 'Primary base for medical brigades serving the Sacred Valley',
+        icon: orangeIcon
       }
     ];
 
-    // Add markers for each region
-    regions.forEach(function(region) {
-      L.marker(region.coords, { icon: greenIcon })
+    // Add markers for each location
+    locations.forEach(function(location) {
+      L.marker(location.coords, { icon: location.icon })
         .addTo(map)
         .bindPopup(`
           <div style="text-align: center; min-width: 180px;">
-            <strong style="color: #2D8B4E; font-size: 15px;">${region.name}</strong>
-            <p style="margin: 6px 0 4px; font-size: 11px; color: #F7931E; font-weight: 600;">${region.partner}</p>
-            <p style="margin: 4px 0 0; font-size: 12px; color: #666;">${region.desc}</p>
+            <strong style="color: #2D8B4E; font-size: 15px;">${location.name}</strong>
+            <p style="margin: 6px 0 4px; font-size: 11px; color: #F7931E; font-weight: 600;">${location.partner}</p>
+            <p style="margin: 4px 0 0; font-size: 12px; color: #666;">${location.desc}</p>
           </div>
         `);
     });
