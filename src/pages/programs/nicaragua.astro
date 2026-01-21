@@ -34,28 +34,36 @@ const educationPrograms = [
     description: 'An after-school program providing ESL instruction and math tutoring to help children dream bigger.',
     stats: '11 students aged 8-12',
     features: ['English as Second Language', 'Mathematics tutoring', 'Personal development', 'Dream building activities'],
-    imagePlaceholder: 'Students in after-school ESL class practicing English conversation',
+    image: '/nicaragua/scholarship-students.jpg',
+    imageAlt: 'Students in school uniforms',
+    imagePosition: 'center 45%',
   },
   {
     name: 'Scholarship Program',
     description: 'Monthly stipends supporting students from elementary through university, covering school fees, uniforms, and supplies.',
     stats: '150+ students, $30-60/month',
     features: ['Elementary through university', 'Covers school fees', 'Uniforms and supplies', '5 communities in León'],
-    imagePlaceholder: 'Scholarship student in uniform receiving educational materials',
+    image: '/nicaragua/scholarship-graduate.jpg',
+    imageAlt: 'Scholarship graduate in cap and gown',
+    imagePosition: '50% 25%',
   },
   {
     name: 'Biblioteca Ricardo Streb',
     description: 'The only library in the Chacraseca region, providing books, computer lab access, WiFi, and tutoring services.',
     stats: 'Serving entire Chacraseca region',
     features: ['Book lending library', 'Computer lab', 'Free WiFi access', 'Tutoring programs'],
-    imagePlaceholder: 'Children reading books in the Ricardo Streb Library',
+    image: '/nicaragua/library-children.jpg',
+    imageAlt: 'Children holding books at the Ricardo Streb Library',
+    imagePosition: 'center 35%',
   },
   {
     name: 'Niño Feliz School',
     description: 'Supporting a special education school in Chichigalpa that provides essential services to children with disabilities.',
     stats: 'Special education support',
     features: ['Special needs education', 'Teacher training', 'Educational materials', 'Community integration'],
-    imagePlaceholder: 'Special needs classroom with teacher and students engaged in learning',
+    image: '/nicaragua/special-needs-education.jpg',
+    imageAlt: 'Special needs classroom with teacher and students',
+    imagePosition: 'center',
   },
 ];
 
@@ -66,13 +74,17 @@ const healthPrograms = [
     stats: '~120 pediatric patients',
     focus: 'Focus on Duchenne muscular dystrophy',
     services: ['Regular check-ups', 'Medication support', 'Physical therapy', 'Family counseling'],
-    imagePlaceholder: 'Medical staff providing care to pediatric patient at SPTLN clinic',
+    image: '/nicaragua/sptln-consultation.jpg',
+    imageAlt: 'SPTLN medical consultation with family',
+    imagePosition: 'center 40%',
   },
   {
     name: 'Medical Brigades',
     description: 'Organizing volunteer medical professionals to provide free healthcare services in underserved communities.',
     services: ['General medical care', 'Dental services', 'Vision screenings', 'Health education'],
-    imagePlaceholder: 'Volunteer doctors examining patients during medical brigade',
+    image: '/nicaragua/medical-brigade.jpg',
+    imageAlt: 'Volunteer doctors examining patients during medical brigade',
+    imagePosition: 'top',
   },
 ];
 
@@ -82,13 +94,15 @@ const agriculturePrograms = [
     description: 'A 14-manzana (5.7 acre) agroecological farm demonstrating sustainable farming practices and providing training to local farmers.',
     stats: '5.7 acres of demonstration farm',
     features: ['Organic farming methods', 'Crop diversification', 'Water conservation', 'Farmer training programs'],
-    imagePlaceholder: 'Aerial view of Finca Girasol showing diverse crop areas',
+    image: '/nicaragua/farm-scenic-view.jpg',
+    imageAlt: 'View of Finca Girasol farm',
   },
   {
     name: 'Sow Eat Grow',
     description: 'A nutrition and agriculture education program teaching families to grow their own vegetables and improve their diets.',
     features: ['Home garden setup', 'Nutrition education', 'Seed distribution', 'Cooking workshops'],
-    imagePlaceholder: 'Family learning to plant vegetables in their home garden',
+    image: '/nicaragua/home-garden.jpg',
+    imageAlt: 'Family learning to plant vegetables in their home garden',
   },
 ];
 
@@ -98,13 +112,6 @@ const communities = [
   'Los Lechecuagos',
   'Salinas Grandes',
   'Monte Redondo',
-];
-
-const housingGallery = [
-  'Before photo of original dwelling needing replacement',
-  'Volunteers and family members laying brick foundation',
-  'Construction progress showing wall framing',
-  'Completed house with family standing proudly in front',
 ];
 ---
 
@@ -139,10 +146,10 @@ const housingGallery = [
   <Section background="gray" spacing="small">
     <div class="w-full overflow-hidden">
       <div class="photo-grid photo-grid-4 max-w-7xl mx-auto px-4">
-        <PhotoCard placeholder="Scenic view of León countryside with volcanos" animationDelay={100} />
-        <PhotoCard placeholder="Local community members gathering in village center" animationDelay={200} />
-        <PhotoCard placeholder="Children smiling and playing in Chacraseca" animationDelay={300} />
-        <PhotoCard placeholder="Volunteer team group photo with local partners" animationDelay={400} />
+        <PhotoCard image="/nicaragua/farm-scenic-view.jpg" alt="Scenic view of León countryside farm" animationDelay={100} />
+        <PhotoCard image="/nicaragua/community-gathering.jpg" alt="Local community members gathering" animationDelay={200} />
+        <PhotoCard image="/nicaragua/children-group.jpg" alt="Children smiling in Chacraseca" animationDelay={300} />
+        <PhotoCard image="/nicaragua/volunteer-team.jpg" alt="Volunteer team group photo with local partners" animationDelay={400} />
       </div>
     </div>
   </Section>
@@ -203,14 +210,9 @@ const housingGallery = [
         </div>
       </div>
 
-      <!-- Region Map Placeholder -->
+      <!-- Interactive Map -->
       <div class="animate-on-scroll">
-        <div class="image-placeholder image-placeholder-wide">
-          <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-          </svg>
-          <span class="image-placeholder-text">Map of León Department showing FNE program communities</span>
-        </div>
+        <div id="nicaragua-map" class="nicaragua-map rounded-2xl overflow-hidden shadow-lg border border-[#2D8B4E]/20"></div>
       </div>
     </Container>
   </Section>
@@ -224,105 +226,120 @@ const housingGallery = [
         subtitle="Building safe, dignified homes for families in need through a unique cost-sharing model."
       />
 
-      <div class="grid lg:grid-cols-2 gap-12 items-start">
-        <div class="animate-slide-left">
-          <!-- 3D animated house icon -->
-          <div class="section-icon-large mb-8">
-            <div class="icon-3d">
-              <div class="icon-3d-inner animate-rotate-3d">
-                <div class="section-icon-circle">
-                  <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                  </svg>
-                </div>
-              </div>
-            </div>
+      <!-- Housing Gallery - Full Width -->
+      <div class="housing-gallery-full mb-12 animate-on-scroll">
+        <div class="housing-main-image-full relative rounded-2xl overflow-hidden">
+          <img src="/housing.jpg" alt="Housing construction" class="w-full h-[400px] object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          <div class="absolute bottom-6 left-6 text-white">
+            <div class="text-4xl font-bold">300+</div>
+            <div class="text-sm opacity-90">Houses Built</div>
           </div>
-
-          <div class="housing-stat-grid mb-8">
-            <div class="housing-stat">
-              <div class="housing-stat-value">{housingDetails.cost}</div>
-              <div class="housing-stat-label">Average Cost Per Home</div>
-            </div>
-            <div class="housing-stat">
-              <div class="housing-stat-value">{housingDetails.familyContribution}</div>
-              <div class="housing-stat-label">Family Contribution</div>
-            </div>
-            <div class="housing-stat">
-              <div class="housing-stat-value">{housingDetails.fneContribution}</div>
-              <div class="housing-stat-label">FNE Contribution</div>
-            </div>
-          </div>
-
-          <h3 class="text-xl font-bold text-gray-900 mb-4">What Each Home Includes</h3>
-          <ul class="space-y-3 mb-6">
-            {housingDetails.features.map((feature) => (
-              <li class="flex items-start gap-3">
-                <div class="w-6 h-6 rounded-full bg-[#2D8B4E]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg class="w-4 h-4 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <span class="text-gray-700">{feature}</span>
-              </li>
-            ))}
-          </ul>
-
-          <p class="text-gray-600 bg-white p-5 rounded-xl border-l-4 border-[#2D8B4E]">
-            <strong>Our Model:</strong> Families contribute 30% of the cost (often through labor), creating ownership and pride while making homes affordable. Local workers are employed for construction, keeping money in the community.
-          </p>
         </div>
-
-        <!-- Housing Gallery -->
-        <div class="animate-slide-right">
-          <div class="housing-gallery">
-            <div class="housing-main-image">
-              <img src="/housing.jpg" alt="Housing construction" class="content-image" />
-              <div class="housing-badge">
-                <div class="text-2xl font-bold neon-text">300+</div>
-                <div class="text-xs text-gray-600">Houses Built</div>
-              </div>
-            </div>
-            <div class="housing-thumbnails">
-              {housingGallery.map((photo, index) => (
-                <div class={`gallery-item animate-on-scroll delay-${(index + 1) * 100}`}>
-                  <div class="image-placeholder image-placeholder-square">
-                    <svg class="image-placeholder-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <span class="image-placeholder-text text-xs">{photo}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+        <div class="grid grid-cols-4 gap-4 mt-4">
+          <div class="gallery-item animate-on-scroll delay-100">
+            <img src="/nicaragua/housing-foundation.jpg" alt="Volunteers and family members laying foundation" class="w-full h-24 object-cover rounded-lg" />
+          </div>
+          <div class="gallery-item animate-on-scroll delay-200">
+            <img src="/nicaragua/housing-construction.jpg" alt="Construction progress showing wall framing" class="w-full h-24 object-cover rounded-lg" />
+          </div>
+          <div class="gallery-item animate-on-scroll delay-300">
+            <img src="/nicaragua/community-gathering.jpg" alt="Community members at housing project" class="w-full h-24 object-cover rounded-lg" />
+          </div>
+          <div class="gallery-item animate-on-scroll delay-400">
+            <img src="/nicaragua/volunteer-team.jpg" alt="Volunteer team with local partners" class="w-full h-24 object-cover rounded-lg" />
           </div>
         </div>
       </div>
 
-      <div class="mt-12 p-6 bg-white rounded-2xl animate-on-scroll">
-        <h3 class="text-lg font-bold text-gray-900 mb-6">Additional Infrastructure Programs</h3>
-        <div class="grid md:grid-cols-2 gap-6">
-          <div class="flex items-start gap-4">
-            <div class="w-14 h-14 rounded-xl bg-[#2D8B4E]/10 flex items-center justify-center flex-shrink-0 icon-glow">
-              <svg class="w-7 h-7 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-              </svg>
-            </div>
-            <div>
-              <h4 class="font-semibold text-gray-900 mb-2">Latrine Construction</h4>
-              <p class="text-sm text-gray-600">Building sanitary facilities to improve health and dignity in rural communities.</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-4">
-            <div class="w-14 h-14 rounded-xl bg-[#F7931E]/10 flex items-center justify-center flex-shrink-0 icon-glow">
-              <svg class="w-7 h-7 text-[#F7931E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <!-- Housing Details Grid -->
+      <div class="grid lg:grid-cols-3 gap-8 mb-12">
+        <!-- Cost Breakdown Card -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 animate-on-scroll">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-[#2D8B4E]/10 flex items-center justify-center">
+              <svg class="w-6 h-6 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <div>
-              <h4 class="font-semibold text-gray-900 mb-2">Home Repair Loans</h4>
-              <p class="text-sm text-gray-600">Low-interest loans helping families make essential repairs to existing homes.</p>
+            <h3 class="text-lg font-bold text-gray-900">Cost Breakdown</h3>
+          </div>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center pb-3 border-b border-gray-100">
+              <span class="text-gray-600">Average Cost</span>
+              <span class="text-2xl font-bold text-[#2D8B4E]">{housingDetails.cost}</span>
             </div>
+            <div class="flex justify-between items-center pb-3 border-b border-gray-100">
+              <span class="text-gray-600">Family Contribution</span>
+              <span class="text-xl font-bold text-gray-900">{housingDetails.familyContribution}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600">FNE Contribution</span>
+              <span class="text-xl font-bold text-[#3D9A8B]">{housingDetails.fneContribution}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- What's Included Card -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 animate-on-scroll delay-100">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-[#3D9A8B]/10 flex items-center justify-center">
+              <svg class="w-6 h-6 text-[#3D9A8B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900">What's Included</h3>
+          </div>
+          <ul class="space-y-3">
+            {housingDetails.features.map((feature) => (
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-[#2D8B4E] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-gray-700">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Our Model Card -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 animate-on-scroll delay-200">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-[#F7931E]/10 flex items-center justify-center">
+              <svg class="w-6 h-6 text-[#F7931E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900">Our Model</h3>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            Families contribute 30% of the cost (often through labor), creating ownership and pride while making homes affordable. Local workers are employed for construction, keeping money in the community.
+          </p>
+        </div>
+      </div>
+
+      <!-- Additional Programs -->
+      <div class="grid md:grid-cols-2 gap-6 animate-on-scroll">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-start gap-4">
+          <div class="w-14 h-14 rounded-xl bg-[#2D8B4E]/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-7 h-7 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="font-bold text-gray-900 mb-2">Latrine Construction</h4>
+            <p class="text-gray-600">Building sanitary facilities to improve health and dignity in rural communities.</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-start gap-4">
+          <div class="w-14 h-14 rounded-xl bg-[#F7931E]/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-7 h-7 text-[#F7931E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="font-bold text-gray-900 mb-2">Home Repair Loans</h4>
+            <p class="text-gray-600">Low-interest loans helping families make essential repairs to existing homes.</p>
           </div>
         </div>
       </div>
@@ -341,11 +358,8 @@ const housingGallery = [
 
       <!-- Education Hero Image -->
       <div class="education-hero mb-12 animate-on-scroll">
-        <div class="image-placeholder image-placeholder-wide">
-          <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-          <span class="image-placeholder-text">Wide shot of students in classroom raising hands during lesson</span>
+        <div class="rounded-2xl overflow-hidden">
+          <img src="/nicaragua/education-classroom.jpg" alt="Students in classroom raising hands during lesson" class="w-full h-auto object-cover" />
         </div>
       </div>
 
@@ -354,12 +368,7 @@ const housingGallery = [
           <div class={`program-card animate-on-scroll delay-${(index + 1) * 100}`}>
             <!-- Program Image -->
             <div class="program-image-wrapper">
-              <div class="image-placeholder">
-                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span class="image-placeholder-text">{program.imagePlaceholder}</span>
-              </div>
+              <img src={program.image} alt={program.imageAlt} class="w-full aspect-[4/3] object-cover" style={`object-position: ${program.imagePosition || 'top'}`} />
             </div>
             <div class="program-content">
               <!-- Floating animated icon -->
@@ -405,12 +414,7 @@ const housingGallery = [
           <div class={`health-card animate-on-scroll delay-${(index + 1) * 100}`}>
             <!-- Health Program Image -->
             <div class="health-image-wrapper">
-              <div class="image-placeholder">
-                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span class="image-placeholder-text">{program.imagePlaceholder}</span>
-              </div>
+              <img src={program.image} alt={program.imageAlt} class="w-full aspect-[4/3] object-cover" style={`object-position: ${program.imagePosition || 'top'}`} />
             </div>
             <div class="health-content">
               <!-- Animated heart icon -->
@@ -440,11 +444,8 @@ const housingGallery = [
       <div class="health-highlight animate-on-scroll">
         <div class="flex flex-col md:flex-row gap-6 items-start">
           <div class="health-highlight-image flex-shrink-0">
-            <div class="image-placeholder image-placeholder-square w-full md:w-64">
-              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text text-xs">Child receiving physical therapy at SPTLN</span>
+            <div class="w-full md:w-64 rounded-xl overflow-hidden">
+              <img src="/nicaragua/sptln-patient.jpg" alt="SPTLN patient" class="w-full h-auto object-cover" />
             </div>
           </div>
           <div class="flex-1">
@@ -483,12 +484,7 @@ const housingGallery = [
         {agriculturePrograms.map((program, index) => (
           <div class={`agriculture-card-large ${index === 1 ? 'agriculture-card-reverse' : ''} animate-on-scroll`}>
             <div class="agriculture-image">
-              <div class="image-placeholder">
-                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span class="image-placeholder-text">{program.imagePlaceholder}</span>
-              </div>
+              <img src={program.image} alt={program.imageAlt} class="w-full h-full object-cover min-h-[250px]" />
             </div>
             <div class="agriculture-content">
               <!-- Floating leaf icon -->
@@ -520,36 +516,16 @@ const housingGallery = [
         <h3 class="text-lg font-bold text-gray-900 mb-6 text-center">Finca Girasol in Action</h3>
         <div class="photo-grid photo-grid-4">
           <div class="photo-card">
-            <div class="image-placeholder">
-              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text text-xs">Farmers harvesting vegetables at the farm</span>
-            </div>
+            <img src="/nicaragua/farm-harvest.jpg" alt="Farmers harvesting vegetables at the farm" class="w-full h-full object-cover rounded-xl" />
           </div>
           <div class="photo-card">
-            <div class="image-placeholder">
-              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text text-xs">Training session on organic methods</span>
-            </div>
+            <img src="/nicaragua/farm-training.jpg" alt="Training session on organic methods" class="w-full h-full object-cover rounded-xl" />
           </div>
           <div class="photo-card">
-            <div class="image-placeholder">
-              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text text-xs">Irrigation system and crop rows</span>
-            </div>
+            <img src="/nicaragua/farm-learning.jpg" alt="Learning about crop care" class="w-full h-full object-cover rounded-xl" />
           </div>
           <div class="photo-card">
-            <div class="image-placeholder">
-              <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text text-xs">Family home garden started from program</span>
-            </div>
+            <img src="/nicaragua/farm-workers.jpg" alt="Farm workers tending to crops" class="w-full h-full object-cover rounded-xl" />
           </div>
         </div>
       </div>
@@ -612,99 +588,13 @@ const housingGallery = [
     color: #2D8B4E;
   }
 
-  /* Section icon */
-  .section-icon-large {
-    display: flex;
-    justify-content: center;
+  /* Gallery items */
+  .gallery-item {
+    transition: transform 0.3s ease;
   }
 
-  .section-icon-circle {
-    width: 100px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, rgba(45, 139, 78, 0.1), rgba(247, 147, 30, 0.1));
-    border-radius: 28px;
-    color: #2D8B4E;
-    border: 2px solid rgba(45, 139, 78, 0.2);
-  }
-
-  /* Housing stats */
-  .housing-stat-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-  }
-
-  @media (max-width: 640px) {
-    .housing-stat-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .housing-stat {
-    text-align: center;
-    padding: 1.25rem;
-    background: white;
-    border-radius: 16px;
-    border: 1px solid rgba(45, 139, 78, 0.1);
-  }
-
-  .housing-stat-value {
-    font-size: 1.75rem;
-    font-weight: 800;
-    color: #2D8B4E;
-  }
-
-  .housing-stat-label {
-    font-size: 0.75rem;
-    color: #666;
-    margin-top: 0.5rem;
-  }
-
-  /* Housing gallery */
-  .housing-gallery {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .housing-main-image {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-  }
-
-  .housing-main-image .content-image {
-    border-radius: 20px;
-  }
-
-  .housing-badge {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    background: white;
-    padding: 1rem 1.25rem;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    text-align: center;
-  }
-
-  .housing-thumbnails {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
-  }
-
-  @media (max-width: 640px) {
-    .housing-thumbnails {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .gallery-item .image-placeholder {
-    padding: 0.75rem;
+  .gallery-item:hover {
+    transform: scale(1.05);
   }
 
   /* Program cards with images */
@@ -989,4 +879,111 @@ const housingGallery = [
     left: -50px;
     animation: float 6s ease-in-out infinite reverse;
   }
+
+  /* Leaflet Map Styles */
+  .nicaragua-map {
+    height: 400px;
+    width: 100%;
+    background: #f0fdf4;
+  }
+
+  @media (max-width: 640px) {
+    .nicaragua-map {
+      height: 300px;
+    }
+  }
 </style>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+<!-- Leaflet JS -->
+<script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize the map centered on León, Nicaragua
+    const map = L.map('nicaragua-map', {
+      scrollWheelZoom: false
+    }).setView([12.44, -86.85], 11);
+
+    // Add OpenStreetMap tiles with custom styling
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    // Custom green marker icon
+    const greenIcon = L.divIcon({
+      className: 'custom-marker',
+      html: `<div style="
+        background: linear-gradient(135deg, #2D8B4E, #3d9a8b);
+        width: 24px;
+        height: 24px;
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        border: 3px solid white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      "></div>`,
+      iconSize: [24, 24],
+      iconAnchor: [12, 24],
+      popupAnchor: [0, -24]
+    });
+
+    // Community locations (approximate coordinates around León)
+    const communities = [
+      { name: 'Chacraseca', coords: [12.475, -86.825], desc: 'Main program hub with library, housing, and education programs' },
+      { name: 'La Ceiba', coords: [12.42, -86.78], desc: 'Scholarship and housing program community' },
+      { name: 'Los Lechecuagos', coords: [12.52, -86.88], desc: 'Agriculture and education programs' },
+      { name: 'Salinas Grandes', coords: [12.38, -86.72], desc: 'Housing and health program community' },
+      { name: 'Monte Redondo', coords: [12.48, -86.92], desc: 'Education and agriculture programs' }
+    ];
+
+    // Add markers for each community
+    communities.forEach(function(community) {
+      L.marker(community.coords, { icon: greenIcon })
+        .addTo(map)
+        .bindPopup(`
+          <div style="text-align: center; min-width: 150px;">
+            <strong style="color: #2D8B4E; font-size: 14px;">${community.name}</strong>
+            <p style="margin: 8px 0 0; font-size: 12px; color: #666;">${community.desc}</p>
+          </div>
+        `);
+    });
+
+    // Add León city marker (larger, different style)
+    const leonIcon = L.divIcon({
+      className: 'custom-marker-leon',
+      html: `<div style="
+        background: #F7931E;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 3px solid white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      "></div>`,
+      iconSize: [16, 16],
+      iconAnchor: [8, 8],
+      popupAnchor: [0, -8]
+    });
+
+    L.marker([12.4379, -86.8780], { icon: leonIcon })
+      .addTo(map)
+      .bindPopup(`
+        <div style="text-align: center;">
+          <strong style="color: #F7931E; font-size: 14px;">León</strong>
+          <p style="margin: 8px 0 0; font-size: 12px; color: #666;">Regional capital city</p>
+        </div>
+      `);
+
+    // Enable scroll wheel zoom when map is clicked
+    map.on('click', function() {
+      map.scrollWheelZoom.enable();
+    });
+
+    // Disable when mouse leaves
+    map.on('mouseout', function() {
+      map.scrollWheelZoom.disable();
+    });
+  });
+</script>

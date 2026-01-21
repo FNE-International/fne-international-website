@@ -123,94 +123,56 @@ const timeline = [
   </Section>
 
   <!-- About Dominican Republic -->
-  <Section background="gray" withGrid>
+  <Section background="gray">
     <Container>
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <!-- Left: Content -->
-        <div class="animate-slide-left">
-          <p class="text-[#3D9A8B] font-semibold tracking-[0.3em] uppercase mb-4 text-sm">About Dominican Republic</p>
-          <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-6">Education in the Bateys</h2>
+      <SectionHeader
+        label="About Dominican Republic"
+        title="Education in the Bateys"
+        subtitle="Understanding the communities we serve and the challenges they face."
+        labelColor="teal"
+      />
 
-          <div class="context-intro mb-8">
-            <p class="text-lg text-gray-600 leading-relaxed">
+      <!-- Context Card -->
+      <div class="bg-white rounded-2xl p-8 mb-12 shadow-sm border border-gray-100 animate-on-scroll">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="w-12 h-12 rounded-xl bg-[#F7931E]/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-[#F7931E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">What are Bateys?</h3>
+            <p class="text-gray-600 leading-relaxed">
               In the Dominican Republic, "bateys" are communities that originally formed around sugar cane plantations, home to workers of Haitian descent who migrated for agricultural labor. Today, these communities face significant challenges, including limited access to education, healthcare, and legal documentation.
             </p>
           </div>
-
-          <div class="grid sm:grid-cols-2 gap-4">
-            {challenges.map((challenge, index) => (
-              <ChallengeCard
-                title={challenge.title}
-                description={challenge.description}
-                icon={challenge.icon}
-                animationDelay={(index + 1) * 100}
-              />
-            ))}
-          </div>
         </div>
-
-        <!-- Right: Image Gallery -->
-        <div class="animate-slide-right">
-          <div class="relative">
-            <div class="content-image-wrapper">
-              <div class="image-placeholder aspect-[4/3]">
-                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span class="image-placeholder-text">Aerial view of batey community near La Romana sugar cane fields</span>
-              </div>
-            </div>
-
-            <!-- Floating badge -->
-            <div class="absolute -bottom-4 -left-4 bg-white p-4 rounded-xl shadow-lg z-10">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-[#F7931E]/10 rounded-lg flex items-center justify-center">
-                  <svg class="w-5 h-5 text-[#F7931E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <div class="text-sm font-semibold text-gray-900">La Romana</div>
-                  <div class="text-xs text-gray-500">Dominican Republic</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Floating 3D icon -->
-            <div class="absolute -top-6 -right-6 icon-3d">
-              <div class="icon-3d-inner animate-rotate-3d">
-                <div class="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center">
-                  <svg class="w-8 h-8 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Thumbnail gallery -->
-          <div class="grid grid-cols-3 gap-3 mt-8">
-            <div class="image-placeholder image-placeholder-square">
-              <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text text-xs">Sugar cane fields</span>
-            </div>
-            <div class="image-placeholder image-placeholder-square">
-              <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text text-xs">Community homes</span>
-            </div>
-            <div class="image-placeholder image-placeholder-square">
-              <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text text-xs">Local families</span>
-            </div>
-          </div>
+        <div class="flex items-center gap-2 text-sm">
+          <span class="px-3 py-1 bg-[#F7931E]/10 text-[#F7931E] rounded-full font-medium">La Romana</span>
+          <span class="text-gray-500">Villa Caoba Community</span>
         </div>
+      </div>
+
+      <!-- Challenges Grid -->
+      <h3 class="text-xl font-bold text-gray-900 mb-6 text-center">Challenges Facing These Communities</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        {challenges.map((challenge, index) => (
+          <div class={`bg-white rounded-2xl p-6 shadow-sm border border-gray-100 animate-on-scroll delay-${(index + 1) * 100}`}>
+            <div class="w-12 h-12 rounded-xl bg-[#2D8B4E]/10 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={challenge.icon} />
+              </svg>
+            </div>
+            <h4 class="font-bold text-gray-900 mb-2">{challenge.title}</h4>
+            <p class="text-gray-600 text-sm">{challenge.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Interactive Map -->
+      <div class="animate-on-scroll">
+        <div id="dr-map" class="dr-map rounded-2xl overflow-hidden shadow-lg border border-[#2D8B4E]/20"></div>
       </div>
     </Container>
   </Section>
@@ -225,103 +187,78 @@ const timeline = [
         labelColor="orange"
       />
 
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="animate-slide-left">
-          <div class="school-badge">
-            <div class="flex items-center gap-3">
-              <div class="icon-float">
-                <svg class="w-6 h-6 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-              </div>
-              <span class="school-badge-text">Fundación para la Unidad y el Crecimiento de los Pueblos</span>
-            </div>
+      <!-- School Image Gallery -->
+      <div class="mb-12 animate-on-scroll">
+        <div class="relative rounded-2xl overflow-hidden h-[400px] bg-gradient-to-br from-[#2D8B4E]/10 to-[#F7931E]/10 flex items-center justify-center">
+          <div class="text-center">
+            <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="text-gray-400">FUCPE school building with students</span>
           </div>
+          <div class="absolute bottom-6 left-6 bg-white rounded-xl p-4 shadow-lg">
+            <div class="text-sm font-semibold text-[#2D8B4E]">Villa Caoba</div>
+            <div class="text-xs text-gray-500">La Romana, Dominican Republic</div>
+          </div>
+        </div>
+      </div>
 
-          <h3 class="text-2xl font-bold text-gray-900 mb-4 mt-6">Providing Education Where It's Needed Most</h3>
-
-          <p class="text-gray-600 mb-6">
-            The FUCPE school serves over 300 children from the batey community of Villa Caoba, near La Romana. For many of these children, FUCPE represents their only opportunity to receive a formal education.
-          </p>
-
-          <p class="text-gray-600 mb-6">
-            The school provides not just academic instruction, but also a safe space, nutritional support, and a sense of belonging for children who might otherwise be excluded from mainstream educational institutions.
-          </p>
-
-          <div class="school-stats">
-            <div class="school-stat">
-              <div class="icon-3d mb-2">
-                <div class="icon-3d-inner animate-wobble">
-                  <svg class="w-6 h-6 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
-                </div>
-              </div>
-              <div class="school-stat-value">4</div>
-              <div class="school-stat-label">Classrooms</div>
+      <!-- School Info Grid -->
+      <div class="grid lg:grid-cols-3 gap-8 mb-12">
+        <!-- Stats Card -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 animate-on-scroll">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-[#2D8B4E]/10 flex items-center justify-center">
+              <svg class="w-6 h-6 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
             </div>
-            <div class="school-stat">
-              <div class="icon-3d mb-2">
-                <div class="icon-3d-inner animate-scale-pulse">
-                  <svg class="w-6 h-6 text-[#F7931E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                  </svg>
-                </div>
-              </div>
-              <div class="school-stat-value">300+</div>
-              <div class="school-stat-label">Students</div>
+            <h3 class="text-lg font-bold text-gray-900">School Stats</h3>
+          </div>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center pb-3 border-b border-gray-100">
+              <span class="text-gray-600">Students Enrolled</span>
+              <span class="text-2xl font-bold text-[#2D8B4E]">300+</span>
             </div>
-            <div class="school-stat">
-              <div class="icon-3d mb-2">
-                <div class="icon-3d-inner animate-float">
-                  <svg class="w-6 h-6 text-[#3D9A8B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                </div>
-              </div>
-              <div class="school-stat-value">K-8</div>
-              <div class="school-stat-label">Grade Levels</div>
+            <div class="flex justify-between items-center pb-3 border-b border-gray-100">
+              <span class="text-gray-600">Classrooms</span>
+              <span class="text-xl font-bold text-gray-900">4</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600">Grade Levels</span>
+              <span class="text-xl font-bold text-[#3D9A8B]">K-8</span>
             </div>
           </div>
         </div>
 
-        <div class="animate-slide-right">
-          <div class="relative">
-            <div class="content-image-wrapper">
-              <div class="image-placeholder aspect-[4/3]">
-                <svg class="image-placeholder-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span class="image-placeholder-text">FUCPE school building exterior with students</span>
-              </div>
+        <!-- About Card -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 animate-on-scroll delay-100">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-[#F7931E]/10 flex items-center justify-center">
+              <svg class="w-6 h-6 text-[#F7931E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
             </div>
-            <div class="absolute -bottom-4 -left-4 bg-white p-4 rounded-xl shadow-lg z-10">
-              <div class="text-sm font-semibold text-[#2D8B4E]">Villa Caoba</div>
-              <div class="text-xs text-gray-500">La Romana, Dominican Republic</div>
-            </div>
+            <h3 class="text-lg font-bold text-gray-900">About FUCPE</h3>
           </div>
+          <p class="text-gray-600 leading-relaxed text-sm">
+            The FUCPE school (Fundación para la Unidad y el Crecimiento de los Pueblos) serves children from the batey community. For many, FUCPE represents their only opportunity to receive a formal education.
+          </p>
+        </div>
 
-          <!-- School photo gallery -->
-          <div class="grid grid-cols-3 gap-3 mt-8">
-            <div class="image-placeholder image-placeholder-square">
-              <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        <!-- Mission Card -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 animate-on-scroll delay-200">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-[#3D9A8B]/10 flex items-center justify-center">
+              <svg class="w-6 h-6 text-[#3D9A8B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
-              <span class="image-placeholder-text text-xs">Classroom interior</span>
             </div>
-            <div class="image-placeholder image-placeholder-square">
-              <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text text-xs">Students at desks</span>
-            </div>
-            <div class="image-placeholder image-placeholder-square">
-              <svg class="image-placeholder-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="image-placeholder-text text-xs">School playground</span>
-            </div>
+            <h3 class="text-lg font-bold text-gray-900">Our Mission</h3>
           </div>
+          <p class="text-gray-600 leading-relaxed text-sm">
+            The school provides academic instruction, a safe space, nutritional support, and a sense of belonging for children who might otherwise be excluded from mainstream education.
+          </p>
         </div>
       </div>
     </Container>
@@ -354,24 +291,38 @@ const timeline = [
 
   <!-- Our Journey Timeline -->
   <Section background="white">
-    <Container size="md">
+    <Container>
       <SectionHeader
         label="Our Journey"
         title="Growing Together"
         subtitle="Our partnership with FUCPE has grown steadily since 2016."
       />
 
-      <div class="timeline">
-        {timeline.map((item, index) => (
-          <TimelineItem
-            year={item.year}
-            event={item.event}
-            icon={item.icon}
-            showLine={index < timeline.length - 1}
-            showImage={true}
-            animationDelay={(index + 1) * 100}
-          />
-        ))}
+      <!-- Horizontal Timeline -->
+      <div class="relative">
+        <!-- Timeline Line -->
+        <div class="hidden md:block absolute top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-[#2D8B4E] via-[#3D9A8B] to-[#F7931E]"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+          {timeline.map((item, index) => (
+            <div class={`relative animate-on-scroll delay-${(index + 1) * 100}`}>
+              <!-- Timeline Dot -->
+              <div class="hidden md:flex absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-white border-4 border-[#2D8B4E] items-center justify-center shadow-lg z-10">
+                <svg class="w-6 h-6 text-[#2D8B4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon} />
+                </svg>
+              </div>
+
+              <!-- Content Card -->
+              <div class="md:pt-24 text-center">
+                <div class="bg-gray-50 rounded-2xl p-4 md:p-5">
+                  <div class="text-2xl font-bold text-[#2D8B4E] mb-2">{item.year}</div>
+                  <p class="text-gray-600 text-sm leading-relaxed">{item.event}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </Container>
   </Section>
@@ -652,4 +603,101 @@ const timeline = [
     gap: 0.75rem;
   }
 
+  /* Leaflet Map Styles */
+  .dr-map {
+    height: 400px;
+    width: 100%;
+    background: #f0fdf4;
+  }
+
+  @media (max-width: 640px) {
+    .dr-map {
+      height: 300px;
+    }
+  }
 </style>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+<!-- Leaflet JS -->
+<script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize the map centered on La Romana area, Dominican Republic
+    const map = L.map('dr-map', {
+      scrollWheelZoom: false
+    }).setView([18.45, -68.95], 11);
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    // Custom green marker icon
+    const greenIcon = L.divIcon({
+      className: 'custom-marker',
+      html: `<div style="
+        background: linear-gradient(135deg, #2D8B4E, #3d9a8b);
+        width: 28px;
+        height: 28px;
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        border: 3px solid white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      "></div>`,
+      iconSize: [28, 28],
+      iconAnchor: [14, 28],
+      popupAnchor: [0, -28]
+    });
+
+    // Custom orange marker for La Romana city
+    const orangeIcon = L.divIcon({
+      className: 'custom-marker-city',
+      html: `<div style="
+        background: #F7931E;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 3px solid white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      "></div>`,
+      iconSize: [16, 16],
+      iconAnchor: [8, 8],
+      popupAnchor: [0, -8]
+    });
+
+    // FUCPE School location in Villa Caoba (batey area outside city)
+    L.marker([18.41, -68.94], { icon: greenIcon })
+      .addTo(map)
+      .bindPopup(`
+        <div style="text-align: center; min-width: 160px;">
+          <strong style="color: #2D8B4E; font-size: 15px;">FUCPE School</strong>
+          <p style="margin: 6px 0 4px; font-size: 11px; color: #F7931E; font-weight: 600;">Villa Caoba Batey</p>
+          <p style="margin: 4px 0 0; font-size: 12px; color: #666;">Serving 300+ students from the batey community</p>
+        </div>
+      `);
+
+    // La Romana city marker (city center)
+    L.marker([18.427, -68.972], { icon: orangeIcon })
+      .addTo(map)
+      .bindPopup(`
+        <div style="text-align: center;">
+          <strong style="color: #F7931E; font-size: 14px;">La Romana</strong>
+          <p style="margin: 8px 0 0; font-size: 12px; color: #666;">Regional city</p>
+        </div>
+      `);
+
+    // Enable scroll wheel zoom when map is clicked
+    map.on('click', function() {
+      map.scrollWheelZoom.enable();
+    });
+
+    // Disable when mouse leaves
+    map.on('mouseout', function() {
+      map.scrollWheelZoom.disable();
+    });
+  });
+</script>
