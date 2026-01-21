@@ -144,7 +144,19 @@ const blogPosts = await getBlogPosts({ featured: true, limit: 5 });
         <div class="stat-card group">
           <div class="stat-card-inner">
             <div class="stat-number">
-              <span class="counter text-transparent bg-clip-text bg-gradient-to-r from-[#2D8B4E] to-[#8DC63F]" data-target="15000" data-suffix="k+" data-divide="1000">0</span>
+              <span class="counter text-transparent bg-clip-text bg-gradient-to-r from-[#2D8B4E] to-[#8DC63F]" data-target="20000" data-suffix="">0</span>
+            </div>
+            <p class="text-gray-500 mt-3 font-medium tracking-wide">Patient Consultations</p>
+            <div class="stat-bar">
+              <div class="stat-bar-fill" style="--bar-width: 100%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card group">
+          <div class="stat-card-inner">
+            <div class="stat-number">
+              <span class="counter text-transparent bg-clip-text bg-gradient-to-r from-[#3D9A8B] to-[#2D8B4E]" data-target="15000" data-suffix="">0</span>
             </div>
             <p class="text-gray-500 mt-3 font-medium tracking-wide">Volunteer Hours</p>
             <div class="stat-bar">
@@ -156,9 +168,9 @@ const blogPosts = await getBlogPosts({ featured: true, limit: 5 });
         <div class="stat-card group">
           <div class="stat-card-inner">
             <div class="stat-number">
-              <span class="counter text-transparent bg-clip-text bg-gradient-to-r from-[#3D9A8B] to-[#2D8B4E]" data-target="12000" data-suffix="k+" data-divide="1000">0</span>
+              <span class="counter text-transparent bg-clip-text bg-gradient-to-r from-[#8DC63F] to-[#F7931E]" data-target="2000" data-suffix="">0</span>
             </div>
-            <p class="text-gray-500 mt-3 font-medium tracking-wide">Lives Impacted</p>
+            <p class="text-gray-500 mt-3 font-medium tracking-wide">Scholarship Recipients</p>
             <div class="stat-bar">
               <div class="stat-bar-fill" style="--bar-width: 100%"></div>
             </div>
@@ -168,21 +180,9 @@ const blogPosts = await getBlogPosts({ featured: true, limit: 5 });
         <div class="stat-card group">
           <div class="stat-card-inner">
             <div class="stat-number">
-              <span class="counter text-transparent bg-clip-text bg-gradient-to-r from-[#8DC63F] to-[#F7931E]" data-target="100" data-suffix="+">0</span>
+              <span class="counter text-transparent bg-clip-text bg-gradient-to-r from-[#F7931E] to-[#ff6b00]" data-target="250" data-suffix="">0</span>
             </div>
-            <p class="text-gray-500 mt-3 font-medium tracking-wide">Eco-Latrines Built</p>
-            <div class="stat-bar">
-              <div class="stat-bar-fill" style="--bar-width: 100%"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="stat-card group">
-          <div class="stat-card-inner">
-            <div class="stat-number">
-              <span class="counter text-transparent bg-clip-text bg-gradient-to-r from-[#F7931E] to-[#ff6b00]" data-target="12" data-suffix="">0</span>
-            </div>
-            <p class="text-gray-500 mt-3 font-medium tracking-wide">Medical Brigades</p>
+            <p class="text-gray-500 mt-3 font-medium tracking-wide">Infrastructure Projects</p>
             <div class="stat-bar">
               <div class="stat-bar-fill" style="--bar-width: 100%"></div>
             </div>
@@ -1169,7 +1169,7 @@ const blogPosts = await getBlogPosts({ featured: true, limit: 5 });
 
       // Display value (optionally divided for "k" format)
       const displayValue = divide > 1 ? Math.floor(currentValue / divide) : currentValue;
-      element.textContent = displayValue + suffix;
+      element.textContent = displayValue.toLocaleString() + suffix;
 
       if (progress < 1) {
         requestAnimationFrame(update);
