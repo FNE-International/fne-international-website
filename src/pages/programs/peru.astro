@@ -9,6 +9,9 @@ import BlogPostsSection from '../../components/BlogPostsSection.astro';
 import StatCard from '../../components/StatCard.astro';
 import PhotoCard from '../../components/PhotoCard.astro';
 
+// Data ordered by page layout sequence
+
+// 1. Quick Stats section
 const stats = [
   { value: '2', label: 'Local Partners', icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z' },
   { value: '400+', label: 'Patients Served', icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' },
@@ -16,6 +19,17 @@ const stats = [
   { value: '1', label: 'Health Center', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
 ];
 
+// 2. Health section
+const healthServices = [
+  { name: 'Primary Care', description: 'General health assessments and treatment' },
+  { name: 'Pediatrics', description: 'Healthcare for children and infants' },
+  { name: 'Cataract Surgery', description: 'Sight-restoring procedures for adults' },
+  { name: 'Physical Therapy', description: 'Rehabilitation and mobility support' },
+  { name: 'Eye Care', description: 'Vision screening and eye health' },
+  { name: 'Patient Education', description: 'Health literacy and prevention' },
+];
+
+// 3. Partners section
 const partners = [
   {
     name: 'Asociación Wiñaypaq',
@@ -31,15 +45,6 @@ const partners = [
     description: 'Our partner for specialized eye care, providing cataract surgeries and vision services to patients who would otherwise have no access to ophthalmological care.',
     services: ['Cataract surgery', 'Eye examinations', 'Vision screening', 'Post-operative care'],
   },
-];
-
-const healthServices = [
-  { name: 'Primary Care', description: 'General health assessments and treatment' },
-  { name: 'Pediatrics', description: 'Healthcare for children and infants' },
-  { name: 'Cataract Surgery', description: 'Sight-restoring procedures for adults' },
-  { name: 'Physical Therapy', description: 'Rehabilitation and mobility support' },
-  { name: 'Eye Care', description: 'Vision screening and eye health' },
-  { name: 'Patient Education', description: 'Health literacy and prevention' },
 ];
 
 ---
