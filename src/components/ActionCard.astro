@@ -1,0 +1,115 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  buttonText: string;
+  buttonLink: string;
+  buttonExternal?: boolean;
+  footnote?: string;
+  footnoteLink?: string;
+  footnoteLinkText?: string;
+  icon?: string;
+}
+
+const {
+  title,
+  description,
+  buttonText,
+  buttonLink,
+  buttonExternal = false,
+  footnote,
+  footnoteLink,
+  footnoteLinkText,
+  icon = 'M13 7l5 5m0 0l-5 5m5-5H6',
+} = Astro.props;
+---
+
+<div class="action-card animate-on-scroll">
+  <h3 class="action-card-title">{title}</h3>
+  <p class="action-card-desc">{description}</p>
+  <a
+    href={buttonLink}
+    class="action-card-btn"
+    target={buttonExternal ? "_blank" : undefined}
+    rel={buttonExternal ? "noopener noreferrer" : undefined}
+  >
+    {buttonText}
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={icon} />
+    </svg>
+  </a>
+  {footnote && (
+    <p class="action-card-footnote">
+      {footnote}
+      {footnoteLink && footnoteLinkText && (
+        <a href={footnoteLink} class="action-card-link">{footnoteLinkText}</a>
+      )}
+    </p>
+  )}
+</div>
+
+<style>
+  .action-card {
+    text-align: center;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 2px solid rgba(45, 139, 78, 0.15);
+    max-width: 500px;
+    margin: 2rem auto 0;
+  }
+
+  .action-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.5rem;
+  }
+
+  .action-card-desc {
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+  }
+
+  .action-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
+    color: white;
+    font-weight: 600;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .action-card-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.3);
+  }
+
+  .action-card-btn svg {
+    transition: transform 0.3s ease;
+  }
+
+  .action-card-btn:hover svg {
+    transform: translateX(4px);
+  }
+
+  .action-card-footnote {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-top: 1.5rem;
+  }
+
+  .action-card-link {
+    color: #2D8B4E;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .action-card-link:hover {
+    text-decoration: underline;
+  }
+</style>

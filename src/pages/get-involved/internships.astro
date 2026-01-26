@@ -7,6 +7,8 @@ import SectionHeader from '../../components/SectionHeader.astro';
 import CTASection from '../../components/CTASection.astro';
 import ValueCard from '../../components/ValueCard.astro';
 import FAQItem from '../../components/FAQItem.astro';
+import Timeline from '../../components/Timeline.astro';
+import ActionCard from '../../components/ActionCard.astro';
 
 const internshipPositions = [
   {
@@ -109,24 +111,28 @@ const requirements = [
 
 const applicationSteps = [
   {
-    step: '1',
+    year: '1',
     title: 'Submit Application',
     description: 'Complete our online application with your resume, cover letter, and availability.',
+    icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
   },
   {
-    step: '2',
+    year: '2',
     title: 'Initial Interview',
     description: 'Selected candidates have a video call with our team to discuss interests and fit.',
+    icon: 'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z',
   },
   {
-    step: '3',
+    year: '3',
     title: 'Position Matching',
     description: 'We work with you to find the best fit based on your skills and our needs.',
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
   },
   {
-    step: '4',
+    year: '4',
     title: 'Onboarding',
     description: 'Complete orientation and meet your mentor to start making an impact!',
+    icon: 'M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
   },
 ];
 
@@ -171,8 +177,8 @@ const impactStats = [
     title="Internship"
     titleAccent="Program"
     subtitle="Launch your career in international development while making a real difference in communities across Latin America."
-    image="/team.jpg"
-    imageAlt="FNE interns working"
+    image="/internships/hero.jpg"
+    imageAlt="Interns leading activities with children"
   />
 
   <!-- Impact Stats -->
@@ -340,7 +346,7 @@ const impactStats = [
 
   <!-- Application Process -->
   <Section background="white" id="apply">
-    <Container size="md">
+    <Container>
       <SectionHeader
         label="Getting Started"
         title="How to Apply"
@@ -348,34 +354,17 @@ const impactStats = [
         labelColor="green"
       />
 
-      <div class="process-steps">
-        {applicationSteps.map((step, index) => (
-          <div class={`process-step animate-on-scroll delay-${(index + 1) * 100}`}>
-            <div class="process-step-number">{step.step}</div>
-            <div class="process-step-content">
-              <h3 class="text-lg font-bold text-gray-900">{step.title}</h3>
-              <p class="text-gray-600 text-sm mt-1">{step.description}</p>
-            </div>
-            {index < applicationSteps.length - 1 && (
-              <div class="process-step-line"></div>
-            )}
-          </div>
-        ))}
-      </div>
+      <Timeline items={applicationSteps} fullWidth={true} />
 
-      <div class="apply-card animate-on-scroll">
-        <h3 class="text-xl font-bold text-gray-900 mb-2">Ready to Apply?</h3>
-        <p class="text-gray-600 mb-4">Submit your application and take the first step toward meaningful work.</p>
-        <a href="mailto:internships@fneinternational.org?subject=Internship Application" class="apply-btn">
-          Start Application
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
-        <p class="text-gray-500 text-sm mt-4">
-          Questions? Email us at <a href="mailto:internships@fneinternational.org" class="text-[#2D8B4E] font-semibold hover:underline">internships@fneinternational.org</a>
-        </p>
-      </div>
+      <ActionCard
+        title="Ready to Apply?"
+        description="Submit your application and take the first step toward meaningful work."
+        buttonText="Start Application"
+        buttonLink="mailto:internships@fneinternational.org?subject=Internship Application"
+        footnote="Questions? Email us at "
+        footnoteLink="mailto:internships@fneinternational.org"
+        footnoteLinkText="internships@fneinternational.org"
+      />
     </Container>
   </Section>
 
@@ -649,77 +638,6 @@ const impactStats = [
   .requirements-list li svg {
     flex-shrink: 0;
     margin-top: 0.125rem;
-  }
-
-  /* Process steps */
-  .process-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-bottom: 3rem;
-  }
-
-  .process-step {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-    padding: 1.5rem 0;
-  }
-
-  .process-step-number {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
-    color: white;
-    font-size: 1.25rem;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    z-index: 1;
-  }
-
-  .process-step-content {
-    flex: 1;
-    padding-top: 0.5rem;
-  }
-
-  .process-step-line {
-    position: absolute;
-    left: 23px;
-    top: 64px;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(to bottom, #2D8B4E, #F7931E);
-  }
-
-  /* Apply card */
-  .apply-card {
-    text-align: center;
-    background: white;
-    padding: 2.5rem;
-    border-radius: 20px;
-    border: 2px solid rgba(45, 139, 78, 0.15);
-  }
-
-  .apply-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
-    color: white;
-    font-weight: 600;
-    border-radius: 9999px;
-    transition: all 0.3s ease;
-  }
-
-  .apply-btn:hover {
-    transform: scale(1.02);
-    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.3);
   }
 
   /* Testimonial */

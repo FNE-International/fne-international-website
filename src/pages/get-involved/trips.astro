@@ -7,43 +7,38 @@ import SectionHeader from '../../components/SectionHeader.astro';
 import CTASection from '../../components/CTASection.astro';
 import FAQItem from '../../components/FAQItem.astro';
 import PhotoCard from '../../components/PhotoCard.astro';
+import DestinationCard from '../../components/DestinationCard.astro';
 
-const upcomingTrips = [
+const tripDestinations = [
   {
-    title: 'Nicaragua Spring Service Trip',
-    location: 'León, Nicaragua',
-    dates: 'March 15-22, 2026',
-    focus: ['Construction', 'Education'],
-    spotsLeft: 8,
-    cost: '$1,800',
-    status: 'open',
+    country: 'Nicaragua',
+    flag: '🇳🇮',
+    location: 'León Region',
+    image: '/trips/nicaragua-landscape.jpg',
+    description: 'Our longest-running program offers diverse volunteer opportunities from construction to education and healthcare.',
+    focus: ['Construction', 'Education', 'Medical', 'Agriculture'],
+    duration: '7-10 days',
+    cost: 'From $1,800',
   },
   {
-    title: 'Peru Medical Brigade',
-    location: 'Cusco Region, Peru',
-    dates: 'April 5-12, 2026',
+    country: 'Peru',
+    flag: '🇵🇪',
+    location: 'Cusco & Lima Regions',
+    image: '/trips/peru-landscape.jpg',
+    description: 'Join medical brigades providing healthcare to underserved communities in the highlands and coastal areas.',
     focus: ['Medical', 'Health Education'],
-    spotsLeft: 4,
-    cost: '$2,200',
-    status: 'open',
+    duration: '7-10 days',
+    cost: 'From $2,200',
   },
   {
-    title: 'Dominican Republic Education Trip',
-    location: 'La Romana, DR',
-    dates: 'May 20-27, 2026',
+    country: 'Dominican Republic',
+    flag: '🇩🇴',
+    location: 'La Romana',
+    image: '/trips/dr-landscape.jpg',
+    description: 'Support education initiatives at FUCPE school, working with children and teachers in Villa Caoba.',
     focus: ['Education', 'Youth Programs'],
-    spotsLeft: 12,
-    cost: '$1,600',
-    status: 'open',
-  },
-  {
-    title: 'Nicaragua Summer Build',
-    location: 'León, Nicaragua',
-    dates: 'July 10-19, 2026',
-    focus: ['Housing Construction', 'Community'],
-    spotsLeft: 0,
-    cost: '$1,800',
-    status: 'full',
+    duration: '5-7 days',
+    cost: 'From $1,600',
   },
 ];
 
@@ -125,71 +120,46 @@ const testimonials = [
     title="Volunteer"
     titleAccent="Trips"
     subtitle="Join a life-changing service trip and work alongside communities in Nicaragua, Peru, or the Dominican Republic."
-    image="/team.jpg"
-    imageAlt="Volunteers on a service trip"
+    image="/trips/hero.jpg"
+    imageAlt="Medical volunteers with child"
+    imagePosition="center 10%"
   />
 
   <!-- Photo Banner -->
   <Section background="gray" padding="sm">
     <div class="w-full overflow-hidden">
       <div class="photo-grid photo-grid-4 max-w-7xl mx-auto px-4">
-        <PhotoCard placeholder="Volunteers building a house in Nicaragua" caption="Construction" />
-        <PhotoCard placeholder="Medical brigade in Peru" caption="Medical" animationDelay={100} />
-        <PhotoCard placeholder="Teaching in Dominican Republic" caption="Education" animationDelay={200} />
-        <PhotoCard placeholder="Community gathering with volunteers" caption="Community" animationDelay={300} />
+        <PhotoCard image="/trips/trip-1.jpg" alt="Volunteer group in Nicaragua" />
+        <PhotoCard image="/trips/trip-2.jpg" alt="Volunteer with children doing crafts" animationDelay={100} />
+        <PhotoCard image="/trips/trip-3.jpg" alt="Volunteers visiting classroom" animationDelay={200} />
+        <PhotoCard image="/trips/trip-4.jpg" alt="Community activity with children" animationDelay={300} />
       </div>
     </div>
   </Section>
 
-  <!-- Upcoming Trips -->
+  <!-- Trip Destinations -->
   <Section background="white">
     <Container>
       <SectionHeader
-        label="Join a Trip"
-        title="Upcoming Volunteer Trips"
-        subtitle="Browse our scheduled trips and find one that fits your schedule."
+        label="Where We Go"
+        title="Trip Destinations"
+        subtitle="Choose a destination and we'll help you plan the perfect volunteer experience."
         labelColor="green"
       />
 
-      <div class="trips-grid">
-        {upcomingTrips.map((trip, index) => (
-          <div class={`trip-card ${trip.status === 'full' ? 'trip-card-full' : ''} animate-on-scroll delay-${(index + 1) * 100}`}>
-            {trip.status === 'full' && (
-              <div class="trip-full-badge">Trip Full</div>
-            )}
-            <div class="trip-header">
-              <div class="trip-location">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span>{trip.location}</span>
-              </div>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mt-3">{trip.title}</h3>
-            <div class="trip-dates">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span>{trip.dates}</span>
-            </div>
-            <div class="trip-focus">
-              {trip.focus.map((f) => (
-                <span class="focus-tag">{f}</span>
-              ))}
-            </div>
-            <div class="trip-footer">
-              <div class="trip-cost">{trip.cost}</div>
-              {trip.status === 'open' ? (
-                <div class="trip-spots">{trip.spotsLeft} spots left</div>
-              ) : (
-                <div class="trip-spots trip-spots-full">Waitlist available</div>
-              )}
-            </div>
-            <a href="/contact" class={`trip-btn ${trip.status === 'full' ? 'trip-btn-secondary' : 'trip-btn-primary'}`}>
-              {trip.status === 'full' ? 'Join Waitlist' : 'Apply Now'}
-            </a>
-          </div>
+      <div class="destinations-grid">
+        {tripDestinations.map((dest, index) => (
+          <DestinationCard
+            country={dest.country}
+            flag={dest.flag}
+            location={dest.location}
+            image={dest.image}
+            description={dest.description}
+            focus={dest.focus}
+            duration={dest.duration}
+            cost={dest.cost}
+            animationDelay={(index + 1) * 100}
+          />
         ))}
       </div>
 
@@ -319,149 +289,26 @@ const testimonials = [
 </BaseLayout>
 
 <style>
-  /* Trips grid */
-  .trips-grid {
+  /* Destinations grid */
+  .destinations-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
   }
 
+  @media (max-width: 1024px) {
+    .destinations-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   @media (max-width: 768px) {
-    .trips-grid {
+    .destinations-grid {
       grid-template-columns: 1fr;
     }
   }
 
-  /* Trip card */
-  .trip-card {
-    position: relative;
-    background: white;
-    padding: 2rem;
-    border-radius: 20px;
-    border: 2px solid rgba(45, 139, 78, 0.15);
-    transition: all 0.4s ease;
-  }
 
-  .trip-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(45, 139, 78, 0.4);
-    box-shadow: 0 25px 60px rgba(45, 139, 78, 0.15);
-  }
-
-  .trip-card-full {
-    border-color: rgba(156, 163, 175, 0.3);
-    opacity: 0.8;
-  }
-
-  .trip-full-badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: #9CA3AF;
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-  }
-
-  .trip-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .trip-location {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #F7931E;
-    font-size: 0.875rem;
-    font-weight: 600;
-  }
-
-  .trip-dates {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #666;
-    font-size: 0.875rem;
-    margin-top: 0.75rem;
-  }
-
-  .trip-focus {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-
-  .focus-tag {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    background: rgba(45, 139, 78, 0.1);
-    color: #2D8B4E;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border-radius: 9999px;
-  }
-
-  .trip-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(45, 139, 78, 0.1);
-  }
-
-  .trip-cost {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #2D8B4E;
-  }
-
-  .trip-spots {
-    font-size: 0.875rem;
-    color: #F7931E;
-    font-weight: 600;
-  }
-
-  .trip-spots-full {
-    color: #9CA3AF;
-  }
-
-  .trip-btn {
-    display: block;
-    width: 100%;
-    padding: 0.875rem;
-    text-align: center;
-    border-radius: 9999px;
-    font-weight: 600;
-    margin-top: 1.5rem;
-    transition: all 0.3s ease;
-  }
-
-  .trip-btn-primary {
-    background: linear-gradient(135deg, #2D8B4E, #3D9A8B);
-    color: white;
-  }
-
-  .trip-btn-primary:hover {
-    transform: scale(1.02);
-    box-shadow: 0 10px 30px rgba(45, 139, 78, 0.3);
-  }
-
-  .trip-btn-secondary {
-    background: transparent;
-    color: #666;
-    border: 2px solid #E5E7EB;
-  }
-
-  .trip-btn-secondary:hover {
-    border-color: #2D8B4E;
-    color: #2D8B4E;
-  }
 
   /* Type cards */
   .type-card {

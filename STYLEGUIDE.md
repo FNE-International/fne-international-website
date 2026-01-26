@@ -772,6 +772,183 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 ---
 
+## Email Templates (Mailchimp)
+
+### Email Brand Colors
+
+| Element | Hex Code | Usage |
+|---------|----------|-------|
+| Primary Green | `#2D8B4E` | Headlines, links, stats |
+| Secondary Teal | `#3D9A8B` | Labels, dividers, accents |
+| Light Green | `#8DC63F` | Footer links, icons |
+| Orange | `#F7931E` | Buttons, CTAs, top bar |
+| Dark Text | `#1a1a1a` | Body text, footer background |
+| Muted Text | `#666666` | Secondary text, captions |
+| Light Background | `#f8f9fa` | Section backgrounds |
+| Footer Background | `#1a1a1a` | Dark footer |
+| Footer Text | `#999999` | Footer body text |
+
+### Email Typography
+
+| Element | Font | Size (Desktop) | Size (Mobile) | Weight | Color |
+|---------|------|----------------|---------------|--------|-------|
+| **H1** | Anton | 32px | 28px | Bold | `#1a1a1a` |
+| **H2** | Anton | 24px | 22px | Bold | `#1a1a1a` |
+| **H3** | Anton | 20px | 18px | Bold | `#2D8B4E` |
+| **H4/Labels** | Roboto | 14px | 13px | Bold, ALL CAPS | `#666666` or `#3D9A8B` |
+| **Body (P)** | Roboto | 16px | 16px | Normal (300) | `#1a1a1a` |
+| **Links** | Roboto | 14px | 14px | Bold | `#2D8B4E` |
+| **Footer** | Roboto | 13px | 13px | Normal | `#999999` |
+
+### Email Button Styles
+
+| Type | Background | Text | Border | Shape |
+|------|------------|------|--------|-------|
+| **Primary (Orange)** | `#F7931E` | `#ffffff` | None | Pill (9999px) |
+| **Secondary (Green Outline)** | Transparent | `#2D8B4E` | 2px `#2D8B4E` | Pill |
+| **White (on colored bg)** | `#ffffff` | `#F7931E` | None | Pill |
+
+Button padding: `16px` top/bottom, `40px` left/right
+
+### Email Structure (Newsletter)
+
+```
+┌─────────────────────────────────────┐
+│ Orange Top Bar (8px)                │
+├─────────────────────────────────────┤
+│ "View in browser" + "Leer en español" │
+├─────────────────────────────────────┤
+│ Logo (centered, 180px)              │
+├─────────────────────────────────────┤
+│ MONTH YEAR (label, teal)            │
+│ Newsletter Title (H1)               │
+├─────────────────────────────────────┤
+│ Featured Image                      │
+├─────────────────────────────────────┤
+│ CATEGORY (label, teal)              │
+│ Story Headline (H2)                 │
+│ Story body text...                  │
+│ Read more → (link)                  │
+├─────────────────────────────────────┤
+│ MORE STORIES / BLOG (label)         │
+│ ┌─────┐ Story 1 headline            │
+│ │ img │ Read more →                 │
+│ └─────┘─────────────────────────────│
+│ ┌─────┐ Story 2 headline            │
+│ │ img │ Read more →                 │
+│ └─────┘─────────────────────────────│
+├─────────────────────────────────────┤
+│ Impact Stats (3 columns, #f8f9fa bg)│
+│   500+   │   125+   │    3          │
+│  Label   │  Label   │  Label        │
+├─────────────────────────────────────┤
+│ Green CTA Block (#2D8B4E)           │
+│ Headline (white)                    │
+│ Subtext (white)                     │
+│ [Orange Button]                     │
+├─────────────────────────────────────┤
+│ Spanish Divider (teal line, #f8f9fa)│
+│ EN ESPAÑOL                          │
+│ Spanish Title                       │
+├─────────────────────────────────────┤
+│ [Spanish content mirrors English]   │
+├─────────────────────────────────────┤
+│ Dark Footer (#1a1a1a)               │
+│ Social icons                        │
+│ Logo (white)                        │
+│ Contact info                        │
+│ Tax-deductible note                 │
+│ Unsubscribe links                   │
+└─────────────────────────────────────┘
+```
+
+### Email Section Backgrounds
+
+| Section | Background |
+|---------|------------|
+| Header/Content | `#ffffff` |
+| Stats section | `#f8f9fa` |
+| Green CTA | `#2D8B4E` |
+| Orange CTA (alternate) | `#F7931E` |
+| Spanish divider | `#f8f9fa` |
+| Footer | `#1a1a1a` |
+
+### Email Spacing
+
+| Element | Padding |
+|---------|---------|
+| Section padding | `30px` top/bottom, `40px` left/right |
+| Mobile padding | `20px` left/right |
+| Between sections | `20-30px` |
+| Image border-radius | `8px` |
+| Stats columns | `25px` padding |
+
+### Email Image Guidelines
+
+- **Featured image:** Full width (520-600px), `8px` border-radius
+- **Story thumbnails:** 150-180px wide, `8px` border-radius
+- **Logo (header):** 180px wide, centered
+- **Logo (footer):** 120px wide, white version
+
+### Email Footer Structure
+
+```html
+Footer Background: #1a1a1a
+├── Social Icons (white or #8DC63F icons, #333333 bg)
+├── Logo (white version, 120px)
+├── Contact info (#999999 text, #8DC63F links)
+├── Tax note (#999999, optional #2a2a2a box)
+└── Unsubscribe links (#999999 with underline)
+```
+
+### Bilingual Email Guidelines
+
+All FNE emails include Spanish translations. Structure:
+
+1. Add `Leer en español ↓` link at top (below header)
+2. Complete English content first
+3. Add **teal divider** (`3px`, `#3D9A8B`)
+4. Add Spanish section header:
+   - `EN ESPAÑOL` (label, `#3D9A8B`)
+   - Spanish title (H1)
+5. Mirror English content in Spanish
+6. Include Spanish CTA with translated button text
+
+### Common Spanish Translations
+
+| English | Spanish |
+|---------|---------|
+| Read more | Leer más |
+| Donate | Donar |
+| Learn More | Más Información |
+| Get Involved | Involúcrate |
+| Monthly Newsletter | Boletín Mensual |
+| Thank You | Gracias |
+| Your support | Tu apoyo |
+| Join Us | Únete a Nosotros |
+| January - December | Enero - Diciembre |
+
+### Email Do's and Don'ts
+
+**Do:**
+- Use table-based layouts for Outlook compatibility
+- Keep max-width at 600px
+- Use web-safe fonts (Roboto, Anton available in Mailchimp)
+- Include both English and Spanish versions
+- Test on mobile before sending
+- Use 14px minimum for readable text
+- Keep CTAs to 1-2 per language section
+
+**Don't:**
+- Don't use more than 2-3 large buttons per email
+- Don't use text smaller than 13px
+- Don't forget alt text on images
+- Don't use background images (poor email support)
+- Don't skip the Spanish section
+- Don't use custom fonts that aren't in Mailchimp
+
+---
+
 ## Quick Reference
 
 ### Common Class Combinations
